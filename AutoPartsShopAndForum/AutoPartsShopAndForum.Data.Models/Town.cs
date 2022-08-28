@@ -13,7 +13,7 @@
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(Constants.TownNameMaxLength)]
+        [MaxLength(Constants.Town.NameMaxLength)]
         public string Name { get; set; }
 
         public IEnumerable<User> Users { get; set; }

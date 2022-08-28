@@ -1,7 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Data.Models
 {
-    public class Part
+    public class Category
     {
-
     }
 }

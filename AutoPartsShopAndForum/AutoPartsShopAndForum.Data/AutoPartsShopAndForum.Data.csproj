@@ -8,4 +8,8 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPartsShopAndForum.Data.Models\AutoPartsShopAndForum.Data.Models.csproj" />
+  </ItemGroup>
+
 </Project>
