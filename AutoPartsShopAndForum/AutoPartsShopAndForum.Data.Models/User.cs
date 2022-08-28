@@ -10,6 +10,7 @@
         public User()
         {
             this.Orders = new HashSet<Order>();
+            this.Products = new HashSet<Product>();
         }
 
         [Required]
@@ -30,5 +31,7 @@
         public Town Town { get; set; }
 
         public ICollection<Order> Orders { get; set; }
+
+        public ICollection<Product> Products { get; set; }
     }
 }

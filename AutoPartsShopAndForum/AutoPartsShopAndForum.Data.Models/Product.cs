@@ -1,10 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AutoPartsShopAndForum.Data.Models
 {
     public class Product
     {
+        public Product()
+        {
+            this.ProductOrders = new HashSet<OrderProduct>();
+        }
+
         public int Id { get; set; }
 
         [Required]
@@ -21,7 +27,9 @@ namespace AutoPartsShopAndForum.Data.Models
 
         [ForeignKey(nameof(Creator))]
         [Required]
-        public int CreatorId { get; set; }
+        public string CreatorId { get; set; }
         public User Creator { get; set; }
+
+        public ICollection<OrderProduct> ProductOrders { get; set; }
     }
 }

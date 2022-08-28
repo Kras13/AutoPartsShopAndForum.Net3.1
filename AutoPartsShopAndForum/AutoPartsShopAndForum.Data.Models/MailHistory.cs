@@ -9,12 +9,12 @@
 
         [ForeignKey(nameof(FromId))]
         [Required]
-        public int FromId { get; set; }
+        public string FromId { get; set; }
         public User FromUser { get; set; }
 
         [ForeignKey(nameof(ToUser))]
         [Required]
-        public int ToId { get; set; }
+        public string ToId { get; set; }
         public User ToUser { get; set; }
 
         [MaxLength(Constants.MailHistory.ThemeMaxLength)]

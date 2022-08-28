@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -15,13 +16,16 @@
 
         [ForeignKey(nameof(User))]
         [Required]
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public User User { get; set; }
 
-        [ForeignKey(nameof(OrderDetail))]
+        public decimal OverallSum { get; set; }
+
         [Required]
-        public int OrderDetailId { get; set; }
-        public OrderDetail OrderDetail { get; set; }
+        public DateTime DateCreated { get; set; }
+
+        [Required]
+        public DateTime DateDelivered { get; set; }
 
         public ICollection<OrderProduct> OrderProducts { get; set; }
     }
