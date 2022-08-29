@@ -1,0 +1,44 @@
+﻿.catsummary {
+    width: 100%;
+    margin-left: -4px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    list-style: none;
+    overflow: hidden;
+}
+
+.categoryinfo {
+    width: calc(16.66% - 12px);
+    text-align: center;
+    background: #fff;
+    margin: 4px;
+    vertical-align: top;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #fff;
+    position: relative;
+    min-height: 181px;
+}
+
+.catibox {
+    min-height: 122px;
+}
+
+.category_title {
+    padding: 20px 0 10px 0;
+    display: block;
+}
+
+.cat_img_icon {
+    width: 142px;
+    height: 93px;
+    max-height: 100px;
+    padding-top: 20px;
+}

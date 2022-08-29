@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AutoPartsShopAndForum.Data\AutoPartsShopAndForum.Data.csproj" />
+    <ProjectReference Include="..\AutoPartsShopAndForum.Services.Web\AutoPartsShopAndForum.Services.Web.csproj" />
   </ItemGroup>
 
 </Project>

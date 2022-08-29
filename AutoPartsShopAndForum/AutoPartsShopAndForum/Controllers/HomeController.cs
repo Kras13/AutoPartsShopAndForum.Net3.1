@@ -1,26 +1,24 @@
-﻿using AutoPartsShopAndForum.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AutoPartsShopAndForum.Controllers
+﻿namespace AutoPartsShopAndForum.Controllers
 {
+    using AutoPartsShopAndForum.Models;
+    using AutoPartsShopAndForum.Services.Web.Category;
+    using Microsoft.AspNetCore.Mvc;
+    using System.Diagnostics;
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ICategoryService categoryService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICategoryService categoryService)
         {
-            _logger = logger;
+            this.categoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var categories = categoryService.GetCategories();
+
+            return View(categories);
         }
 
         public IActionResult Privacy()

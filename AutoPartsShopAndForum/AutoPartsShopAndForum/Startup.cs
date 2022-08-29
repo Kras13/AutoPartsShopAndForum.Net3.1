@@ -3,6 +3,7 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Services.Web.Category;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -40,6 +41,8 @@ namespace AutoPartsShopAndForum
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<ICategoryService, CategoryService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
