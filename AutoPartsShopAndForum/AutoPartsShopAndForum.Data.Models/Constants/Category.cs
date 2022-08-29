@@ -2,5 +2,6 @@
 {
     public static class Category
     {
+        public const int MaxLength = 60;
     }
 }

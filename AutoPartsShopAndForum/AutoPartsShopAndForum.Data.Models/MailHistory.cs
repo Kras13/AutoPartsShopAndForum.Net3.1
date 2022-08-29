@@ -7,15 +7,11 @@
     {
         public int Id { get; set; }
 
-        [ForeignKey(nameof(FromId))]
-        [Required]
-        public string FromId { get; set; }
-        public User FromUser { get; set; }
+        public string SenderId { get; set; }
+        public User Sender { get; set; }
 
-        [ForeignKey(nameof(ToUser))]
-        [Required]
-        public string ToId { get; set; }
-        public User ToUser { get; set; }
+        public string ReceiverId { get; set; }
+        public User Receiver { get; set; }
 
         [MaxLength(Constants.MailHistory.ThemeMaxLength)]
         public string Theme { get; set; }

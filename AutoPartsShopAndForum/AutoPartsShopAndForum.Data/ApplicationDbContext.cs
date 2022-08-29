@@ -78,9 +78,22 @@
                     k.OrderId
                 });
 
+            builder.Entity<MailHistory>()
+                .HasOne(p => p.Receiver)
+                .WithMany(t => t.MessagesReceived)
+                .HasForeignKey(m => m.ReceiverId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<MailHistory>()
+                .HasOne(p => p.Sender)
+                .WithMany(t => t.MessagesSent)
+                .HasForeignKey(m => m.SenderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
 
+        public DbSet<PendingSeller> PendingSellers { get; set; }
         public DbSet<Town> Towns { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<OrderProduct> OrdersProducts { get; set; }

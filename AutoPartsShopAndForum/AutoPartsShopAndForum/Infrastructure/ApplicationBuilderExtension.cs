@@ -38,7 +38,11 @@
 
         private static async Task SeedCategories(IServiceProvider serviceProvider)
         {
-            string[] categories = { "Oils and liquids", "Filters" };
+            Category[] categories =
+                {
+                new Category() {Name = "Oils and liquids", ImageUrl = "https://www.autopower.bg/images/categories/%D0%9C%D0%B0%D1%81%D0%BB%D0%B0%20%D0%B8%20%D1%82%D0%B5%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8.jpg"},
+                new Category() {Name = "Filters", ImageUrl = "https://www.autopower.bg/images/categories/%D0%A4%D0%B8%D0%BB%D1%82%D1%80%D0%B8.jpg" }
+            };
 
             var context = serviceProvider.GetService<ApplicationDbContext>();
 
@@ -46,14 +50,15 @@
 
             foreach (var category in categories)
             {
-                if (savedCategories.Any(c => c.Name == category))
+                if (savedCategories.Any(c => c.Name == category.Name))
                 {
                     continue;
                 }
 
                 await context.Categories.AddAsync(new Category()
                 {
-                    Name = category
+                    Name = category.Name,
+                    ImageUrl = category.ImageUrl
                 });
             }
         }

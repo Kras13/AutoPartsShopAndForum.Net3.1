@@ -4,14 +4,16 @@ using AutoPartsShopAndForum.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoPartsShopAndForum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220829182029_PendingSellerCreate")]
+    partial class PendingSellerCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,21 +52,26 @@ namespace AutoPartsShopAndForum.Data.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ReceiverId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<string>("FromId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("SenderId")
+                    b.Property<string>("FromUserId")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Theme")
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<string>("ToId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ReceiverId");
+                    b.HasIndex("FromUserId");
 
-                    b.HasIndex("SenderId");
+                    b.HasIndex("ToId");
 
                     b.ToTable("MailsHistories");
                 });
@@ -418,15 +425,15 @@ namespace AutoPartsShopAndForum.Data.Migrations
 
             modelBuilder.Entity("AutoPartsShopAndForum.Data.Models.MailHistory", b =>
                 {
-                    b.HasOne("AutoPartsShopAndForum.Data.Models.User", "Receiver")
-                        .WithMany("MessagesReceived")
-                        .HasForeignKey("ReceiverId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("AutoPartsShopAndForum.Data.Models.User", "FromUser")
+                        .WithMany()
+                        .HasForeignKey("FromUserId");
 
-                    b.HasOne("AutoPartsShopAndForum.Data.Models.User", "Sender")
-                        .WithMany("MessagesSent")
-                        .HasForeignKey("SenderId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                    b.HasOne("AutoPartsShopAndForum.Data.Models.User", "ToUser")
+                        .WithMany()
+                        .HasForeignKey("ToId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("AutoPartsShopAndForum.Data.Models.Order", b =>
