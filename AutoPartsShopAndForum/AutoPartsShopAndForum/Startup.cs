@@ -1,6 +1,8 @@
 namespace AutoPartsShopAndForum
 {
     using AutoPartsShopAndForum.Data;
+    using AutoPartsShopAndForum.Data.Models;
+    using AutoPartsShopAndForum.Infrastructure;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -26,22 +28,27 @@ namespace AutoPartsShopAndForum
                     Configuration.GetConnectionString("DefaultConnection"),
                     b => b.MigrationsAssembly("AutoPartsShopAndForum.Data")));
 
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services
+                .AddDefaultIdentity<User>(
+                options => 
+                {
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            using (var serviceScope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope())
-            {
-                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-                context.Database.Migrate();
-            }
+            app.PrepareDatabase();
 
             if (env.IsDevelopment())
             {

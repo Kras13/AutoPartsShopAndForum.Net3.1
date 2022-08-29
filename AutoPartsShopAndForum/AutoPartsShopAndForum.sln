@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32602.291
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum", "AutoPartsShopAndForum\AutoPartsShopAndForum.csproj", "{6300320B-3FBB-4F78-BDD0-10F879BD6555}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPartsShopAndForum", "AutoPartsShopAndForum\AutoPartsShopAndForum.csproj", "{6300320B-3FBB-4F78-BDD0-10F879BD6555}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{58A31092-3964-441A-BD61-A1FA8E399259}"
 EndProject
@@ -11,15 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{E5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{A10FBE83-0BD3-45BC-83DA-B433F5A54896}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum.Infrastructure", "AutoPartsShopAndForum.Infrastructure\AutoPartsShopAndForum.Infrastructure.csproj", "{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPartsShopAndForum.Data", "AutoPartsShopAndForum.Data\AutoPartsShopAndForum.Data.csproj", "{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum.Data", "AutoPartsShopAndForum.Data\AutoPartsShopAndForum.Data.csproj", "{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPartsShopAndForum.Data.Models", "AutoPartsShopAndForum.Data.Models\AutoPartsShopAndForum.Data.Models.csproj", "{B57D9D01-FF66-43C4-9ABD-A4A431894FE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum.Data.Models", "AutoPartsShopAndForum.Data.Models\AutoPartsShopAndForum.Data.Models.csproj", "{B57D9D01-FF66-43C4-9ABD-A4A431894FE5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPartsShopAndForum.Services.Data", "AutoPartsShopAndForum.Services.Data\AutoPartsShopAndForum.Services.Data.csproj", "{78D1C261-037E-4F53-8B92-984608FE9D2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum.Services.Data", "AutoPartsShopAndForum.Services.Data\AutoPartsShopAndForum.Services.Data.csproj", "{78D1C261-037E-4F53-8B92-984608FE9D2D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoPartsShopAndForum.Services.Web", "AutoPartsShopAndForum.Services.Web\AutoPartsShopAndForum.Services.Web.csproj", "{12E483F1-F1C9-4BAA-8BA2-51948382040D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AutoPartsShopAndForum.Services.Web", "AutoPartsShopAndForum.Services.Web\AutoPartsShopAndForum.Services.Web.csproj", "{12E483F1-F1C9-4BAA-8BA2-51948382040D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +29,6 @@ Global
 		{6300320B-3FBB-4F78-BDD0-10F879BD6555}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6300320B-3FBB-4F78-BDD0-10F879BD6555}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6300320B-3FBB-4F78-BDD0-10F879BD6555}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -57,7 +51,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6300320B-3FBB-4F78-BDD0-10F879BD6555} = {A10FBE83-0BD3-45BC-83DA-B433F5A54896}
-		{B6BDC4B4-E170-4FF6-ADC9-60D567CB5813} = {A10FBE83-0BD3-45BC-83DA-B433F5A54896}
 		{FBF557CB-A8FD-41B8-91FC-C5D6A8FE334F} = {58A31092-3964-441A-BD61-A1FA8E399259}
 		{B57D9D01-FF66-43C4-9ABD-A4A431894FE5} = {58A31092-3964-441A-BD61-A1FA8E399259}
 		{78D1C261-037E-4F53-8B92-984608FE9D2D} = {E56B3F44-541B-4B27-81EE-216E98B6E4EB}
