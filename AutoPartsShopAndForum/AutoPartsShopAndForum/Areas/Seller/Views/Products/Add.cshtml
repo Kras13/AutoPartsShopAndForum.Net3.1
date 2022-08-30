@@ -1,0 +1,20 @@
+﻿@using AutoPartsShopAndForum.Services.Data.Product.InputModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@model ProductAddInputModel
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" id="Name" class="form-control" placeholder="Bardahl, Motul, MAN...">
+        <span asp-validation-for="Name" class="small text-danger"></span>
+    </div>
+    @*<div class="form-group">
+            <label asp-for="Model"></label>
+            <input asp-for="Model" id="ModelInput" oninput="ModelValidation()" class="form-control" placeholder="330i, A3, etc...">
+            <span asp-validation-for="Model" class="small text-danger"></span>
+            <p id="ModelValText"></p>
+        </div>*@
+
+    <input class="btn btn-primary" type="submit" value="Save" />
+</form>

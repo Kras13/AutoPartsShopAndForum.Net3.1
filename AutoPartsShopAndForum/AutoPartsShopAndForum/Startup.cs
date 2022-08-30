@@ -4,6 +4,7 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Services.Web.Category;
+    using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
@@ -43,6 +44,7 @@ namespace AutoPartsShopAndForum
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IProductService, ProductService>();
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -74,6 +76,9 @@ namespace AutoPartsShopAndForum
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

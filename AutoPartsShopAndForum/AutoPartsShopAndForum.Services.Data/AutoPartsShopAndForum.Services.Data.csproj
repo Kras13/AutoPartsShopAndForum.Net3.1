@@ -4,4 +4,10 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Home\InputModel\" />
+    <Folder Include="Home\ViewModel\" />
+    <Folder Include="Product\ViewModel\" />
+  </ItemGroup>
+
 </Project>

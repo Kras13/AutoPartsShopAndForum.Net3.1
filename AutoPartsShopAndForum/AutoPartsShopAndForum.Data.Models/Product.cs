@@ -16,9 +16,12 @@
         [Required]
         public string Name { get; set; }
 
+        [Required]
+        public string ImageUrl { get; set; }
+
         public decimal Price { get; set; }
 
-        public int? Quantity { get; set; }
+        public string Description { get; set; }
 
         [ForeignKey(nameof(Category))]
         [Required]
