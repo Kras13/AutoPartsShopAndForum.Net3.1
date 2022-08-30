@@ -1,7 +1,12 @@
 ﻿@using AutoPartsShopAndForum.Services.Data.Product.InputModel
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+@{
+    ViewData["Title"] = "Add Product";
+}
+
 @model ProductAddInputModel
+
 
 <form method="post">
     <div class="form-group">
@@ -9,12 +14,11 @@
         <input asp-for="Name" id="Name" class="form-control" placeholder="Bardahl, Motul, MAN...">
         <span asp-validation-for="Name" class="small text-danger"></span>
     </div>
-    @*<div class="form-group">
-            <label asp-for="Model"></label>
-            <input asp-for="Model" id="ModelInput" oninput="ModelValidation()" class="form-control" placeholder="330i, A3, etc...">
-            <span asp-validation-for="Model" class="small text-danger"></span>
-            <p id="ModelValText"></p>
-        </div>*@
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <span asp-validation-for="Description" class="small text-danger"></span>
+        <textarea asp-for="Description" id="Description"></textarea>
+    </div>
 
     <input class="btn btn-primary" type="submit" value="Save" />
 </form>
