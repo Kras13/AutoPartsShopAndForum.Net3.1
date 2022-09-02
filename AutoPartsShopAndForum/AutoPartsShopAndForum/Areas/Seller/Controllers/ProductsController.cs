@@ -7,6 +7,7 @@
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System;
 
     [Area(Role.Seller)]
     [Authorize(Roles = Role.Seller + "," + Role.Administrator)]
@@ -34,7 +35,16 @@
         [HttpPost]
         public IActionResult Add(ProductAddInputModel model)
         {
-            // validate model
+            if (!ModelState.IsValid)
+            {
+                throw new InvalidOperationException("Products/Add -> Invalid model");
+            }
+
+            if (!this.User.IsAdmin() && !this.User.IsSeller())
+            {
+                throw new InvalidOperationException("Products/Add -> Only Sellers and Admins can add products");
+            }
+
             model.CreatorId = this.User.GetId();
             productService.AddProduct(model);
 
