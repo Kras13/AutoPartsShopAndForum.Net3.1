@@ -12,8 +12,8 @@
 
         public int Id { get; set; }
 
-        [MaxLength(Constants.Category.MaxLength)]
         [Required]
+        [MaxLength(Constants.Category.MaxLength)]
         public string Name { get; set; }
 
         [Required]

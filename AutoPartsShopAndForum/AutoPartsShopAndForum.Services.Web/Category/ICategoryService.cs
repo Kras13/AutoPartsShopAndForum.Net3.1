@@ -1,10 +1,9 @@
 ﻿namespace AutoPartsShopAndForum.Services.Web.Category
 {
-    using AutoPartsShopAndForum.Services.Data.Home;
-    using System.Collections.Generic;
+    using AutoPartsShopAndForum.Services.Data.Home.ViewModel;
 
     public interface ICategoryService
     {
-        SummaryCategoriesModel[] GetCategories();
+        CategoryViewModel[] GetCategories();
     }
 }

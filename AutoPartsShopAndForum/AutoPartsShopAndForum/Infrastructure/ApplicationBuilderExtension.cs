@@ -27,6 +27,7 @@
 
                         await SeedTowns(serviceScope.ServiceProvider);
                         await SeedAdministrator(serviceScope.ServiceProvider);
+                        await SeedSeller(serviceScope.ServiceProvider);
                         await SeedCategories(serviceScope.ServiceProvider);
 
                         await dbContext.SaveChangesAsync();
@@ -101,19 +102,58 @@
 
             if (result.Succeeded)
             {
+                string adminEmail = "admin@abv.bg";
+                string adminPassword = "admin123";
+
                 User user = new User()
                 {
-                    UserName = "admin",
+                    Email = adminEmail,
+                    UserName = adminEmail,
                     FirstName = "Admin",
                     LastName = "Adminchev",
                     EGN = "0112222333",
-                    Email = "admin@abv.bg",
                     TownId = 1
                 };
 
-                await userManager.CreateAsync(user, "admin123");
+                await userManager.CreateAsync(user, adminPassword);
 
                 await userManager.AddToRoleAsync(user, Data.Models.Constants.Role.Administrator);
+            }
+        }
+
+        private static async Task SeedSeller(IServiceProvider serviceProvider)
+        {
+            var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+            bool sellerRoleExists = await roleManager
+                .RoleExistsAsync(Data.Models.Constants.Role.Seller);
+
+            if (sellerRoleExists)
+            {
+                return;
+            }
+
+            IdentityResult result =
+                await roleManager.CreateAsync(new IdentityRole(Data.Models.Constants.Role.Seller));
+
+            if (result.Succeeded)
+            {
+                string sellerEmail = "seller@abv.bg";
+                string sellerPassword = "123456";
+
+                var user = new User()
+                {
+                    Email = sellerEmail,
+                    UserName = sellerEmail,
+                    FirstName = "Seller",
+                    LastName = "Sellerov",
+                    TownId = 2,
+                    EGN = "2222222222"
+                };
+
+                await userManager.CreateAsync(user, sellerPassword);
+                await userManager.AddToRoleAsync(user, Data.Models.Constants.Role.Seller);
             }
         }
     }

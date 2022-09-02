@@ -13,6 +13,7 @@
 
         public int Id { get; set; }
 
+        [MaxLength(Constants.Product.NameMaxLength)]
         [Required]
         public string Name { get; set; }
 
@@ -21,15 +22,17 @@
 
         public decimal Price { get; set; }
 
+        [Required]
+        [MaxLength(Constants.Product.DescriptionMaxLength)]
         public string Description { get; set; }
 
-        [ForeignKey(nameof(Category))]
         [Required]
+        [ForeignKey(nameof(Category))]
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        [ForeignKey(nameof(Creator))]
         [Required]
+        [ForeignKey(nameof(Creator))]
         public string CreatorId { get; set; }
         public User Creator { get; set; }
 

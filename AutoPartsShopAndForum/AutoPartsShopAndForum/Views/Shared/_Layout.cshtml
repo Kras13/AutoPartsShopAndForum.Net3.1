@@ -29,13 +29,13 @@
                         @if (this.User.IsAdmin() || this.User.IsSeller())
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Seller" asp-controller="Products" asp-action="Add"></a>
+                                <a class="nav-link text-dark" asp-area="Seller" asp-controller="Products" asp-action="Add">Add Product</a>
                             </li>
                         }
                         @if (this.User.IsAdmin())
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Sellers" asp-action="Approvement"></a>
+                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Sellers" asp-action="Approvement">Seller Candidates</a>
                             </li>
                         }
                     </ul>

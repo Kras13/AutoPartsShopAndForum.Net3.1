@@ -1,6 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Services.Data.Home
 {
-    public class SummaryCategoriesModel
+    public class CategoryModel
     {
         public int Id { get; set; }
 

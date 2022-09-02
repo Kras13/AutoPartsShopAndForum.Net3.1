@@ -6,8 +6,11 @@
 
   <ItemGroup>
     <Folder Include="Home\InputModel\" />
-    <Folder Include="Home\ViewModel\" />
     <Folder Include="Product\ViewModel\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AutoPartsShopAndForum.Data\AutoPartsShopAndForum.Data.csproj" />
   </ItemGroup>
 
 </Project>
