@@ -42,3 +42,14 @@
     max-height: 100px;
     padding-top: 20px;
 }
+
+.prod_img_icon {
+    width: 150px;
+    height: 160px;
+    max-height: 200px;
+    padding-top: 20px;
+}
+
+.prodBox {
+    min-height: 150px;
+}

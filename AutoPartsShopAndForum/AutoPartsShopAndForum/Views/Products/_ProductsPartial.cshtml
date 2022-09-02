@@ -1,6 +1,29 @@
 ﻿@model ProductQueryViewModel
 
-@foreach (var product in Model.Products)
-{
-    <div>@(product.Name)</div>
+@{
+    ViewData["Title"] = "View Products";
 }
+
+<div class="catsummary" Model.Products>
+    @foreach (var product in Model.Products)
+    {
+        <div class="categoryinfo">
+            <div class="prodBox">
+                <img src="@(product.ImageUrl)" class="prod_img_icon" alt="Alternate Text" />
+            </div>
+            <div class="category_title">
+                <div>@(product.Name)</div>
+            </div>
+            <div class="price_discounted">@product.Price</div>
+            <div class="row">
+                <div class="col-md-6">
+                    <a class="btn btn-info float-left">Info</a>
+                </div>
+                <div class="col-md-6">
+                    @*<input class="btn btn-outline-danger" type="submit" value="Buy" />*@
+                    <a class="btn btn-danger float-right">Buy</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>

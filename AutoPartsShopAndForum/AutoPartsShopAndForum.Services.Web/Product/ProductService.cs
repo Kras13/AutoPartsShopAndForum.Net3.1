@@ -28,7 +28,6 @@
                      CreatorId = product.CreatorId
                  });
 
-
             context.SaveChanges();
 
             return entity.Entity.Id;
