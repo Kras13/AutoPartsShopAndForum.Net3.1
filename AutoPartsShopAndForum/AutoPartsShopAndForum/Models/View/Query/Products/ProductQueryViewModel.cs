@@ -1,6 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Models.View.Query.Products
 {
-    using AutoPartsShopAndForum.Services.Data.Product.ViewModel;
+    using AutoPartsShopAndForum.Services.Data.Home;
+    using AutoPartsShopAndForum.Services.Data.Product;
     using System.Collections.Generic;
 
     public class ProductQueryViewModel
@@ -9,6 +10,8 @@
 
         public ProductSorting Sorting { get; set; }
 
-        public ICollection<ProductViewModel> Products { get; set; }
+        public CategoryModel Category { get; set; }
+
+        public ICollection<ProductModel> Products { get; set; }
     }
 }

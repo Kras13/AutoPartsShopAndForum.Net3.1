@@ -1,7 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Services.Web.Category
 {
     using AutoPartsShopAndForum.Data;
-    using AutoPartsShopAndForum.Services.Data.Home.ViewModel;
+    using AutoPartsShopAndForum.Services.Data.Home;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -14,11 +14,11 @@
             this.dbContext = dbContext;
         }
 
-        public CategoryViewModel[] GetCategories()
+        public CategoryModel[] GetCategories()
         {
             return this.dbContext.Categories
                 .Select(
-                c => new CategoryViewModel()
+                c => new CategoryModel()
                 {
                     Id = c.Id,
                     Name = c.Name,

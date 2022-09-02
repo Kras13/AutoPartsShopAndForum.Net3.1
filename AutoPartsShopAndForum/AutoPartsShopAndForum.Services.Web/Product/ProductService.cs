@@ -28,6 +28,9 @@
                      CreatorId = product.CreatorId
                  });
 
+
+            context.SaveChanges();
+
             return entity.Entity.Id;
         }
 
@@ -36,10 +39,10 @@
             throw new System.NotImplementedException();
         }
 
-        public ICollection<ProductModel> GetProductById(int categoryId)
+        public ICollection<ProductModel> GetProductsByCategoryId(int id)
         {
             return context.Products
-                .Where(p => p.CategoryId == categoryId)
+                .Where(p => p.CategoryId == id)
                 .Select(
                 e => new ProductModel()
                 {

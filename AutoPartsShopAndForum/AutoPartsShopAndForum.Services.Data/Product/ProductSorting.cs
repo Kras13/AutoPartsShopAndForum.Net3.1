@@ -1,4 +1,4 @@
-﻿namespace AutoPartsShopAndForum.Models.View.Query.Products
+﻿namespace AutoPartsShopAndForum.Services.Data.Product
 {
     public enum ProductSorting
     {

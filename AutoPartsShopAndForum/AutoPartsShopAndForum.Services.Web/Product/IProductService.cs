@@ -8,7 +8,7 @@
     {
         int AddProduct(ProductAddInputModel product);
 
-        ICollection<ProductModel> GetProductById(int categoryId);
+        ICollection<ProductModel> GetProductsByCategoryId(int id);
 
         ICollection<ProductModel> GetAllProducts();
     }

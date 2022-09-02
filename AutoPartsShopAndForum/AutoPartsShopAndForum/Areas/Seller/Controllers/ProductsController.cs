@@ -35,13 +35,8 @@
         public IActionResult Add(ProductAddInputModel model)
         {
             // validate model
-
-            if (ModelState.IsValid)
-            {
-                ;
-            }
-
             model.CreatorId = this.User.GetId();
+            productService.AddProduct(model);
 
             return Redirect("/Home/Index");
         }
