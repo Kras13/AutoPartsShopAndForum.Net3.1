@@ -14,18 +14,21 @@
             this.productService = productService;
         }
 
-        public IActionResult AllByCategory(int id)
+        public IActionResult AllByCategory(ProductQueryViewModel queryModel)
         {
-            if (id < 0)
+            int categoryId = queryModel.CategoryId == null ? -1 : queryModel.CategoryId.Value;
+
+            if (categoryId < 0)
             {
                 throw new ArgumentException("Products/GetAll invalid categoryId");
             }
 
-            var products = productService.GetProductsByCategoryId(id);
+            var products = productService.GetQueriedProducts(
+                queryModel.SearchCriteria, queryModel.CategoryId.Value, queryModel.Sorting);
 
             var model = new ProductQueryViewModel() 
             {
-                Category = null,
+                CategoryId = categoryId,
                 Products = products,
                 SearchCriteria = String.Empty,
                 Sorting = Services.Data.Product.ProductSorting.NoSorting

@@ -10,7 +10,7 @@
 
         public ProductSorting Sorting { get; set; }
 
-        public CategoryModel Category { get; set; }
+        public int? CategoryId { get; set; }
 
         public ICollection<ProductModel> Products { get; set; }
     }

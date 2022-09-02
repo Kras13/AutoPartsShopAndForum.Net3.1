@@ -39,20 +39,38 @@
             throw new System.NotImplementedException();
         }
 
-        public ICollection<ProductModel> GetProductsByCategoryId(int id)
+        public ICollection<ProductModel> GetQueriedProducts(
+            string searchCriteria,
+            int? categoryId,
+            ProductSorting Sorting)
         {
-            return context.Products
-                .Where(p => p.CategoryId == id)
-                .Select(
-                e => new ProductModel()
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Price = e.Price,
-                    Desctiption = e.Description,
-                    ImageUrl = e.ImageUrl,
-                    CategoryId = e.CategoryId
-                }).ToArray();
+            var entity = context.Products
+                   .Select(
+                   e => new ProductModel()
+                   {
+                       Id = e.Id,
+                       Name = e.Name,
+                       Price = e.Price,
+                       Desctiption = e.Description,
+                       ImageUrl = e.ImageUrl,
+                       CategoryId = e.CategoryId
+                   });
+
+            if (categoryId.HasValue)
+            {
+                entity = entity
+                    .Where(p => p.CategoryId == categoryId);
+            }
+
+            if (!string.IsNullOrEmpty(searchCriteria))
+            {
+                entity = entity
+                   .Where(
+                        p => p.Name.ToLower().Contains(
+                            string.IsNullOrEmpty(searchCriteria) ? "" : searchCriteria.ToLower()));
+            }
+
+            return entity.ToArray();
         }
     }
 }

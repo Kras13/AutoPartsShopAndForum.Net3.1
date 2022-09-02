@@ -8,7 +8,7 @@
     {
         int AddProduct(ProductAddInputModel product);
 
-        ICollection<ProductModel> GetProductsByCategoryId(int id);
+        ICollection<ProductModel> GetQueriedProducts(string searchCriteria, int? categoryId, ProductSorting Sorting);
 
         ICollection<ProductModel> GetAllProducts();
     }
