@@ -1,6 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
     using AutoPartsShopAndForum.Models.View.Query.Products;
+    using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Mvc;
     using System;
@@ -35,6 +36,13 @@
             };
 
             return View(model);
+        }
+
+        public IActionResult Details(ProductModel model)
+        {
+            ;
+
+            return View();
         }
     }
 }

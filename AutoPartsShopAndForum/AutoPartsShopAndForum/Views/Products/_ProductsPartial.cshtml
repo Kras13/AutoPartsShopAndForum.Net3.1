@@ -12,7 +12,7 @@
                 <img src="@(product.ImageUrl)" class="prod_img_icon" alt="Alternate Text" />
             </div>
             <div class="category_title">
-                <div>@(product.Name)</div>
+                <a asp-controller="Products" asp-action="Details" asp-route-id="@product.Id" asp-route-name="@product.Name" class="btn btn-warning">@(product.Name)</a>
             </div>
             <div class="price_discounted">@product.Price</div>
             <div class="row">
