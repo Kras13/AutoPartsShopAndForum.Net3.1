@@ -3,7 +3,6 @@
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
-    using System.Collections.Generic;
 
     public class CartController : Controller
     {
@@ -17,7 +16,7 @@
             string model =
                 JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("Cart"));
 
-            return View(model);
+            return View();
         }
     }
 }
