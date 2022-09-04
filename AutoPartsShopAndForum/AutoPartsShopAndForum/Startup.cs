@@ -47,6 +47,8 @@ namespace AutoPartsShopAndForum
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
 
+            services.AddSession();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -71,6 +73,7 @@ namespace AutoPartsShopAndForum
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthentication();
             app.UseAuthorization();

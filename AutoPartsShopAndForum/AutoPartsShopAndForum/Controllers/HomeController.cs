@@ -2,7 +2,9 @@
 {
     using AutoPartsShopAndForum.Models;
     using AutoPartsShopAndForum.Services.Web.Category;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
     using System.Diagnostics;
 
     public class HomeController : Controller
@@ -23,6 +25,8 @@
 
         public IActionResult Privacy()
         {
+            HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject("Krasi"));
+
             return View();
         }
 
