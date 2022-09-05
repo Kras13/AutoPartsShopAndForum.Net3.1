@@ -48,7 +48,7 @@
             model.CreatorId = this.User.GetId();
             productService.AddProduct(model);
 
-            return Redirect("/Products/AllByCategory/" + model.SelectedCategoryId);
+            return Redirect("/Products/All");
         }
     }
 }

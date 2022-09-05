@@ -4,7 +4,6 @@
     using AutoPartsShopAndForum.Services.Data.Cart;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -25,19 +24,27 @@
         public IActionResult Add(ProductCartModel model)
         {
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            int currentQuantity = 0;
 
             if (cartCollection == null)
             {
-                cartCollection = new List<ProductCartModel>(); 
+                cartCollection = new List<ProductCartModel>();
             }
 
-            if (!cartCollection.Any(p => p.Name == model.Name))
+            var currentProduct = cartCollection.FirstOrDefault(p => p.Id == model.Id);
+
+            if (currentProduct == null)
             {
+                currentQuantity = model.Quantity;
                 cartCollection.Add(model);
             }
-            
+            else
+            {
+                currentQuantity = currentProduct.Quantity + model.Quantity;
+            }
+
             model.Added = true;
-            model.Quantity++;
+            model.Quantity = currentQuantity;
 
             HttpContext.Session.SetObject("Cart", cartCollection);
 

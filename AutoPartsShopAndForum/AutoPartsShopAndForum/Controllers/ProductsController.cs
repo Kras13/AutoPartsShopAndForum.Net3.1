@@ -15,19 +15,19 @@
             this.productService = productService;
         }
 
-        public IActionResult AllByCategory(ProductQueryViewModel queryModel)
+        public IActionResult All(ProductQueryViewModel queryModel)
         {
-            int categoryId = queryModel.CategoryId == null ? -1 : queryModel.CategoryId.Value;
+            int? categoryId = null;
 
-            if (categoryId < 0)
+            if (queryModel.CategoryId.HasValue)
             {
-                throw new ArgumentException("Products/GetAll invalid categoryId");
-            }
+                categoryId = queryModel.CategoryId.Value;
+            }            
 
             var products = productService.GetQueriedProducts(
-                queryModel.SearchCriteria, queryModel.CategoryId.Value, queryModel.Sorting);
+                queryModel.SearchCriteria, queryModel.CategoryId, queryModel.Sorting);
 
-            var model = new ProductQueryViewModel() 
+            var model = new ProductQueryViewModel()
             {
                 CategoryId = categoryId,
                 Products = products,
@@ -40,9 +40,7 @@
 
         public IActionResult Details(ProductModel model)
         {
-            ;
-
-            return View();
+            return View(model);
         }
     }
 }

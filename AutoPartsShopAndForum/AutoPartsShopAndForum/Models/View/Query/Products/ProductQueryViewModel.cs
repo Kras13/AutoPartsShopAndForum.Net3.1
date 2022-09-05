@@ -6,6 +6,11 @@
 
     public class ProductQueryViewModel
     {
+        public ProductQueryViewModel()
+        {
+            Sorting = ProductSorting.NoSorting;
+        }
+
         public string SearchCriteria { get; set; }
 
         public ProductSorting Sorting { get; set; }

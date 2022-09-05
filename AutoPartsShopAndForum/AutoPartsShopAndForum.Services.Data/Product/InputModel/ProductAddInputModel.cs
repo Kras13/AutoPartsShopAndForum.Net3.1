@@ -22,12 +22,12 @@
         [MinLength(Product.DescriptionMinLength, ErrorMessage = "Please enter at least 2 symbols")]
         public string Description { get; set; }
 
-        [Required]
         public CategoryModel[] Categories { get; set; }
 
+        [Required]
+        [Display(Name="Category")]
         public int SelectedCategoryId { get; set; }
 
-        [Required]
         public string CreatorId { get; set; }
     }
 }
