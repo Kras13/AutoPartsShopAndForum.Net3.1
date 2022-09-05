@@ -24,8 +24,6 @@
 
         public IActionResult Add(ProductCartModel model)
         {
-            // add the product in the session
-
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
             if (cartCollection == null)
@@ -43,6 +41,27 @@
 
             HttpContext.Session.SetObject("Cart", cartCollection);
 
+            return View(model);
+        }
+
+        public IActionResult Buy()
+        {
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            if (cartCollection != null)
+            {
+                if (cartCollection.Count > 0)
+                {
+                    return View();
+                }
+            }
+
+            return Redirect("Products/All");
+        }
+
+        [HttpPost]
+        public IActionResult Buy(CartCheckoutModel model)
+        {
             return View(model);
         }
     }
