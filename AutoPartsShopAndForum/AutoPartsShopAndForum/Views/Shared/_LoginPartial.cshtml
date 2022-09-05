@@ -3,7 +3,11 @@
 @inject UserManager<User> UserManager
 
 <ul class="navbar-nav">
-    <li class="nav-item"><a href="https://mobile.bg"><img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/shopping_cart.png" alt="HTML tutorial" style="width:42px;height:42px;"></a></li>
+    <li class="nav-item">
+        <a asp-area="" asp-controller="Cart" asp-action="All">
+            <img src="https://d1nhio0ox7pgb.cloudfront.net/_img/g_collection_png/standard/256x256/shopping_cart.png" alt="HTML tutorial" style="width:42px;height:42px;">
+        </a>
+    </li>
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">

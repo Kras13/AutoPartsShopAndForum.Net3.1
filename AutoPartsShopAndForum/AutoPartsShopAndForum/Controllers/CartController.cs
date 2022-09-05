@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
+    using AutoPartsShopAndForum.Models.View.Query.Cart;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -13,7 +14,12 @@
 
         public IActionResult All()
         {
-            string model =
+            var model = new CartViewModel()
+            {
+                Products = cartService.ExtractProductsFromSession();
+            };
+
+            string model1 =
                 JsonConvert.DeserializeObject<string>(HttpContext.Session.GetString("Cart"));
 
             return View();
