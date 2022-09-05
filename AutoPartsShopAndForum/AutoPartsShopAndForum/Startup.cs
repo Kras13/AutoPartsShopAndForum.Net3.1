@@ -12,6 +12,7 @@ namespace AutoPartsShopAndForum
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
+    using System.Globalization;
 
     public class Startup
     {
@@ -32,7 +33,7 @@ namespace AutoPartsShopAndForum
 
             services
                 .AddDefaultIdentity<User>(
-                options => 
+                options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireDigit = false;
@@ -56,6 +57,9 @@ namespace AutoPartsShopAndForum
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.ConfigureDelimeterCultureInfo(
+                Configuration.GetValue(typeof(string), "Delimeter") as string);
+
             app.PrepareDatabase();
 
             if (env.IsDevelopment())

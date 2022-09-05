@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AutoPartsShopAndForum.Services.Web.Cart
+﻿namespace AutoPartsShopAndForum.Services.Web.Cart
 {
-    class ICartService
+    public class ICartService
     {
     }
 }

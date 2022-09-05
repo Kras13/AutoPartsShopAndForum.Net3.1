@@ -29,7 +29,11 @@
                 </div>
                 <div class="col-md-6">
                     @*<input class="btn btn-outline-danger" type="submit" value="Buy" />*@
-                    <a class="btn btn-danger float-right">Buy</a>
+                    <a class="btn btn-danger float-right"
+                       asp-controller="Cart" asp-action="Add"
+                       asp-route-id="@product.Id"
+                       asp-route-name="@product.Name"
+                       asp-route-price="@product.Price">Buy</a>
                 </div>
             </div>
         </div>

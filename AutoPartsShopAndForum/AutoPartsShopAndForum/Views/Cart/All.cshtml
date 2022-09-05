@@ -1,3 +1,9 @@
-﻿@model string
+﻿@model ICollection<ProductCartModel>
 
-<div>@Model</div>
+@if (Model != null)
+{
+    @foreach (var product in Model)
+    {
+        <div>@(product.Name)</div>
+    }
+}
