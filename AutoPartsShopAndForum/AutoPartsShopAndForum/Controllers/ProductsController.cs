@@ -42,5 +42,10 @@
         {
             return View(model);
         }
+
+        public IActionResult All2()
+        {
+            return View();
+        }
     }
 }

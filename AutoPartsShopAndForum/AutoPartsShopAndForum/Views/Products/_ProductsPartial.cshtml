@@ -25,7 +25,15 @@
             <div class="price_discounted">@product.Price</div>
             <div class="row">
                 <div class="col-md-6">
-                    <a class="btn btn-info float-left">Info</a>
+                    <a asp-controller="Products"
+                       asp-action="Details"
+                       asp-route-id="@product.Id"
+                       asp-route-name="@product.Name"
+                       asp-route-desctiption="@product.Desctiption"
+                       asp-route-price="@product.Price"
+                       asp-route-imageurl="@product.ImageUrl"
+                       asp-route-categoryid="@product.CategoryId"
+                       class="btn btn-info">Info</a>
                 </div>
                 <div class="col-md-6">
                     @*<input class="btn btn-outline-danger" type="submit" value="Buy" />*@
