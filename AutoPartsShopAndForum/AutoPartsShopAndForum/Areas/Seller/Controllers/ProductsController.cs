@@ -3,6 +3,7 @@
     using AutoPartsShopAndForum.Areas.Seller.Models.Input;
     using AutoPartsShopAndForum.Data.Models.Constants;
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Authorization;
@@ -26,7 +27,7 @@
         {
             var model = new ProductAddInputModel()
             {
-                SubCategories = categoryService.GetSubCategories()
+                SubCategories = categoryService.GetSubcategories()
             };
 
             return View(model);
@@ -45,10 +46,17 @@
                 throw new InvalidOperationException("Products/Add -> Only Sellers and Admins can add products");
             }
 
-            model.CreatorId = this.User.GetId();
-            productService.AddProduct(model);
+            productService.AddProduct(new ProductInputModel()
+            {
+                Name = model.Name,
+                Price = model.Price,
+                ImageUrl = model.ImageUrl,
+                Description = model.Description,
+                SubcategoryId = model.SelectedSubcategoryId,
+                CreatorId = this.User.GetId()
+            });
 
-            return Redirect("/Products/All");
+            return RedirectToAction("All", "Products", new { area = "" });
         }
     }
 }

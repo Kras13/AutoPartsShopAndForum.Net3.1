@@ -2,7 +2,6 @@
 {
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Services.Data.Product;
-    using AutoPartsShopAndForum.Services.Data.Product.InputModel;
     using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
@@ -16,7 +15,7 @@
             this.context = context;
         }
 
-        public int AddProduct(ProductAddInputModel product)
+        public int AddProduct(ProductInputModel product)
         {
             var entity = context.Products.Add(
                  new AutoPartsShopAndForum.Data.Models.Product()
@@ -46,7 +45,8 @@
         {
             var entities = context.Products
                     .Include(e => e.Subcategory)
-                    .ThenInclude(e => e.Category);
+                    .ThenInclude(e => e.Category)
+                    .AsQueryable();
             //.Select(
             //e => new ProductModel()
             //{
@@ -60,7 +60,7 @@
 
             if (categoryId.HasValue)
             {
-                entities
+                entities = entities
                     .Where(e => e.Subcategory.CategoryId == categoryId);
             }
 

@@ -12,6 +12,8 @@
         public string Name { get; set; }
 
         [Required]
+        [MinLength(Product.ImageUrlMinLength)]
+        [Display(Name = "Image")]
         public string ImageUrl { get; set; }
 
         [Required]
@@ -25,6 +27,7 @@
         public SubCategoryModel[] SubCategories { get; set; }
 
         [Required]
+        [Display(Name = "Subcategory")]
         public int SelectedSubcategoryId { get; set; }
 
         public string CreatorId { get; set; }

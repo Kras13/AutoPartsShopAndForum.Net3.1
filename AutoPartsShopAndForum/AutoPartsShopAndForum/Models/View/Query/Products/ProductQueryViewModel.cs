@@ -1,6 +1,5 @@
 ﻿namespace AutoPartsShopAndForum.Models.View.Query.Products
 {
-    using AutoPartsShopAndForum.Services.Data.Home;
     using AutoPartsShopAndForum.Services.Data.Product;
     using System.Collections.Generic;
 

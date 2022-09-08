@@ -9,5 +9,7 @@
         public const int DescriptionMaxLength = 240;
 
         public const int DescriptionMinLength = 10;
+
+        public const int ImageUrlMinLength = 10;
     }
 }

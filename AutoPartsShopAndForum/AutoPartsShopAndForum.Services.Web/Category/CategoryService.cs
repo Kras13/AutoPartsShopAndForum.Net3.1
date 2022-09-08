@@ -1,8 +1,8 @@
 ﻿namespace AutoPartsShopAndForum.Services.Web.Category
 {
     using AutoPartsShopAndForum.Data;
-    using AutoPartsShopAndForum.Services.Data.Home;
-    using System.Collections.Generic;
+    using AutoPartsShopAndForum.Services.Data.Category;
+    using AutoPartsShopAndForum.Services.Data.Subcategory;
     using System.Linq;
 
     public class CategoryService : ICategoryService
@@ -23,6 +23,16 @@
                     Id = c.Id,
                     Name = c.Name,
                     ImageUrl = c.ImageUrl
+                }).ToArray();
+        }
+
+        public SubCategoryModel[] GetSubcategories()
+        {
+            return this.dbContext.Subcategories
+                .Select(s => new SubCategoryModel()
+                {
+                    Id = s.Id,
+                    Name = s.Name,
                 }).ToArray();
         }
     }
