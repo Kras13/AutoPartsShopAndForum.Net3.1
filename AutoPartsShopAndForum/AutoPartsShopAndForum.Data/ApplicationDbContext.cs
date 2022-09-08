@@ -61,13 +61,24 @@
 
             builder
                 .Entity<Product>()
-                .HasOne(c => c.Category)
-                .WithMany(c => c.Products)
+                .HasOne(s => s.Subcategory)
+                .WithMany(s => s.Products)
                 .OnDelete(DeleteBehavior.Restrict);
             builder
+                .Entity<Subcategory>()
+                .HasMany(s => s.Products)
+                .WithOne(s => s.Subcategory)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<Category>()
-                .HasMany(p => p.Products)
-                .WithOne(p => p.Category)
+                .HasMany(s => s.SubCategories)
+                .WithOne(s => s.Category)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .Entity<Subcategory>()
+                .HasOne(s => s.Category)
+                .WithMany(s => s.SubCategories)
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
@@ -101,5 +112,6 @@
         public DbSet<Order> Orders { get; set; }
         public DbSet<MailHistory> MailsHistories { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Subcategory> Subcategories { get; set; }
     }
 }

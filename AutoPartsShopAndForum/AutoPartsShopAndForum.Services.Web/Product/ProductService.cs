@@ -3,6 +3,7 @@
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Data.Product.InputModel;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -24,7 +25,7 @@
                      Price = product.Price,
                      Description = product.Description,
                      ImageUrl = product.ImageUrl,
-                     CategoryId = product.SelectedCategoryId,
+                     SubcategoryId = product.SubcategoryId,
                      CreatorId = product.CreatorId
                  });
 
@@ -43,33 +44,45 @@
             int? categoryId,
             ProductSorting Sorting)
         {
-            var entity = context.Products
-                   .Select(
-                   e => new ProductModel()
-                   {
-                       Id = e.Id,
-                       Name = e.Name,
-                       Price = e.Price,
-                       Desctiption = e.Description,
-                       ImageUrl = e.ImageUrl,
-                       CategoryId = e.CategoryId
-                   });
+            var entities = context.Products
+                    .Include(e => e.Subcategory)
+                    .ThenInclude(e => e.Category);
+            //.Select(
+            //e => new ProductModel()
+            //{
+            //    Id = e.Id,
+            //    Name = e.Name,
+            //    Price = e.Price,
+            //    Desctiption = e.Description,
+            //    ImageUrl = e.ImageUrl,
+            //    SubcategoryId = e.SubcategoryId
+            //});
 
             if (categoryId.HasValue)
             {
-                entity = entity
-                    .Where(p => p.CategoryId == categoryId);
+                entities
+                    .Where(e => e.Subcategory.CategoryId == categoryId);
             }
 
-            if (!string.IsNullOrEmpty(searchCriteria))
-            {
-                entity = entity
-                   .Where(
-                        p => p.Name.ToLower().Contains(
-                            string.IsNullOrEmpty(searchCriteria) ? "" : searchCriteria.ToLower()));
-            }
+            //if (!string.IsNullOrEmpty(searchCriteria))
+            //{
+            //    entity = entity
+            //       .Where(
+            //            p => p.Name.ToLower().Contains(
+            //                string.IsNullOrEmpty(searchCriteria) ? "" : searchCriteria.ToLower()));
+            //}
 
-            return entity.ToArray();
+            return entities
+                .Select(e => new ProductModel()
+                {
+                    Id = e.Id,
+                    Name = e.Name,
+                    Price = e.Price,
+                    Desctiption = e.Description,
+                    ImageUrl = e.ImageUrl,
+                    SubcategoryId = e.SubcategoryId,
+                    CategoryId = e.Subcategory.CategoryId
+                }).ToArray();
         }
     }
 }

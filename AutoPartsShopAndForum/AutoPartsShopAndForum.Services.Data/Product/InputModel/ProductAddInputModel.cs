@@ -8,7 +8,7 @@
     {
         [Required]
         [MaxLength(Product.NameMaxLength)]
-        [MinLength(Product.NameMinLength, ErrorMessage = "Please enter at least 2 symbols" )]
+        [MinLength(Product.NameMinLength, ErrorMessage = "Please enter at least 2 symbols")]
         public string Name { get; set; }
 
         [Required]
@@ -25,8 +25,10 @@
         public CategoryModel[] Categories { get; set; }
 
         [Required]
-        [Display(Name="Category")]
-        public int SelectedCategoryId { get; set; }
+        public int SubcategoryId { get; set; }
+
+        [Required]
+        public int CategoryId { get; set; }
 
         public string CreatorId { get; set; }
     }

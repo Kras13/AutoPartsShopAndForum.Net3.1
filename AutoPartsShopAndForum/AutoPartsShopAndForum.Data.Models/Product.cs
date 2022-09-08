@@ -27,9 +27,9 @@
         public string Description { get; set; }
 
         [Required]
-        [ForeignKey(nameof(Category))]
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
+        [ForeignKey(nameof(Subcategory))]
+        public int SubcategoryId { get; set; }
+        public Subcategory Subcategory { get; set; }
 
         [Required]
         [ForeignKey(nameof(Creator))]

@@ -9,6 +9,16 @@
     <Compile Remove="Migrations\20220828220739_InitialDb.Designer.cs" />
     <Compile Remove="Migrations\20220829182243_MailHistoryBugFix.cs" />
     <Compile Remove="Migrations\20220829182243_MailHistoryBugFix.Designer.cs" />
+    <Compile Remove="Migrations\20220908132200_AddSubCategory.cs" />
+    <Compile Remove="Migrations\20220908132200_AddSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20220908132610_AddSubCategory.cs" />
+    <Compile Remove="Migrations\20220908132610_AddSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20220908132855_AddSubCategory.cs" />
+    <Compile Remove="Migrations\20220908132855_AddSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20220908133038_AddSubCategory.cs" />
+    <Compile Remove="Migrations\20220908133038_AddSubCategory.Designer.cs" />
+    <Compile Remove="Migrations\20220908133612_AddSubCategory.cs" />
+    <Compile Remove="Migrations\20220908133612_AddSubCategory.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
