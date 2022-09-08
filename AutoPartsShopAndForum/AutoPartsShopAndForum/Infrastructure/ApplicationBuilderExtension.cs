@@ -26,15 +26,57 @@
                         dbContext.Database.Migrate();
 
                         await SeedTowns(serviceScope.ServiceProvider);
-                        await SeedAdministrator(serviceScope.ServiceProvider);
-                        await SeedSeller(serviceScope.ServiceProvider);
-                        await SeedCategories(serviceScope.ServiceProvider);
+                        await dbContext.SaveChangesAsync();
 
+                        await SeedAdministrator(serviceScope.ServiceProvider);
+                        await dbContext.SaveChangesAsync();
+
+                        await SeedSeller(serviceScope.ServiceProvider);
+                        await dbContext.SaveChangesAsync();
+
+                        await SeedCategories(serviceScope.ServiceProvider);
+                        await dbContext.SaveChangesAsync();
+
+                        await SeedSubcategories(serviceScope.ServiceProvider);
                         await dbContext.SaveChangesAsync();
                     }
                 });
 
             return app;
+        }
+
+        private static async Task SeedSubcategories(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetService<ApplicationDbContext>();
+
+            var categories = context.Categories.ToArray();
+
+            Subcategory[] subcategories =
+                {
+                    new Subcategory(){Name = "Oils", CategoryId = categories[0].Id},
+                    new Subcategory(){Name = "Antifreeze", CategoryId = categories[0].Id},
+                    new Subcategory(){Name = "Oil filters", CategoryId = categories[1].Id},
+                    new Subcategory(){Name = "Air filters", CategoryId = categories[1].Id},
+                    new Subcategory(){Name = "Front window", CategoryId = categories[2].Id},
+                    new Subcategory(){Name = "Back window", CategoryId = categories[2].Id},
+                };
+
+            Subcategory[] savedSubcategories = await context.Subcategories.ToArrayAsync();
+
+            foreach (var subCat in subcategories)
+            {
+                if (savedSubcategories.Any(c => c.Name == subCat.Name))
+                {
+                    continue;
+                }
+
+                await context.Subcategories.AddAsync(new Subcategory()
+                {
+                    Name = subCat.Name,
+                    CategoryId = subCat.CategoryId
+                });
+            }
+
         }
 
         private static async Task SeedCategories(IServiceProvider serviceProvider)

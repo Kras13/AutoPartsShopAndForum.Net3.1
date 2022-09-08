@@ -1,4 +1,4 @@
-﻿@using AutoPartsShopAndForum.Services.Data.Product.InputModel
+﻿@using AutoPartsShopAndForum.Areas.Seller.Models.Input
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
@@ -30,8 +30,8 @@
         <span asp-validation-for="ImageUrl" class="small text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="CategoryId"></label>
-        <select asp-for="CategoryId" class="form-control">
+        <label asp-for="SelectedCategoryId"></label>
+        <select asp-for="SelectedCategoryId" class="form-control">
             @foreach (var category in Model.Categories)
             {
                 <option value="@category.Id">@category.Name</option>
@@ -43,5 +43,5 @@
 </form>
 
 @section Scripts{
-        <partial name="_ValidationScriptsPartial" />
-    }
+    <partial name="_ValidationScriptsPartial" />
+}

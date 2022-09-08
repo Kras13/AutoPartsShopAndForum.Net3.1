@@ -1,4 +1,4 @@
-﻿namespace AutoPartsShopAndForum.Services.Data.Home
+﻿namespace AutoPartsShopAndForum.Services.Data.Subcategory
 {
     public class SubCategoryModel
     {

@@ -1,8 +1,8 @@
 ﻿namespace AutoPartsShopAndForum.Areas.Seller.Controllers
 {
+    using AutoPartsShopAndForum.Areas.Seller.Models.Input;
     using AutoPartsShopAndForum.Data.Models.Constants;
     using AutoPartsShopAndForum.Infrastructure;
-    using AutoPartsShopAndForum.Services.Data.Product.InputModel;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Authorization;
@@ -26,7 +26,7 @@
         {
             var model = new ProductAddInputModel()
             {
-                Categories = categoryService.GetCategories()
+                SubCategories = categoryService.GetSubCategories()
             };
 
             return View(model);
@@ -37,7 +37,7 @@
         {
             if (!ModelState.IsValid)
             {
-                throw new InvalidOperationException("Products/Add -> Invalid model");
+                return View(model);
             }
 
             if (!this.User.IsAdmin() && !this.User.IsSeller())

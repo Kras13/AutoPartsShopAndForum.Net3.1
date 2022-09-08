@@ -1,8 +1,8 @@
-﻿namespace AutoPartsShopAndForum.Services.Data.Product.InputModel
+﻿namespace AutoPartsShopAndForum.Areas.Seller.Models.Input
 {
-    using System.ComponentModel.DataAnnotations;
     using AutoPartsShopAndForum.Data.Models.Constants;
-    using AutoPartsShopAndForum.Services.Data.Home;
+    using AutoPartsShopAndForum.Services.Data.Subcategory;
+    using System.ComponentModel.DataAnnotations;
 
     public class ProductAddInputModel
     {
@@ -22,13 +22,10 @@
         [MinLength(Product.DescriptionMinLength, ErrorMessage = "Please enter at least 2 symbols")]
         public string Description { get; set; }
 
-        public CategoryModel[] Categories { get; set; }
+        public SubCategoryModel[] SubCategories { get; set; }
 
         [Required]
-        public int SubcategoryId { get; set; }
-
-        [Required]
-        public int CategoryId { get; set; }
+        public int SelectedSubcategoryId { get; set; }
 
         public string CreatorId { get; set; }
     }
