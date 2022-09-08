@@ -112,20 +112,27 @@
                     <div class="col-lg-4 col-md-6 pt-md-4 pt-3">
                         <div class="card d-flex flex-column align-items-center">
                             <div class="product-name text-center">@product.Name</div>
-                            <div class="card-img"> <img src="@product.ImageUrl" alt=""> </div>
+                            <a asp-controller="Products" asp-action="Details"
+                               asp-route-id="@product.Id"
+                               asp-route-name="@product.Name"
+                               asp-route-description="@product.Desctiption"
+                               asp-route-price="@product.Price"
+                               asp-route-imageurl="@product.ImageUrl"
+                               asp-route-subcategoryid="@product.SubcategoryId">
+                                <div class="card-img">
+                                    <img src="@product.ImageUrl" alt="">
+                                </div>
+                            </a>
                             <div class="card-body pt-5">
                                 <div class="d-flex align-items-center justify-content-center price">
                                     <div class="font-weight-bold">@product.Price leva</div>
                                 </div>
-                                <div>
-                                    <a class="btn btn-danger float-right"
-                                       asp-controller="Cart" asp-action="Add"
-                                       asp-route-id="@product.Id"
-                                       asp-route-name="@product.Name"
-                                       asp-route-price="@product.Price"
-                                       asp-route-quantity="1">Buy</a>
-                                </div>
-
+                                <a class="btn btn-danger float-right"
+                                   asp-controller="Cart" asp-action="Add"
+                                   asp-route-id="@product.Id"
+                                   asp-route-name="@product.Name"
+                                   asp-route-price="@product.Price"
+                                   asp-route-quantity="1">Buy</a>
                             </div>
                         </div>
                     </div>
