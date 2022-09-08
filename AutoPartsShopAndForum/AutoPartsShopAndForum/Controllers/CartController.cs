@@ -24,7 +24,6 @@
         public IActionResult Add(ProductCartModel model)
         {
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
-            int currentQuantity = 0;
 
             if (cartCollection == null)
             {
@@ -33,18 +32,15 @@
 
             var currentProduct = cartCollection.FirstOrDefault(p => p.Id == model.Id);
 
-            if (currentProduct == null)
+            if (currentProduct != null)
             {
-                currentQuantity = model.Quantity;
-                cartCollection.Add(model);
+                currentProduct.Quantity += model.Quantity;
             }
             else
             {
-                currentQuantity = currentProduct.Quantity + model.Quantity;
+                model.Added = true;
+                cartCollection.Add(model);
             }
-
-            model.Added = true;
-            model.Quantity = currentQuantity;
 
             HttpContext.Session.SetObject("Cart", cartCollection);
 
