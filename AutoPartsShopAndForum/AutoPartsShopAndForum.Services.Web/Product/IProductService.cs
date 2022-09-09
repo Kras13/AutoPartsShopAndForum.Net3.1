@@ -10,5 +10,7 @@
         ICollection<ProductModel> GetQueriedProducts(string searchCriteria, int? categoryId, ProductSorting Sorting);
 
         ICollection<ProductModel> GetAllProducts();
+
+        ProductModel GetProduct(int id);
     }
 }

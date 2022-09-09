@@ -38,7 +38,7 @@
             return View(model);
         }
 
-        public IActionResult Details(ProductModel model)
+        public IActionResult Details(ProductDetailsModel model)
         {
             return View(model);
         }

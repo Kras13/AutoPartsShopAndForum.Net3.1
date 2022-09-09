@@ -1,6 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Models.View.Query.Products;
     using AutoPartsShopAndForum.Services.Data.Cart;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -38,13 +39,20 @@
             }
             else
             {
-                model.Added = true;
                 cartCollection.Add(model);
             }
 
+            model.Added = true;
             HttpContext.Session.SetObject("Cart", cartCollection);
 
-            return View(model);
+            var productDetailsRedirectModel = new ProductDetailsModel()
+            {
+                Id = model.Id,
+                AddedToCart = model.Added,
+                Name = model.Name
+            };
+
+            return RedirectToAction("Details", "Products", new { area = "", productDetailsRedirectModel });
         }
 
         public IActionResult Buy()

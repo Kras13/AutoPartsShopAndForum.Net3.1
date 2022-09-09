@@ -38,6 +38,21 @@
             throw new System.NotImplementedException();
         }
 
+        public ProductModel GetProduct(int id)
+        {
+            var model = this.context.Products
+                .FirstOrDefault(p => p.Id == id);
+            return new ProductModel()
+            {
+                Id = model.Id,
+                Name = model.Name,
+                Description = model.Description,
+                SubcategoryId = model.SubcategoryId,
+                ImageUrl = model.ImageUrl,
+                Price = model.Price
+            };
+        }
+
         public ICollection<ProductModel> GetQueriedProducts(
             string searchCriteria,
             int? categoryId,

@@ -1,39 +1,44 @@
-﻿@model ProductModel
+﻿@model ProductDetailsModel
 
-<div class="container mt-5 mb-5">
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-10">
-            <div class="card">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="images p-3">
-                            <div class="text-center p-4"> <img id="main-image" src="@Model.ImageUrl" width="250" /> </div>
+<form action="/Cart/Add" method="get">
+    <div class="container mt-5 mb-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-md-10">
+                <div class="card">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="images p-3">
+                                <div class="text-center p-4"> <img id="main-image" src="@Model.ImageUrl" width="250" /> </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="product p-4">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center">
-                                    <i class="fa fa-long-arrow-left"></i> <span class="ml-1">
-                                        <a href="javascript:history.back()" class="btn-outline-info">Back</a>
-                                    </span>
-                                </div> <i class="fa fa-shopping-cart text-muted"></i>
-                            </div>
-                            <div class="mt-4 mb-3">
-                                <h5 class="text-uppercase">@Model.Name</h5>
-                                <div class="price d-flex flex-row align-items-center">
-                                    <span class="act-price">@Model.Price leva</span>
+                        <div class="col-md-6">
+                            <div class="product p-4">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center">
+                                        <i class="fa fa-long-arrow-left"></i> <span class="ml-1">
+                                            <a href="javascript:history.back()" class="btn-outline-info">Back</a>
+                                        </span>
+                                    </div> <i class="fa fa-shopping-cart text-muted"></i>
                                 </div>
-                            </div>
-                            <div class="about">@Model.Description</div>
-                            <div class="cart mt-4 align-items-center">
-                                <a class="btn btn-danger float-right"
-                                   asp-controller="Cart" asp-action="Add"
-                                   asp-route-id="@Model.Id"
-                                   asp-route-name="@Model.Name"
-                                   asp-route-price="@Model.Price"
-                                   asp-route-quantity="1">Add to cart</a>
-                                <i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i>
+                                <div class="mt-4 mb-3">
+                                    <h5 class="text-uppercase">@Model.Name</h5>
+                                    <div class="price d-flex flex-row align-items-center">
+                                        <span class="act-price">@Model.Price leva</span>
+                                    </div>
+                                </div>
+                                <div class="about">@Model.Description</div>
+                                <div class="fcart mt-4 align-items-center">
+                                    <label asp-for="@Model.Quantity"></label>
+                                    <input asp-for="@Model.Quantity" id="Quantity" class="form-control" placeholder="1" type="number" min="1" max="10" step="1">
+                                    <span asp-validation-for="@Model.Quantity" class="small text-danger"></span>
+                                </div>
+                                <div class="cart mt-4 align-items-center">
+                                    <input type="hidden" name="Id" asp-for="@Model.Id" value="@Model.Id" />
+                                    <input type="hidden" name="Name" asp-for="@Model.Name" value="@Model.Name" />
+                                    <input type="hidden" name="Price" asp-for="@Model.Price" value="@Model.Price" />
+                                    @*<i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i>*@
+                                    <input class="btn btn-primary" type="submit" value="Save" />
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -41,4 +46,6 @@
             </div>
         </div>
     </div>
-</div>
+
+</form>
+

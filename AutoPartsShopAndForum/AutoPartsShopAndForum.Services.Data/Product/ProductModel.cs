@@ -17,5 +17,3 @@
         public int CategoryId { get; set; }
     }
 }
-
-//public ICollection<OrderProduct> ProductOrders { get; set; }
