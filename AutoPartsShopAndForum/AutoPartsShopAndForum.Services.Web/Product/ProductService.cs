@@ -78,7 +78,7 @@
                     Id = e.Id,
                     Name = e.Name,
                     Price = e.Price,
-                    Desctiption = e.Description,
+                    Description = e.Description,
                     ImageUrl = e.ImageUrl,
                     SubcategoryId = e.SubcategoryId,
                     CategoryId = e.Subcategory.CategoryId

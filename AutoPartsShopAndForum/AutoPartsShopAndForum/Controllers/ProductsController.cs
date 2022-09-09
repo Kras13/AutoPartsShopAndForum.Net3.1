@@ -22,7 +22,7 @@
             if (queryModel.CategoryId.HasValue)
             {
                 categoryId = queryModel.CategoryId.Value;
-            }            
+            }
 
             var products = productService.GetQueriedProducts(
                 queryModel.SearchCriteria, queryModel.CategoryId, queryModel.Sorting);
@@ -41,11 +41,6 @@
         public IActionResult Details(ProductModel model)
         {
             return View(model);
-        }
-
-        public IActionResult All2()
-        {
-            return View();
         }
     }
 }
