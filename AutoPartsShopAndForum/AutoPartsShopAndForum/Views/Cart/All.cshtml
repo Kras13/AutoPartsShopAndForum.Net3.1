@@ -7,13 +7,15 @@
         }
     }*@
 
+@{ decimal total = 0;}
+
 <section>
     <div>
         <div class="row d-flex justify-content-center my-4">
             <div class="col-md-8">
                 <div>
                     <div class="card-header py-3">
-                        <h5 class="mb-0">Cart - 2 items</h5>
+                        <h5 class="mb-0">Cart - @Model.Count items</h5>
                     </div>
                     <div class="card-body">
                         @if (Model != null)
@@ -26,19 +28,13 @@
                                         <!-- Image -->
                                         <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
                                             <img src="@item.ImageUrl"
-                                                 class="w-100" alt="Blue Jeans Jacket" />
-                                            <a href="#!">
-                                                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
-                                            </a>
+                                                 class="w-100" alt="@item.Name" />
                                         </div>
                                         <!-- Image -->
                                     </div>
 
                                     <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                        <button type="button" class="btn btn-primary btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
-                                                title="Remove item">
-                                            <i class="fas fa-trash"></i>
-                                        </button>
+                                        <a href="#" class="btn btn-danger">Remove item</a>
                                     </div>
 
                                     <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
@@ -57,7 +53,8 @@
                                         <!-- Quantity -->
                                         <!-- Price -->
                                         <p class="text-start text-md-center">
-                                            <strong>$17.99</strong>
+                                            <strong>@item.Price leva</strong>                                            
+                                            @(total += item.Price * item.Quantity)
                                         </p>
                                         <!-- Price -->
                                     </div>
@@ -66,7 +63,6 @@
                                 <hr class="my-4" />
                             }
                         }
-
                     </div>
                 </div>
             </div>
@@ -78,17 +74,16 @@
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
                                 Products
-                                <span>$53.98</span>
+                                <span>$@total leva </span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center px-0">
                                 Shipping
-                                <span>Gratis</span>
+                                <span>Free shipping</span>
                             </li>
                             <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                 <div>
-                                    <strong>Total amount: 200 leva</strong>
+                                    <strong>Total amount: @total leva</strong>
                                 </div>
-                                <span><strong>$53.98</strong></span>
                             </li>
                         </ul>
 

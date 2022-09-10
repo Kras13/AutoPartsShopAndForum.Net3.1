@@ -31,8 +31,6 @@
             selectedModel.Quantity = quantity;
 
             HttpContext.Session.SetObject("Cart", cartCollection);
-
-            //return Redirect(nameof(All));
         }
 
         public IActionResult Add(ProductCartModel model)
