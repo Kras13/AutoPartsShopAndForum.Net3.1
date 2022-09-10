@@ -43,16 +43,17 @@
 
                                     <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
 
-                                        <form asp-action="All">
-                                            <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
-                                            <input type="submit" value="Save" class="btn btn-primary" />
-                                        </form>
-                                        <label asp-for="@item.Quantity"></label>
+                                        @*<form asp-action="All">
+                                                <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                            </form>*@
 
-                                        @*<div class="d-flex mb-4" style="max-width: 300px">
-                                                <input asp-for="@item.Quantity" id="Quantity" class="form-control" type="number" min="1" max="10" step="1">
-                                                <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
-                                            </div>*@
+                                        <label asp-for="@item.Quantity"></label>
+                                        <div class="d-flex mb-4" style="max-width: 300px">
+                                            <input asp-for="@item.Quantity" id="QuantityInput" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
+                                            <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                        </div>
+
                                         <!-- Quantity -->
                                         <!-- Price -->
                                         <p class="text-start text-md-center">
@@ -101,11 +102,32 @@
     </div>
 </section>
 
+@*<input type="hidden" id="selectedItemId" />
+    <input type="hidden" id="selectedItemQuantity" />*@
+
+@*@section Scripts
+        {
+        <script>
+            $('form input').change(function () {
+                $(this).closest('form').submit();
+            });
+        </script>
+    }*@
+
 @section Scripts
-    {
+        {
     <script>
-        $('form input').change(function () {
-            $(this).closest('form').submit();
-        });
+        var ChangeQuantity = function (ItemId) {
+            var itemQuantity = $("#QuantityInput").val();
+
+            $.ajax({
+                type: "GET",
+                url: "/Cart/ChangeProduct",
+                data: { id: ItemId, quantity: itemQuantity },
+                success: function () {
+                    location.reload();
+                }
+            });
+        }
     </script>
 }

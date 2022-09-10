@@ -22,6 +22,19 @@
             return View(model);
         }
 
+        public void ChangeProduct(int id, int quantity)
+        {
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
+
+            selectedModel.Quantity = quantity;
+
+            HttpContext.Session.SetObject("Cart", cartCollection);
+
+            //return Redirect(nameof(All));
+        }
+
         public IActionResult Add(ProductCartModel model)
         {
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
