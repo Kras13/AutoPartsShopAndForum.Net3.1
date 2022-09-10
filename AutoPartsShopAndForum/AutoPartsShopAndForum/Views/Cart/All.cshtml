@@ -9,6 +9,11 @@
 
 @{ decimal total = 0;}
 
+@if (!(Model != null && Model.Count > 0))
+{
+    
+}
+
 <section>
     <div>
         <div class="row d-flex justify-content-center my-4">
@@ -46,7 +51,7 @@
 
                                         <label asp-for="@item.Quantity"></label>
                                         <div class="d-flex mb-4" style="max-width: 300px">
-                                            <input asp-for="@item.Quantity" id="QuantityInput" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
+                                            <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
                                             <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
                                         </div>
 
@@ -113,7 +118,9 @@
         {
     <script>
         var ChangeQuantity = function (ItemId) {
-            var itemQuantity = $("#QuantityInput").val();
+            @*QuantityInput+@(item.Id.ToString())*@
+            var selectedComponent = "QuantityInput" + ItemId.toString();
+            var itemQuantity = $("#" + selectedComponent).val();
 
             $.ajax({
                 type: "GET",
