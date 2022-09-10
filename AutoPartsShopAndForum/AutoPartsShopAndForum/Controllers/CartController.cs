@@ -1,6 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Models.View.Query.Cart;
     using AutoPartsShopAndForum.Models.View.Query.Products;
     using AutoPartsShopAndForum.Services.Data.Cart;
     using Microsoft.AspNetCore.Http;
