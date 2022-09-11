@@ -40,6 +40,15 @@
 
         public IActionResult Details(ProductDetailsModel model)
         {
+            string goBackUrl = Request.Headers["Referer"];
+
+            if (!string.IsNullOrEmpty(model.LastUrl.Trim()))
+            {
+                goBackUrl = model.LastUrl;
+            }
+
+            model.LastUrl = goBackUrl;
+
             return View(model);
         }
     }

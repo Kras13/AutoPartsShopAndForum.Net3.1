@@ -56,14 +56,18 @@
             model.Added = true;
             HttpContext.Session.SetObject("Cart", cartCollection);
 
-            var productDetailsRedirectModel = new ProductDetailsModel()
-            {
-                Id = model.Id,
-                AddedToCart = model.Added,
-                Name = model.Name
-            };
-
-            return RedirectToAction("Details", "Products", new { area = "", productDetailsRedirectModel });
+            return RedirectToAction("Details", "Products",
+                new
+                {
+                    Id = model.Id,
+                    AddedToCart = model.Added,
+                    Name = model.Name,
+                    Description = model.Description,
+                    ImageUrl = model.ImageUrl,
+                    Price = model.Price,
+                    Quantity = model.Quantity,
+                    LastUrl = model.LastUrl
+                });
         }
 
         public IActionResult Buy()

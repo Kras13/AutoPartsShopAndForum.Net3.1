@@ -1,5 +1,10 @@
 ﻿@model ProductDetailsModel
 
+@if (Model.AddedToCart)
+{
+    <p class="alert alert-success" id="successMessage">@Model.Name is successfully added to the Cart! </p>
+}
+
 <form action="/Cart/Add" method="get">
     <div class="container mt-5 mb-5">
         <div class="row d-flex justify-content-center">
@@ -16,7 +21,8 @@
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="d-flex align-items-center">
                                         <i class="fa fa-long-arrow-left"></i> <span class="ml-1">
-                                            <a href="javascript:history.back()" class="btn-outline-info">Back</a>
+                                            @*<a href="javascript:history.back()" class="btn-outline-info">Back</a>*@
+                                            <a href="@Model.LastUrl" class="btn-outline-info">Back</a>
                                         </span>
                                     </div> <i class="fa fa-shopping-cart text-muted"></i>
                                 </div>
@@ -37,6 +43,8 @@
                                     <input type="hidden" name="Name" asp-for="@Model.Name" value="@Model.Name" />
                                     <input type="hidden" name="Price" asp-for="@Model.Price" value="@Model.Price" />
                                     <input type="hidden" name="ImageUrl" asp-for="@Model.ImageUrl" value="@Model.ImageUrl" />
+                                    <input type="hidden" name="Description" asp-for="@Model.Description" value="@Model.Description" />
+                                    <input type="hidden" name="LastUrl" asp-for="@Model.LastUrl" value="@Model.LastUrl" />
                                     @*<i class="fa fa-heart text-muted"></i> <i class="fa fa-share-alt text-muted"></i>*@
                                     <input class="btn btn-primary" type="submit" value="Add to cart" />
                                 </div>

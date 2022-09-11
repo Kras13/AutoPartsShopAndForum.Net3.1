@@ -15,5 +15,7 @@
         public int Quantity { get; set; } = 1;
 
         public bool AddedToCart { get; set; }
+
+        public string LastUrl { get; set; } = string.Empty;
     }
 }
