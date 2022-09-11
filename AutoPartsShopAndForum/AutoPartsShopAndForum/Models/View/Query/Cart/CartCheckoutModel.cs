@@ -1,7 +1,10 @@
-﻿namespace AutoPartsShopAndForum.Services.Data.Cart
-{
-    using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
+namespace AutoPartsShopAndForum.Models.View.Query.Cart
+{
     public class CartCheckoutModel
     {
         public string Street { get; set; }

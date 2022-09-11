@@ -1,4 +1,4 @@
-﻿namespace AutoPartsShopAndForum.Services.Data.Cart
+﻿namespace AutoPartsShopAndForum.Models.View.Query.Cart
 {
     using System.Collections.Generic;
 

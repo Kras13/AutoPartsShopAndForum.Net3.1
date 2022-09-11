@@ -3,7 +3,6 @@
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Models.View.Query.Cart;
     using AutoPartsShopAndForum.Models.View.Query.Products;
-    using AutoPartsShopAndForum.Services.Data.Cart;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
