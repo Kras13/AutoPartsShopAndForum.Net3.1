@@ -20,4 +20,10 @@
     <ProjectReference Include="..\AutoPartsShopAndForum.Services.Web\AutoPartsShopAndForum.Services.Web.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\img\plus.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

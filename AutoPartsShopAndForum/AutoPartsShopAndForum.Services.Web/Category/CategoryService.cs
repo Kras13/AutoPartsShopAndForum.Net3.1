@@ -26,14 +26,24 @@
                 }).ToArray();
         }
 
-        public SubCategoryModel[] GetSubcategories()
+        public SubCategoryModel[] GetSubcategories(int? categoryId = null)
         {
-            return this.dbContext.Subcategories
-                .Select(s => new SubCategoryModel()
+            var result = this.dbContext.Subcategories
+                .AsQueryable();
+
+            if (categoryId.HasValue)
+            {
+                result = result
+                    .Where(c => c.CategoryId == categoryId);
+            }
+
+            return result
+                .Select(c => new SubCategoryModel()
                 {
-                    Id = s.Id,
-                    Name = s.Name,
-                }).ToArray();
+                    Id = c.Id,
+                    Name = c.Name
+                })
+                .ToArray();
         }
     }
 }

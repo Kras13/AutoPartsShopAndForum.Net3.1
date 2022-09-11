@@ -7,6 +7,6 @@
     {
         CategoryModel[] GetCategories();
 
-        SubCategoryModel[] GetSubcategories();
+        SubCategoryModel[] GetSubcategories(int? categoryId = null);
     }
 }
