@@ -7,6 +7,7 @@
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Mvc;
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     public class ProductsController : Controller
@@ -29,24 +30,40 @@
                 categoryId = queryModel.CategoryId.Value;
             }
 
-            var subCategories = categoryService
-               .GetSubcategories(categoryId)
-               .Select(s => new SubcategorySelectModel()
-               {
-                   Id = s.Id,
-                   Name = s.Name,
-                   Selected = false
-               }).ToList();
+            var subCategories = new List<SubcategorySelectModel>();
 
             if (queryModel.SubCategories != null)
             {
                 subCategories = queryModel.SubCategories.ToList();
             }
+            else
+            {
+                subCategories = categoryService
+                    .GetSubcategories(categoryId)
+                    .Select(s => new SubcategorySelectModel()
+                    {
+                        Id = s.Id,
+                        Name = s.Name,
+                        Selected = false
+                    }).ToList();
+            }
+
+            var selectedSubCategories = new List<int>();
+
+            foreach (var subCat in subCategories)
+            {
+                if (subCat.Selected)
+                {
+                    selectedSubCategories.Add(subCat.Id);
+                }
+            }
 
             var products = productService.GetQueriedProducts(
-                queryModel.SearchCriteria, queryModel.CategoryId, queryModel.Sorting)
-                .Where(s => subCategories.Any(c => c.Id == s.SubcategoryId))
-                .ToArray();
+                    queryModel.SearchCriteria,
+                    queryModel.Sorting,
+                    queryModel.CategoryId)
+                .Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
+                .ToList();
 
             var model = new ProductQueryViewModel()
             {

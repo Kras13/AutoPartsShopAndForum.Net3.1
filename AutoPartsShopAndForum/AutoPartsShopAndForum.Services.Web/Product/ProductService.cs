@@ -55,37 +55,19 @@
 
         public ICollection<ProductModel> GetQueriedProducts(
             string searchCriteria,
-            int? categoryId,
-            ProductSorting Sorting)
+            ProductSorting Sorting,
+            int? categoryId)
         {
             var entities = context.Products
                     .Include(e => e.Subcategory)
                     .ThenInclude(e => e.Category)
                     .AsQueryable();
-            //.Select(
-            //e => new ProductModel()
-            //{
-            //    Id = e.Id,
-            //    Name = e.Name,
-            //    Price = e.Price,
-            //    Desctiption = e.Description,
-            //    ImageUrl = e.ImageUrl,
-            //    SubcategoryId = e.SubcategoryId
-            //});
 
             if (categoryId.HasValue)
             {
                 entities = entities
                     .Where(e => e.Subcategory.CategoryId == categoryId);
             }
-
-            //if (!string.IsNullOrEmpty(searchCriteria))
-            //{
-            //    entity = entity
-            //       .Where(
-            //            p => p.Name.ToLower().Contains(
-            //                string.IsNullOrEmpty(searchCriteria) ? "" : searchCriteria.ToLower()));
-            //}
 
             return entities
                 .Select(e => new ProductModel()
