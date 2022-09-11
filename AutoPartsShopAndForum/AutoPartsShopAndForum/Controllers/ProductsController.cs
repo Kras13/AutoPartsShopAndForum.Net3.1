@@ -29,9 +29,6 @@
                 categoryId = queryModel.CategoryId.Value;
             }
 
-            var products = productService.GetQueriedProducts(
-                queryModel.SearchCriteria, queryModel.CategoryId, queryModel.Sorting);
-
             var subCategories = categoryService
                .GetSubcategories(categoryId)
                .Select(s => new SubcategorySelectModel()
@@ -39,12 +36,17 @@
                    Id = s.Id,
                    Name = s.Name,
                    Selected = false
-               }).ToArray();
+               }).ToList();
 
             if (queryModel.SubCategories != null)
             {
-                subCategories = queryModel.SubCategories.ToArray();
+                subCategories = queryModel.SubCategories.ToList();
             }
+
+            var products = productService.GetQueriedProducts(
+                queryModel.SearchCriteria, queryModel.CategoryId, queryModel.Sorting)
+                .Where(s => subCategories.Any(c => c.Id == s.SubcategoryId))
+                .ToArray();
 
             var model = new ProductQueryViewModel()
             {

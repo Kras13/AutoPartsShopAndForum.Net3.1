@@ -18,7 +18,7 @@
 
         public int? CategoryId { get; set; }
 
-        public ICollection<SubcategorySelectModel> SubCategories { get; set; }
+        public List<SubcategorySelectModel> SubCategories { get; set; }
 
         public ICollection<ProductModel> Products { get; set; }
     }
