@@ -58,21 +58,26 @@
             }
 
             var products = productService.GetQueriedProducts(
-                   queryModel.SearchCriteria,
-                   queryModel.Sorting,
-                   queryModel.CategoryId).ToList(); ;
+                queryModel.CurrentPage,
+                queryModel.ProductsPerPage,
+                queryModel.SearchCriteria,
+                queryModel.Sorting,
+                queryModel.CategoryId);
 
             if (selectedSubCategories.Count != 0)
             {
-                products = products.
-                    Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
+                products.Products = products.Products
+                    .Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
                     .ToList();
             }
 
             var model = new ProductQueryViewModel()
             {
                 CategoryId = categoryId,
-                Products = products,
+                Products = products.Products,
+                CurrentPage = queryModel.CurrentPage,
+                ProductsPerPage = queryModel.ProductsPerPage,
+                TotalProducts = products.TotalProducts,
                 SubCategories = subCategories,
                 SearchCriteria = String.Empty,
                 Sorting = Services.Data.Product.ProductSorting.NoSorting

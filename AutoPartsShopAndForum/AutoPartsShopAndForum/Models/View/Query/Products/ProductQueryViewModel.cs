@@ -13,7 +13,9 @@
 
         public int CurrentPage { get; set; } = 1;
 
-        public int ItemsPerPage { get; set; } = 2;
+        public int ProductsPerPage { get; set; } = 2;
+
+        public int TotalProducts { get; set; }
 
         public ICollection<ProductModel> Products { get; set; }
 

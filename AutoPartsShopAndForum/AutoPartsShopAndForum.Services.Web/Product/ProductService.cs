@@ -17,6 +17,8 @@
 
         public int AddProduct(ProductInputModel product)
         {
+            //TODO: argument validation
+
             var entity = context.Products.Add(
                  new AutoPartsShopAndForum.Data.Models.Product()
                  {
@@ -33,9 +35,51 @@
             return entity.Entity.Id;
         }
 
-        public ICollection<ProductModel> GetAllProducts()
+        public ProductQueryModel GetQueriedProducts(
+            int currentPageIndex,
+            int productsPerPage,
+            string searchCriteria,
+            ProductSorting sorting,
+            int? categoryId)
         {
-            throw new System.NotImplementedException();
+            var entities = context.Products
+                    .Include(e => e.Subcategory)
+                    .ThenInclude(e => e.Category)
+                    .AsQueryable()
+                    .Skip((currentPageIndex - 1) * productsPerPage);
+
+            switch (sorting)
+            {
+                case ProductSorting.PriceAscending:
+                    entities = entities
+                        .OrderBy(p => p.Price);
+                    break;
+            }
+
+            if (categoryId.HasValue)
+            {
+                entities = entities
+                    .Where(e => e.Subcategory.CategoryId == categoryId);
+            }
+
+            int totalQueriedEntities = entities.Count();
+
+            return new ProductQueryModel()
+            {
+                Products = entities
+                    .Take(productsPerPage)
+                    .Select(e => new ProductModel()
+                    {
+                        Id = e.Id,
+                        Name = e.Name,
+                        CategoryId = categoryId.HasValue ? categoryId.Value : -1,
+                        SubcategoryId = e.SubcategoryId,
+                        Description = e.Description,
+                        ImageUrl = e.ImageUrl,
+                        Price = e.Price
+                    }).ToArray(),
+                TotalProducts = totalQueriedEntities
+            };
         }
 
         public ProductModel GetProduct(int id)
@@ -53,33 +97,9 @@
             };
         }
 
-        public ICollection<ProductModel> GetQueriedProducts(
-            string searchCriteria,
-            ProductSorting Sorting,
-            int? categoryId)
+        public ICollection<ProductModel> GetAllProducts()
         {
-            var entities = context.Products
-                    .Include(e => e.Subcategory)
-                    .ThenInclude(e => e.Category)
-                    .AsQueryable();
-
-            if (categoryId.HasValue)
-            {
-                entities = entities
-                    .Where(e => e.Subcategory.CategoryId == categoryId);
-            }
-
-            return entities
-                .Select(e => new ProductModel()
-                {
-                    Id = e.Id,
-                    Name = e.Name,
-                    Price = e.Price,
-                    Description = e.Description,
-                    ImageUrl = e.ImageUrl,
-                    SubcategoryId = e.SubcategoryId,
-                    CategoryId = e.Subcategory.CategoryId
-                }).ToArray();
+            throw new System.NotImplementedException();
         }
     }
 }
