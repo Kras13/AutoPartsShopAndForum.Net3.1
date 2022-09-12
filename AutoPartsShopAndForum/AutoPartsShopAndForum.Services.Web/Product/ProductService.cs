@@ -45,8 +45,7 @@
             var entities = context.Products
                     .Include(e => e.Subcategory)
                     .ThenInclude(e => e.Category)
-                    .AsQueryable()
-                    .Skip((currentPageIndex - 1) * productsPerPage);
+                    .AsQueryable();
 
             switch (sorting)
             {
@@ -67,6 +66,7 @@
             return new ProductQueryModel()
             {
                 Products = entities
+                    .Skip((currentPageIndex - 1) * productsPerPage)
                     .Take(productsPerPage)
                     .Select(e => new ProductModel()
                     {
