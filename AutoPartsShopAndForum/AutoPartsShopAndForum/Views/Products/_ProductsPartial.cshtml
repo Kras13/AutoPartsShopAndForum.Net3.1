@@ -53,6 +53,10 @@
                     <div class="form-group text-center">
                         @*<div class="btn-group" data-toggle="buttons"> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="radio"> Reset </label> <label class="btn btn-success form-check-label active"> <input class="form-check-input" type="radio" checked> Apply </label> </div>*@
                         <input class="btn btn-primary" type="submit" value="Apply" />
+                        <a class="btn btn-danger" asp-controller="Products" asp-action="All"
+                           asp-route-categoryid="@Model.CategoryId"
+                           asp-route-sorting="@Model.Sorting"
+                           asp-route-searchcriteria="@Model.SearchCriteria">Reset</a>
                     </div>
                 </div>
                 <div class="box border-bottom">
@@ -67,7 +71,6 @@
                                 <input asp-for="@Model.SubCategories[i].Selected" />
                             </div>
                         }
-
                         <input type="hidden" asp-for="@Model.CategoryId" value="@Model.CategoryId">
                     </div>
                 </div>

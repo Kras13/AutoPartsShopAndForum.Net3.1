@@ -2,7 +2,6 @@
 {
     using AutoPartsShopAndForum.Models.View.Query.Products;
     using AutoPartsShopAndForum.Models.View.Query.SubCategory;
-    using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Mvc;
@@ -59,11 +58,16 @@
             }
 
             var products = productService.GetQueriedProducts(
-                    queryModel.SearchCriteria,
-                    queryModel.Sorting,
-                    queryModel.CategoryId)
-                .Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
-                .ToList();
+                   queryModel.SearchCriteria,
+                   queryModel.Sorting,
+                   queryModel.CategoryId).ToList(); ;
+
+            if (selectedSubCategories.Count != 0)
+            {
+                products = products.
+                    Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
+                    .ToList();
+            }
 
             var model = new ProductQueryViewModel()
             {
