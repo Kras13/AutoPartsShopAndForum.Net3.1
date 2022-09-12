@@ -9,98 +9,97 @@
 
 @{ decimal total = 0;}
 
-@if (!(Model != null && Model.Count > 0))
+@if (Model != null)
 {
-    
-}
-
-<section>
-    <div>
-        <div class="row d-flex justify-content-center my-4">
-            <div class="col-md-8">
-                <div>
-                    <div class="card-header py-3">
-                        <h5 class="mb-0">Cart - @Model.Count items</h5>
-                    </div>
-                    <div class="card-body">
-                        @if (Model != null)
-                        {
-                            foreach (var item in Model)
+    <section>
+        <div>
+            <div class="row d-flex justify-content-center my-4">
+                <div class="col-md-8">
+                    <div>
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">Cart - @Model.Count items</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model != null)
                             {
-                                <!-- Single item -->
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                        <!-- Image -->
-                                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                            <img src="@item.ImageUrl"
-                                                 class="w-100" alt="@item.Name" />
-                                        </div>
-                                        <!-- Image -->
-                                    </div>
-
-                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                        <a href="#" class="btn btn-danger">Remove item</a>
-                                    </div>
-
-                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-
-                                        @*<form asp-action="All">
-                                                <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
-                                                <input type="submit" value="Save" class="btn btn-primary" />
-                                            </form>*@
-
-                                        <label asp-for="@item.Quantity"></label>
-                                        <div class="d-flex mb-4" style="max-width: 300px">
-                                            <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
-                                            <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                foreach (var item in Model)
+                                {
+                                    <!-- Single item -->
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                            <!-- Image -->
+                                            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                                <img src="@item.ImageUrl"
+                                                     class="w-100" alt="@item.Name" />
+                                            </div>
+                                            <!-- Image -->
                                         </div>
 
-                                        <!-- Quantity -->
-                                        <!-- Price -->
-                                        <p class="text-start text-md-center">
-                                            <strong>@item.Price leva</strong>                                            
-                                            @(total += item.Price * item.Quantity)
-                                        </p>
-                                        <!-- Price -->
-                                    </div>
-                                </div>
+                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                            <a href="#" class="btn btn-danger">Remove item</a>
+                                        </div>
 
-                                <hr class="my-4" />
+                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+
+                                            @*<form asp-action="All">
+                                                    <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
+                                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                                </form>*@
+
+                                            <label asp-for="@item.Quantity"></label>
+                                            <div class="d-flex mb-4" style="max-width: 300px">
+                                                <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
+                                                <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                            </div>
+
+                                            <!-- Quantity -->
+                                            <!-- Price -->
+                                            <p class="text-start text-md-center">
+                                                <strong>Single price: @item.Price leva</strong>
+                                                @{total += item.Price * item.Quantity;}
+                                            </p>
+                                            <!-- Price -->
+                                        </div>
+                                    </div>
+                                    <hr class="my-4" />
+                                }
                             }
-                        }
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            @*in checkout section container*@
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                Products
-                                <span>$@total leva </span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center px-0">
-                                Shipping
-                                <span>Free shipping</span>
-                            </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
-                                <div>
-                                    <strong>Total amount: @total leva</strong>
-                                </div>
-                            </li>
-                        </ul>
+                @*in checkout section container*@
+                <div class="col-md-4">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                    Products
+                                    <span>$@total leva </span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                    Shipping
+                                    <span>Free shipping</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                    <div>
+                                        <strong>Total amount: @total leva</strong>
+                                    </div>
+                                </li>
+                            </ul>
 
-                        <button type="submit" class="btn btn-primary btn-lg btn-block">
-                            Go to checkout
-                        </button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                Go to checkout
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+
+}
+
 
 @*<input type="hidden" id="selectedItemId" />
     <input type="hidden" id="selectedItemQuantity" />*@

@@ -11,6 +11,10 @@
             Sorting = ProductSorting.NoSorting;
         }
 
+        public int CurrentPage { get; set; } = 1;
+
+        public int ItemsPerPage { get; set; } = 2;
+
         public ICollection<ProductModel> Products { get; set; }
 
         public string SearchCriteria { get; set; }
