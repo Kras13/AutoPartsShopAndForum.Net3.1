@@ -1,4 +1,5 @@
 ﻿@model ProductQueryViewModel
+@using AutoPartsShopAndForum.Models.View.Query.SubCategory
 
 @{
     ViewData["Title"] = "View Products";
@@ -13,7 +14,7 @@
     }
 }
 
-<form method="get">
+<form method="get" id="myForm">
     <div class="container">
         <div class="bg-white rounded d-flex align-items-center justify-content-between" id="header">
             <button class="btn btn-hide text-uppercase" type="button" data-toggle="collapse" data-target="#filterbar" aria-expanded="false" aria-controls="filterbar" id="filter-btn" onclick="changeBtnTxt()"> <span class="fas fa-angle-left" id="filter-angle"></span> <span id="btn-txt">Hide filters</span> </button>
@@ -60,25 +61,34 @@
             </div>
             <div class="ml-auto mt-3 mr-2">
                 <nav aria-label="Page navigation example">
+                    <input type="hidden" asp-for="@Model.CurrentPage" id="CurrentPageComp" />
                     <ul class="pagination">
                         <li class="page-item">
-                            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty) float-left"
-                               asp-controller="Products"
-                               asp-action="All"
-                               asp-route-currentpage="@(Model.CurrentPage > 0 ? Model.CurrentPage - 1 : 1)"
-                               asp-route-categoryid="@Model.CategoryId"
-                               asp-route-searchcriteria="@Model.SearchCriteria"
-                               asp-route-sorting="@((int)Model.Sorting)">Previous</a>
+                            @*<input type="button" class="btn btn-primary" name="Pagination" value="Previous" onclick="ChangePage(@Model.CurrentPage > 0 ? @Model.CurrentPage - 1 : 1)" />*@
+
+                            <button class="btn btn-primary" onclick="ChangePage(@Model.CurrentPage > 0 ? @Model.CurrentPage - 1 : 1)" @(Model.CurrentPage == 1 ? "disabled" : string.Empty) float-left">Previous</button>
+
+                            @*<a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty) float-left"
+                                asp-controller="Products"
+                                asp-action="All"
+                                asp-route-currentpage="@(Model.CurrentPage > 0 ? Model.CurrentPage - 1 : 1)"
+                                asp-route-categoryid="@Model.CategoryId"
+                                asp-route-searchcriteria="@Model.SearchCriteria"
+                                asp-route-sorting="@((int)Model.Sorting)">Previous</a>*@
                         </li>
                         <li class="page-item active"><a class="page-link" href="#">@Model.CurrentPage</a></li>
                         <li class="page-item">
-                            <a class="btn btn-primary @(Model.CurrentPage == lastPage ? "disabled" : string.Empty) float-left"
-                               asp-controller="Products"
-                               asp-action="All"
-                               asp-route-currentpage="@(Model.CurrentPage + 1)"
-                               asp-route-categoryid="@Model.CategoryId"
-                               asp-route-searchcriteria="@Model.SearchCriteria"
-                               asp-route-sorting="@((int)Model.Sorting)">Next</a>
+                            @*<input type="button" class="btn btn-primary" name="Pagination" value="Next" onclick="ChangePage(@Model.CurrentPage + 1)" />*@
+
+                            <button class="btn btn-primary" onclick="ChangePage(@Model.CurrentPage + 1) @(Model.CurrentPage == lastPage ? "disabled" : string.Empty) float-left">Next</button>
+
+                            @*<a class="btn btn-primary @(Model.CurrentPage == lastPage ? "disabled" : string.Empty) float-left"
+                                asp-controller="Products"
+                                asp-action="All"
+                                asp-route-currentpage="@(Model.CurrentPage + 1)"
+                                asp-route-categoryid="@Model.CategoryId"
+                                asp-route-searchcriteria="@Model.SearchCriteria"
+                                asp-route-sorting="@((int)Model.Sorting)">Next</a>*@
                         </li>
                     </ul>
                 </nav>
@@ -140,7 +150,7 @@
                                        asp-route-price="@product.Price"
                                        asp-route-quantity="1"
                                        asp-route-imageurl="@product.ImageUrl"
-                                       asp-route-description="@product.Description">Buy</a>
+                                       asp-route-description="@product.Description">Add to cart</a>
                                 </div>
                             </div>
                         </div>
@@ -149,74 +159,14 @@
             </div>
         </div>
     </div>
-
 </form>
 
-
-
-@*<div class="catsummary" Model.Products>
-        @foreach (var product in Model.Products)
+@section Scripts
         {
-            <div class="categoryinfo">
-                <div class="prodBox">
-                    <img src="@(product.ImageUrl)" class="prod_img_icon" alt="Alternate Text" />
-                </div>
-                <div class="category_title">
-                    <a asp-controller="Products"
-                       asp-action="Details"
-                       asp-route-id="@product.Id"
-                       asp-route-name="@product.Name"
-                       asp-route-desctiption="@product.Desctiption"
-                       asp-route-price="@product.Price"
-                       asp-route-imageurl="@product.ImageUrl"
-                       asp-route-categoryid="@product.CategoryId"
-                       class="btn btn-warning">@(product.Name)</a>
-                </div>
-                <div class="price_discounted">@product.Price</div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <a asp-controller="Products"
-                           asp-action="Details"
-                           asp-route-id="@product.Id"
-                           asp-route-name="@product.Name"
-                           asp-route-desctiption="@product.Desctiption"
-                           asp-route-price="@product.Price"
-                           asp-route-imageurl="@product.ImageUrl"
-                           asp-route-categoryid="@product.CategoryId"
-                           class="btn btn-info">Info</a>
-                    </div>
-                    <div class="col-md-6">
-                        @*<input class="btn btn-outline-danger" type="submit" value="Buy" /> end of first
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-        Buy
-    </button>
-
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add to Cart</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to add the selected product to the cart?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Continue shopping</button>
-                    <a class="btn btn-danger float-right"
-                       asp-controller="Cart" asp-action="Add"
-                       asp-route-id="@product.Id"
-                       asp-route-name="@product.Name"
-                       asp-route-price="@product.Price"
-                       asp-route-quantity="1">Buy</a>
-                </div>
-            </div>
-        </div>
-    </div>
-                    </div>
-                </div>
-            </div>
+    <script>
+        var ChangePage = function (CurrentPage) {
+            $("#CurrentPageComp").val(CurrentPage);
+            $("#myForm").submit();
         }
-    </div>*@
+    </script>
+}
