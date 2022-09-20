@@ -40,12 +40,19 @@
             int productsPerPage,
             string searchCriteria,
             ProductSorting sorting,
-            int? categoryId)
+            int? categoryId,
+            IEnumerable<int> selectedSubcategories = null)
         {
             var entities = context.Products
                     .Include(e => e.Subcategory)
                     .ThenInclude(e => e.Category)
                     .AsQueryable();
+
+            if (selectedSubcategories != null && selectedSubcategories.Count() > 0)
+            {
+                entities = entities
+                    .Where(e => selectedSubcategories.Any(s => s == e.SubcategoryId));
+            }
 
             switch (sorting)
             {
@@ -53,6 +60,7 @@
                     entities = entities
                         .OrderBy(p => p.Price);
                     break;
+                    //todo : implement
             }
 
             if (categoryId.HasValue)

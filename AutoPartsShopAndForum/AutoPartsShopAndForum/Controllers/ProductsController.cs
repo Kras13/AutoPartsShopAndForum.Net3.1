@@ -62,14 +62,8 @@
                 queryModel.ProductsPerPage,
                 queryModel.SearchCriteria,
                 queryModel.Sorting,
-                queryModel.CategoryId);
-
-            if (selectedSubCategories.Count != 0)
-            {
-                products.Products = products.Products
-                    .Where(p => selectedSubCategories.Any(s => s == p.SubcategoryId))
-                    .ToList();
-            }
+                queryModel.CategoryId,
+                selectedSubCategories);
 
             var model = new ProductQueryViewModel()
             {

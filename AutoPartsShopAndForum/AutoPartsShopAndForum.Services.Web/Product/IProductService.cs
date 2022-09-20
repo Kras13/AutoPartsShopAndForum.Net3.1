@@ -12,7 +12,8 @@
              int productsPerPage,
              string searchCriteria,
              ProductSorting sorting,
-             int? categoryId);
+             int? categoryId,
+             IEnumerable<int> selectedSubcategories = null);
 
         ICollection<ProductModel> GetAllProducts();
 
