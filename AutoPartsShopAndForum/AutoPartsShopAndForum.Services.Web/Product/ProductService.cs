@@ -60,7 +60,26 @@
                     entities = entities
                         .OrderBy(p => p.Price);
                     break;
-                    //todo : implement
+                case ProductSorting.PriceDescending:
+                    entities = entities
+                        .OrderByDescending(p => p.Price);
+                    break;
+                case ProductSorting.DateAscenging:
+                    entities = entities
+                        .OrderBy(p => p.Id);
+                    break;
+                case ProductSorting.DateDescending:
+                    entities = entities
+                        .OrderByDescending(p => p.Id);
+                    break;
+                case ProductSorting.NameAscending:
+                    entities = entities
+                        .OrderBy(p => p.Name);
+                    break;
+                case ProductSorting.NameDescending:
+                    entities = entities
+                        .OrderByDescending(p => p.Name);
+                    break;
             }
 
             if (categoryId.HasValue)
