@@ -4,6 +4,7 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Services.Web.Category;
+    using AutoPartsShopAndForum.Services.Web.Mail;
     using AutoPartsShopAndForum.Services.Web.Product;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -47,6 +48,7 @@ namespace AutoPartsShopAndForum
 
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IMailService, MailService>();
 
             services.AddSession();
 

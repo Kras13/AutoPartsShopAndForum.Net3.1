@@ -1,4 +1,4 @@
-﻿namespace AutoPartsShopAndForum.Areas.Seller.Models.Input
+﻿namespace AutoPartsShopAndForum.Services.Data.Mail
 {
     using System.Collections.Generic;
 
@@ -12,6 +12,6 @@
 
         public string Header { get; set; }
 
-        ICollection<SellerModel> Sellers { get; set; }
+        public ICollection<SellerModel> Sellers { get; set; }
     }
 }

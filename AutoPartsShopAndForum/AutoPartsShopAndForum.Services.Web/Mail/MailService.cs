@@ -23,7 +23,8 @@
             var usersInRole = context.UserRoles
                 .Where(ur => roles.Any(r => r.Id == ur.RoleId));
 
-            var users = context.Users.Where(u => usersInRole.Any(ur => ur.UserId == u.Id));
+            var users = context.Users
+                .Where(u => usersInRole.Any(ur => ur.UserId == u.Id));
 
             return users
                 .Select(u => new SellerModel()

@@ -1,1 +1,9 @@
-﻿
+﻿@using AutoPartsShopAndForum.Services.Data.Mail
+
+@model MailSendInpuModel
+
+@foreach (var seller in Model.Sellers)
+{
+    <div>@seller.Name</div>
+}
+
