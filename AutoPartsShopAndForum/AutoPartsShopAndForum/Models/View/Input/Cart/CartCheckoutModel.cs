@@ -4,6 +4,8 @@
     {
         public string Street { get; set; }
 
-        public int MyProperty { get; set; }
+        public ICollection<TownModel> Towns { get; set; }
+
+
     }
 }
