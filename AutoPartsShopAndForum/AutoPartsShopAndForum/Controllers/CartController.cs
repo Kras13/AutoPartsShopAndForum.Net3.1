@@ -2,8 +2,10 @@
 {
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Models.View.Query.Cart;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -99,6 +101,19 @@
         public IActionResult Buy(CartCheckoutModel model)
         {
             return View(model);
+        }
+
+        [Authorize]
+        public IActionResult Checkout()
+        {
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            if (products == null || products.Count == 0)
+            {
+                throw new InvalidOperationException("Can not call Checkout on empty products collection!");
+            }
+
+            return View(products);
         }
     }
 }
