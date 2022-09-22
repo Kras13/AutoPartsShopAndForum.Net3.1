@@ -2,7 +2,6 @@
 {
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Models.View.Query.Cart;
-    using AutoPartsShopAndForum.Models.View.Query.Products;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using System.Collections.Generic;
@@ -29,6 +28,17 @@
             var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
 
             selectedModel.Quantity = quantity;
+
+            HttpContext.Session.SetObject("Cart", cartCollection);
+        }
+
+        public void RemoveProduct(int id)
+        {
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
+
+            cartCollection.Remove(selectedModel);
 
             HttpContext.Session.SetObject("Cart", cartCollection);
         }

@@ -50,7 +50,7 @@
                 <nav aria-label="Search">
                     <ul class="pagination">
                         <li>
-                            <select asp-for="ProductsPerPage" class="form-control" onchange="this.form.submit()">
+                            <select asp-for="ProductsPerPage" class="form-control" onchange="this.form.submit()" onclick=" InvalidatePaging()">
                                 <option value="2">2</option>
                                 <option value="3">3</option>
                                 <option value="10">10</option>
@@ -88,9 +88,7 @@
                     <div class="form-group text-center">
                         <input class="btn btn-primary" type="submit" value="Apply" />
                         <a class="btn btn-danger" asp-controller="Products" asp-action="All"
-                           asp-route-categoryid="@Model.CategoryId"
-                           asp-route-sorting="@Model.Sorting"
-                           asp-route-searchcriteria="@Model.SearchCriteria">Reset</a>
+                           asp-route-categoryid="@Model.CategoryId">Reset</a>
                     </div>
                 </div>
                 <div class="box border-bottom">
@@ -165,6 +163,7 @@
         var InvalidatePaging = function () {
             $("#btnNext").attr("disabled", true);
             $("#btnPrevious").attr("disabled", true);
+            $("#CurrentPageComp").val(1);
         }
 
     </script>
