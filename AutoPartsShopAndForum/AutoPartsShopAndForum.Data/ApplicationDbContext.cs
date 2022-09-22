@@ -82,6 +82,17 @@
                 .OnDelete(DeleteBehavior.Restrict);
 
             builder
+                .Entity<Order>()
+                .HasOne(o => o.Town)
+                .WithMany(t => t.Orders)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder
+                .Entity<Town>()
+                .HasMany(t => t.Orders)
+                .WithOne(t => t.Town)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<OrderProduct>()
                 .HasKey(k => new
                 {

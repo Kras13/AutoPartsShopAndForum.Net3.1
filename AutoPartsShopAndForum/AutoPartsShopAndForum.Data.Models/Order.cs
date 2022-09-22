@@ -27,6 +27,13 @@
         [Required]
         public DateTime DateDelivered { get; set; }
 
+        public string Street { get; set; }
+
+        [ForeignKey(nameof(Town))]
+        public int TownId { get; set; }
+
+        public Town Town { get; set; }
+
         public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

@@ -1,1 +1,40 @@
-﻿@model ICollection<ProductCartModel>
+﻿@*@model ICollection<ProductCartModel>
+
+
+<form method="post">
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" id="Name" class="form-control" placeholder="Bardahl, Motul, MAN...">
+        <span asp-validation-for="Name" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Price"></label>
+        <input asp-for="Price" id="ImageUrl" class="form-control" placeholder="99.99" type="number" min="0.00" max="10000.00" step="0.01">
+        <span asp-validation-for="Price" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" id="DescriptionInput" class="form-control" placeholder="Long life oil...and so on" rows="3"></textarea>
+        <span asp-validation-for="Description" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="ImageUrl"></label>
+        <input asp-for="ImageUrl" id="ImageUrl" class="form-control" placeholder="URL to the image of the product">
+        <span asp-validation-for="ImageUrl" class="small text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="SelectedSubcategoryId"></label>
+        <select asp-for="SelectedSubcategoryId" class="form-control">
+            @foreach (var subCategory in Model.SubCategories)
+            {
+                <option value="@subCategory.Id">@subCategory.Name</option>
+            }
+        </select>
+    </div>
+
+    <input class="btn btn-primary" type="submit" value="Save" />
+</form>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}*@
