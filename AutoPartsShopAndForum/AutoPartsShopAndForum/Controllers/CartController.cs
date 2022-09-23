@@ -14,10 +14,12 @@
     public class CartController : Controller
     {
         private readonly ITownService townService;
+        private readonly ICartService cartService;
 
-        public CartController(ITownService townService)
+        public CartController(ITownService townService, ICartService cartService)
         {
             this.townService = townService;
+            this.cartService = cartService;
         }
 
         public IActionResult All()
