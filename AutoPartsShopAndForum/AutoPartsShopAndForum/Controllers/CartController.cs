@@ -1,7 +1,9 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Models.View.Input.Cart;
     using AutoPartsShopAndForum.Models.View.Query.Cart;
+    using AutoPartsShopAndForum.Services.Web.Town;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
@@ -11,9 +13,11 @@
 
     public class CartController : Controller
     {
-        public CartController()
-        {
+        private readonly ITownService townService;
 
+        public CartController(ITownService townService)
+        {
+            this.townService = townService;
         }
 
         public IActionResult All()
@@ -97,12 +101,6 @@
             return Redirect("Products/All");
         }
 
-        [HttpPost]
-        public IActionResult Buy(CartCheckoutModel model)
-        {
-            return View(model);
-        }
-
         [Authorize]
         public IActionResult Checkout()
         {
@@ -113,7 +111,32 @@
                 throw new InvalidOperationException("Can not call Checkout on empty products collection!");
             }
 
-            return View(products);
+            decimal sum = products.Sum(p => p.Total);
+
+            var model = new CartCheckoutModel()
+            {
+                Towns = townService.GetAllTowns(),
+                TotalAmount = sum
+
+            };
+
+            return View(model);
+        }
+
+        [Authorize]
+        [HttpPost]
+        public IActionResult Checkout(CartCheckoutModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // order products
+            // clear the cart
+
+            ViewBag.OrderSuccessful = true;
+            return Redirect("Home/Index");
         }
     }
 }

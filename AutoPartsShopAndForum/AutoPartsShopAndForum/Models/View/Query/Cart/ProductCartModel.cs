@@ -14,7 +14,7 @@
 
         public int Quantity { get; set; }
 
-        public decimal Total { get; set; }
+        public decimal Total { get { return this.Price * Quantity; } }
 
         public bool Added { get; set; }
 
