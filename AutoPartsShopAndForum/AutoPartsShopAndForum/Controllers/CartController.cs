@@ -15,9 +15,9 @@
     public class CartController : Controller
     {
         private readonly ITownService townService;
-        private readonly ICartService cartService;
+        private readonly IOrderService cartService;
 
-        public CartController(ITownService townService, ICartService cartService)
+        public CartController(ITownService townService, IOrderService cartService)
         {
             this.townService = townService;
             this.cartService = cartService;
