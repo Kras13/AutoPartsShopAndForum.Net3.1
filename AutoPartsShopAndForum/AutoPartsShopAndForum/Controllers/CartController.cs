@@ -15,12 +15,12 @@
     public class CartController : Controller
     {
         private readonly ITownService townService;
-        private readonly IOrderService cartService;
+        private readonly IOrderService orderService;
 
-        public CartController(ITownService townService, IOrderService cartService)
+        public CartController(ITownService townService, IOrderService orderService)
         {
             this.townService = townService;
-            this.cartService = cartService;
+            this.orderService = orderService;
         }
 
         public IActionResult All()
@@ -135,8 +135,26 @@
                 return View(model);
             }
 
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+
             // order products
-            // clear the cart
+            orderService.OrderProducts(products.Select(p =>
+                new Services.Data.Product.ProductCartModel()
+                {
+                    Id = p.Id,
+                    Description = p.Description,
+                    ImageUrl = p.ImageUrl,
+                    Name = p.Name,
+                    Price = p.Price,
+                    Quantity = p.Quantity
+                }).ToArray(),
+                this.User.GetId(),
+                model.SelectedTownId,
+                model.Street);
+
+            products.Clear();
+
+            HttpContext.Session.SetObject("Cart", products);
 
             ViewBag.OrderSuccessful = true;
             return Redirect("Home/Index");

@@ -4,6 +4,11 @@
 
 @model CategoryModel[]
 
+@if (ViewBag.OrderSuccessful != null)
+{
+    <div>The order is successful</div>
+}
+
 <div class="catsummary">
     @foreach (var category in Model)
     {

@@ -22,7 +22,7 @@
 
             var userOrders = this.context.Orders
                 .Where(o => o.UserId == userId)
-                .AsQueryable();
+                .ToArray();
 
             foreach (var order in userOrders)
             {
