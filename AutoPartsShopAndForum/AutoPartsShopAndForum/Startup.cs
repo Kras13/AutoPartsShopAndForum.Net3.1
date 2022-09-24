@@ -3,9 +3,9 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
-    using AutoPartsShopAndForum.Services.Web.Cart;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Mail;
+    using AutoPartsShopAndForum.Services.Web.Order;
     using AutoPartsShopAndForum.Services.Web.Product;
     using AutoPartsShopAndForum.Services.Web.Town;
     using Microsoft.AspNetCore.Builder;
@@ -47,11 +47,7 @@ namespace AutoPartsShopAndForum
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddTransient<ICategoryService, CategoryService>();
-            services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IMailService, MailService>();
-            services.AddTransient<ITownService, TownService>();
-            services.AddTransient<ICartService, CartService>();
+            services.RegisterBusinessServices();
 
             services.AddSession();
 
