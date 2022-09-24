@@ -1,11 +1,4 @@
-﻿@model ICollection<ProductCartModel>
-@*@if (Model != null)
-    {
-        @foreach (var product in Model)
-        {
-            <div>@(product.Name) Quantity : @(product.Quantity)</div>
-        }
-    }*@
+﻿@model ICollection<ProductCartViewModel>
 
 @{ decimal total = 0;}
 
@@ -20,50 +13,47 @@
                             <h5 class="mb-0">Cart - @Model.Count items</h5>
                         </div>
                         <div class="card-body">
-                            @if (Model != null)
+                            @foreach (var item in Model)
                             {
-                                foreach (var item in Model)
-                                {
-                                    <!-- Single item -->
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                            <!-- Image -->
-                                            <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                                <img src="@item.ImageUrl"
-                                                     class="w-100" alt="@item.Name" />
-                                            </div>
-                                            <!-- Image -->
-                                        </div>
-
-                                        <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                            @*<a href="#" class="btn btn-danger" onclick="ChangeQuantity(@item.Id)">Remove item</a>*@
-                                            <input type="button" name="name" value="Remove item" class="btn btn-danger" onclick="RemoveProduct(@item.Id)" />
-                                        </div>
-
-                                        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-
-                                            @*<form asp-action="All">
-                                                    <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
-                                                    <input type="submit" value="Save" class="btn btn-primary" />
-                                                </form>*@
-
-                                            <label asp-for="@item.Quantity"></label>
-                                            <div class="d-flex mb-4" style="max-width: 300px">
-                                                <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
-                                                <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
-                                            </div>
-
-                                            <!-- Quantity -->
-                                            <!-- Price -->
-                                            <p class="text-start text-md-center">
-                                                <strong>Single price: @item.Price leva</strong>
-                                                @{total += item.Price * item.Quantity;}
-                                            </p>
-                                            <!-- Price -->
-                                        </div>
+                            <!-- Single item -->
+                            <div class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                        <img src="@item.ImageUrl"
+                                             class="w-100" alt="@item.Name" />
                                     </div>
-                                    <hr class="my-4" />
-                                }
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    @*<a href="#" class="btn btn-danger" onclick="ChangeQuantity(@item.Id)">Remove item</a>*@
+                                    <input type="button" name="name" value="Remove item" class="btn btn-danger" onclick="RemoveProduct(@item.Id)" />
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+
+                                    @*<form asp-action="All">
+                                            <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
+                                            <input type="submit" value="Save" class="btn btn-primary" />
+                                        </form>*@
+
+                                    <label asp-for="@item.Quantity"></label>
+                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                        <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
+                                        <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                    </div>
+
+                                    <!-- Quantity -->
+                                    <!-- Price -->
+                                    <p class="text-start text-md-center">
+                                        <strong>Single price: @item.Price leva</strong>
+                                        @{total += item.Total;}
+                                    </p>
+                                    <!-- Price -->
+                                </div>
+                            </div>
+                            <hr class="my-4" />
                             }
                         </div>
                     </div>
@@ -100,19 +90,6 @@
     </section>
 
 }
-
-
-@*<input type="hidden" id="selectedItemId" />
-    <input type="hidden" id="selectedItemQuantity" />*@
-
-@*@section Scripts
-        {
-        <script>
-            $('form input').change(function () {
-                $(this).closest('form').submit();
-            });
-        </script>
-    }*@
 
 @section Scripts
         {

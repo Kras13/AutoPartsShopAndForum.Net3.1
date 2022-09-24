@@ -3,6 +3,7 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
+    using AutoPartsShopAndForum.Services.Web.Cart;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Mail;
     using AutoPartsShopAndForum.Services.Web.Product;
@@ -51,6 +52,7 @@ namespace AutoPartsShopAndForum
             services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<ITownService, TownService>();
+            services.AddTransient<ICartService, CartService>();
 
             services.AddSession();
 

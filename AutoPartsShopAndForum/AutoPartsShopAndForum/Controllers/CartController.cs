@@ -2,7 +2,8 @@
 {
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Models.View.Input.Cart;
-    using AutoPartsShopAndForum.Models.View.Query.Cart;
+    using AutoPartsShopAndForum.Models.View.Query.Products;
+    using AutoPartsShopAndForum.Services.Web.Cart;
     using AutoPartsShopAndForum.Services.Web.Town;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http;
@@ -24,14 +25,14 @@
 
         public IActionResult All()
         {
-            var model = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var model = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             return View(model);
         }
 
         public void ChangeProduct(int id, int quantity)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
 
@@ -42,7 +43,7 @@
 
         public void RemoveProduct(int id)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
 
@@ -51,13 +52,13 @@
             HttpContext.Session.SetObject("Cart", cartCollection);
         }
 
-        public IActionResult Add(ProductCartModel model)
+        public IActionResult Add(ProductCartViewModel model)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             if (cartCollection == null)
             {
-                cartCollection = new List<ProductCartModel>();
+                cartCollection = new List<ProductCartViewModel>();
             }
 
             var currentProduct = cartCollection.FirstOrDefault(p => p.Id == model.Id);
@@ -90,7 +91,7 @@
 
         public IActionResult Buy()
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             if (cartCollection != null)
             {
@@ -106,7 +107,7 @@
         [Authorize]
         public IActionResult Checkout()
         {
-            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
             if (products == null || products.Count == 0)
             {

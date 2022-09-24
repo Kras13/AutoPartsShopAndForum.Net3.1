@@ -2,6 +2,7 @@
 using AutoPartsShopAndForum.Data.Models;
 using AutoPartsShopAndForum.Services.Data.Product;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AutoPartsShopAndForum.Services.Web.Cart
 {
@@ -15,9 +16,8 @@ namespace AutoPartsShopAndForum.Services.Web.Cart
         }
 
         public int OrderProducts(
-            ICollection<ProductModel> products, string userId, int townId, string street)
+            ICollection<ProductCartModel> products, string userId, int townId, string street)
         {
-            // orders -> productsorders
             int orderId = -1;
 
             using (var transaction = context.Database.BeginTransaction())
@@ -25,7 +25,11 @@ namespace AutoPartsShopAndForum.Services.Web.Cart
                 try
                 {
                     var order = context.Orders.Add(new Order()
-                    { });
+                    {
+                        Street = street,
+                    });
+
+                    orderId = order.Entity.Id;
                 }
                 finally
                 {
@@ -33,7 +37,7 @@ namespace AutoPartsShopAndForum.Services.Web.Cart
                 }
             }
 
-
+            return orderId;
         }
     }
 }

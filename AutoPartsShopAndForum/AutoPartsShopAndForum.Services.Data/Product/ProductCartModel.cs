@@ -1,4 +1,4 @@
-﻿namespace AutoPartsShopAndForum.Models.View.Query.Cart
+﻿namespace AutoPartsShopAndForum.Services.Data.Product
 {
     public class ProductCartModel
     {
@@ -15,9 +15,5 @@
         public int Quantity { get; set; }
 
         public decimal Total { get { return this.Price * Quantity; } }
-
-        public bool Added { get; set; }
-
-        public string LastUrl { get; set; }
     }
 }

@@ -5,6 +5,6 @@
 
     public interface ICartService
     {
-        int OrderProducts(ICollection<ProductModel> products, string userId, int townId, string street);
+        int OrderProducts(ICollection<ProductCartModel> products, string userId, int townId, string street);
     }
 }
