@@ -80,10 +80,13 @@
                     }
 
                     context.SaveChanges();
+                    transaction.Commit();
                 }
-                finally
+                catch(System.Exception e)
                 {
                     transaction.Rollback();
+
+                    throw e;
                 }
             }
 

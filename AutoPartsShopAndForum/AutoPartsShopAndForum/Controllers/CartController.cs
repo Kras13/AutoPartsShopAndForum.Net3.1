@@ -157,7 +157,7 @@
             HttpContext.Session.SetObject("Cart", products);
 
             ViewBag.OrderSuccessful = true;
-            return Redirect("Home/Index");
+            return Redirect("/Home/Index");
         }
     }
 }
