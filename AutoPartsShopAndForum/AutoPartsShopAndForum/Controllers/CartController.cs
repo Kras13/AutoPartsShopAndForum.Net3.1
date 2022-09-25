@@ -137,7 +137,6 @@
 
             var products = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
 
-            // order products
             orderService.OrderProducts(products.Select(p =>
                 new Services.Data.Product.ProductCartModel()
                 {
@@ -156,7 +155,7 @@
 
             HttpContext.Session.SetObject("Cart", products);
 
-            ViewBag.OrderSuccessful = true;
+            TempData["OrderSuccessful"] = 1;
             return Redirect("/Home/Index");
         }
     }
