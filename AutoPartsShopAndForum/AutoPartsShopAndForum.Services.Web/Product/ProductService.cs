@@ -48,6 +48,11 @@
                     .ThenInclude(e => e.Category)
                     .AsQueryable();
 
+            if (!string.IsNullOrWhiteSpace(searchCriteria))
+            {
+                entities = entities.Where(e => e.Name.ToLower().Contains(searchCriteria.ToLower()));
+            }
+
             if (selectedSubcategories != null && selectedSubcategories.Count() > 0)
             {
                 entities = entities
