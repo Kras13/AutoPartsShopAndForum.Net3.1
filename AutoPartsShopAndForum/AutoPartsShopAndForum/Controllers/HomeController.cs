@@ -53,6 +53,8 @@
                 return View(model);
             }
 
+            ViewBag.SeccessfulyCandidate = true;
+
             return View();
         }
 
