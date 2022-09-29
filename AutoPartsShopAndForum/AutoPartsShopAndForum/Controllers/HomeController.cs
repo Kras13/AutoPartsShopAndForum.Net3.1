@@ -6,6 +6,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using System.Diagnostics;
+    using AutoPartsShopAndForum.Data.Models.Constants;
+    using System;
+    using Microsoft.AspNetCore.Authorization;
 
     public class HomeController : Controller
     {
@@ -21,6 +24,36 @@
             var categories = categoryService.GetCategories();
 
             return View(categories);
+        }
+
+        [Authorize]
+        public IActionResult Candidate()
+        {
+            if (User.IsInRole(Role.Seller) || User.IsInRole(Role.Administrator))
+            {
+                throw new InvalidOperationException(
+                    "Administrators and Sellers can not candidate");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public IActionResult Candidate(UserCandidateInputModel model)
+        {
+            if (User.IsInRole(Role.Seller) || User.IsInRole(Role.Administrator))
+            {
+                throw new InvalidOperationException(
+                    "Administrators and Sellers can not candidate");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            return View();
         }
 
         public IActionResult Privacy()
