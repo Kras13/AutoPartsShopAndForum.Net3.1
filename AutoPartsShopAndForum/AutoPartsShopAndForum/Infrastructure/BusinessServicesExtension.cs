@@ -5,6 +5,7 @@
     using AutoPartsShopAndForum.Services.Web.Order;
     using AutoPartsShopAndForum.Services.Web.Product;
     using AutoPartsShopAndForum.Services.Web.Town;
+    using AutoPartsShopAndForum.Services.Web.User;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class BusinessServicesExtension
@@ -16,6 +17,7 @@
             services.AddTransient<IMailService, MailService>();
             services.AddTransient<ITownService, TownService>();
             services.AddTransient<IOrderService, OrderService>();
+            services.AddTransient<IUserService, UserService>();
 
             return services;
         }

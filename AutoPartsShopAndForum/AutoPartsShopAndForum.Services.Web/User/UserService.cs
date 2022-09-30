@@ -1,7 +1,11 @@
 ﻿namespace AutoPartsShopAndForum.Services.Web.User
 {
     using AutoPartsShopAndForum.Data;
+    using AutoPartsShopAndForum.Services.Data.User;
+    using Microsoft.EntityFrameworkCore;
     using System;
+    using System.Collections.Generic;
+    using System.Linq;
 
     public class UserService : IUserService
     {
@@ -35,6 +39,20 @@
                     throw e;
                 }
             }
+        }
+
+        public ICollection<PendingUserModel> GetPendingUsers()
+        {
+            var pendingUsers = this.context.PendingSellers
+                .Include(p => p.User)
+                .Select(pu => new PendingUserModel
+                {
+                    Id = pu.UserId,
+                    FullName = pu.User.FirstName + pu.User.LastName,
+                    SelfDescription = pu.SelfDescription
+                }).ToArray();
+
+            return pendingUsers;
         }
     }
 }

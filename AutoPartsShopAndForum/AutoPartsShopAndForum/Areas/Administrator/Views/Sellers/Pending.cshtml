@@ -1,20 +1,52 @@
-﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+﻿@using AutoPartsShopAndForum.Services.Data.User
+
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 @{
     ViewData["Title"] = "Pending Sellers";
 }
 
+@model ICollection<PendingUserModel>
 
 <div class="container">
-    <div class="row" >
-        <div class="col-sm border border-primary">
-            One of three columns
-        </div>
-        <div class="col-sm border border-primary">
-            One of three columns
-        </div>
-        <div class="col-sm border border-primary">
-            One of three columns
-        </div>
+    <div class="row">
+        @foreach (var user in Model)
+        {
+            <div class="col-sm border border-primary">
+                @user.FullName
+            </div>
+            <div class="col-sm border border-primary">
+                @user.SelfDescription
+            </div>
+            <div class="col-sm border border-primary">
+                <a class="btn btn-primary" onclick="ModalUserApprovement(@user.Id)">Approve</a>
+            </div>
+        }
     </div>
+
+    <input type="hidden" id="approvedUserId" />
 </div>
+
+@section Scripts
+        {
+    <script>
+        var ModalUserApprovement = function(UserId){
+            $("#approvedUserId").val(UserId);
+            $("#myModal").modal('show');
+        }
+
+        var ApproveUser = function () {
+            var userId = $("#approvedUserId").val();
+
+            $.ajax({
+                type: "POST",
+                url: "Administrator/Sellers/ChangeProduct",
+                data: { id: userId},
+                success: function () {
+                    $("#myModal").modal("hide");
+                    location.reload();
+                }
+            });
+        }
+    </script>
+}
