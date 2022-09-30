@@ -40,13 +40,13 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Seller" asp-controller="Home" asp-action="Candidate">Candidate for Seller</a>
+                                <a class="nav-link text-dark" asp-controller="Home" asp-action="Candidate">Candidate for Seller</a>
                             </li>
                         }
                         @if (this.User.IsAdmin())
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="Admin" asp-controller="Sellers" asp-action="Approvement">Seller Candidates</a>
+                                <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Sellers" asp-action="Pending">Seller Candidates</a>
                             </li>
                         }
                     </ul>

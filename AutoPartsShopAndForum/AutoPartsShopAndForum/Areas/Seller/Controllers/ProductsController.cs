@@ -1,18 +1,14 @@
 ﻿namespace AutoPartsShopAndForum.Areas.Seller.Controllers
 {
     using AutoPartsShopAndForum.Areas.Seller.Models.Input;
-    using AutoPartsShopAndForum.Data.Models.Constants;
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Product;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using System;
 
-    [Area(Role.Seller)]
-    [Authorize(Roles = Role.Seller + "," + Role.Administrator)]
-    public class ProductsController : Controller
+    public class ProductsController : BaseSellerController
     {
         private readonly IProductService productService;
         private readonly ICategoryService categoryService;
