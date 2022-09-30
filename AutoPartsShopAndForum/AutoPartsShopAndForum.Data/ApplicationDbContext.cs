@@ -112,6 +112,10 @@
                 .HasForeignKey(m => m.SenderId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<PendingSeller>()
+                .HasIndex(s => s.UserId)
+                .IsUnique();
+
             base.OnModelCreating(builder);
         }
 

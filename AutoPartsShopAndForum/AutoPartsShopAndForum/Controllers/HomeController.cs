@@ -9,6 +9,7 @@
     using AutoPartsShopAndForum.Data.Models.Constants;
     using System;
     using Microsoft.AspNetCore.Authorization;
+    using AutoPartsShopAndForum.Models.View.User;
 
     public class HomeController : Controller
     {

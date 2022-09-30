@@ -2,5 +2,6 @@
 {
     public interface IUserService
     {
+        void Candidate(string userId, string motivation);
     }
 }
