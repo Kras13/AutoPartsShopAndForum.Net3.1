@@ -19,8 +19,10 @@
         }
 
         [HttpPost]
-        public IActionResult Pending(int id)
+        public IActionResult Pending(string id)
         {
+            //userService.Approve(id, selfDescription);
+
             return Redirect(nameof(Pending));
         }
     }

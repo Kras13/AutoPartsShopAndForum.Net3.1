@@ -7,6 +7,6 @@
     {
         ICollection<PendingUserModel> GetPendingUsers();
 
-        void Candidate(string userId, string motivation);
+        void Approve(string userId, string selfDescription);
     }
 }

@@ -16,7 +16,7 @@
             this.context = context;
         }
 
-        public void Candidate(string userId, string motivation)
+        public void Approve(string userId, string selfDescription)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -25,7 +25,7 @@
                     context.PendingSellers.Add(new AutoPartsShopAndForum.Data.Models.PendingSeller()
                     {
                         UserId = userId,
-                        SelfDescription = motivation,
+                        SelfDescription = selfDescription,
                         DateCandidate = DateTime.Now,
                         Approoved = false
                     });

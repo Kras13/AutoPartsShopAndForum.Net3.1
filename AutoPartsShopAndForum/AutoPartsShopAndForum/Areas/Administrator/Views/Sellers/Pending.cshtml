@@ -23,9 +23,7 @@
 
                 <button type="button"
                         class="btn btn-primary"
-                        data-toggle="modal"
-                        data-target="#myModal"
-                        onclick="ModalUserApprovement(@user.Id)">
+                        onclick="ModalUserApprovement('@(user.Id)')">
                     Approve
                 </button>
 
@@ -54,6 +52,7 @@
     </div>
 
     <input type="hidden" id="approvedUserId" />
+    <input type="hidden" id="approvedUserSelfDescription" />
     <input type="text" name="tesing" id="test1" value="demo" />
 </div>
 
@@ -61,6 +60,7 @@
         {
     <script>
         var ModalUserApprovement = function (UserId) {
+            $("#test1").val("veche ne e demo ->");
             $("#approvedUserId").val(UserId);
             $("#myModal").modal('show');
         }
@@ -68,7 +68,7 @@
         var ApproveUser = function () {
             var userId = $("#approvedUserId").val();
 
-            $("#test1").val("veche ne e demo");
+            $("#test1").val("veche ne e demo ->" +  "asdasdasd");
 
             $.ajax({
                 type: "POST",
