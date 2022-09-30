@@ -19,7 +19,7 @@
         }
 
         [HttpPost]
-        public IActionResult Approve(int id)
+        public IActionResult Pending(int id)
         {
             return Redirect(nameof(Pending));
         }

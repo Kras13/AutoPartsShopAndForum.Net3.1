@@ -19,18 +19,48 @@
                 @user.SelfDescription
             </div>
             <div class="col-sm border border-primary">
-                <a class="btn btn-primary" onclick="ModalUserApprovement(@user.Id)">Approve</a>
+                @*<a href="#" class="btn btn-danger" onclick="ModalUserApprovement(@user.Id)">Approve</a>*@
+
+                <button type="button"
+                        class="btn btn-primary"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                        onclick="ModalUserApprovement(@user.Id)">
+                    Approve
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                Approve confirmation
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary" onclick="ApproveUser()">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         }
     </div>
 
     <input type="hidden" id="approvedUserId" />
+    <input type="text" name="tesing" id="test1" value="demo" />
 </div>
 
 @section Scripts
         {
     <script>
-        var ModalUserApprovement = function(UserId){
+        var ModalUserApprovement = function (UserId) {
             $("#approvedUserId").val(UserId);
             $("#myModal").modal('show');
         }
@@ -38,10 +68,12 @@
         var ApproveUser = function () {
             var userId = $("#approvedUserId").val();
 
+            $("#test1").val("veche ne e demo");
+
             $.ajax({
                 type: "POST",
-                url: "Administrator/Sellers/ChangeProduct",
-                data: { id: userId},
+                url: "/Administrator/Sellers/Pending",
+                data: { id: userId },
                 success: function () {
                     $("#myModal").modal("hide");
                     location.reload();
