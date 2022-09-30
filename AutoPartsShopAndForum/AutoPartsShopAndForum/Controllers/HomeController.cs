@@ -41,7 +41,7 @@
 
         [HttpPost]
         [Authorize]
-        public IActionResult Candidate(UserCandidateInputModel model)
+        public IActionResult Candidate(string motivation)
         {
             if (User.IsInRole(Role.Seller) || User.IsInRole(Role.Administrator))
             {
@@ -49,14 +49,9 @@
                     "Administrators and Sellers can not candidate");
             }
 
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             ViewBag.SeccessfulyCandidate = true;
 
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         public IActionResult Privacy()

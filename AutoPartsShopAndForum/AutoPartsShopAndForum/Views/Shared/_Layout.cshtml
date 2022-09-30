@@ -37,6 +37,12 @@
                                 <a class="nav-link text-dark" asp-area="Seller" asp-controller="Products" asp-action="Add">Add Product</a>
                             </li>
                         }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Seller" asp-controller="Home" asp-action="Candidate">Candidate for Seller</a>
+                            </li>
+                        }
                         @if (this.User.IsAdmin())
                         {
                             <li class="nav-item">
