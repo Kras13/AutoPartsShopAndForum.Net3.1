@@ -60,15 +60,12 @@
         {
     <script>
         var ModalUserApprovement = function (UserId) {
-            $("#test1").val("veche ne e demo ->");
             $("#approvedUserId").val(UserId);
             $("#myModal").modal('show');
         }
 
         var ApproveUser = function () {
             var userId = $("#approvedUserId").val();
-
-            $("#test1").val("veche ne e demo ->" +  "asdasdasd");
 
             $.ajax({
                 type: "POST",
