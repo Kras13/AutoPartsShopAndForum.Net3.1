@@ -16,19 +16,24 @@
             this.context = context;
         }
 
-        public void Approve(string userId, string selfDescription)
+        public void ApproveSeller(string adminId, string userId)
         {
+            var user = context.PendingSellers
+                        .FirstOrDefault(p => p.UserId == userId);
+
+            if (user == null)
+            {
+                throw new ArgumentException("User with the selected id does not exist");
+            }
+
             using (var transaction = context.Database.BeginTransaction())
             {
                 try
                 {
-                    context.PendingSellers.Add(new AutoPartsShopAndForum.Data.Models.PendingSeller()
-                    {
-                        UserId = userId,
-                        SelfDescription = selfDescription,
-                        DateCandidate = DateTime.Now,
-                        Approoved = false
-                    });
+                    user.Approoved = true;
+                    user.ApprovedById = adminId;
+
+                    context.SaveChanges();
 
                     transaction.Commit();
                 }
@@ -44,6 +49,7 @@
         public ICollection<PendingUserModel> GetPendingUsers()
         {
             var pendingUsers = this.context.PendingSellers
+                .Where(ps => ps.Approoved == false)
                 .Include(p => p.User)
                 .Select(pu => new PendingUserModel
                 {

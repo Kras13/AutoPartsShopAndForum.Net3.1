@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Areas.Administrator.Controllers
 {
+    using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Services.Web.User;
     using Microsoft.AspNetCore.Mvc;
     public class SellersController : BaseAdminController
@@ -21,7 +22,7 @@
         [HttpPost]
         public IActionResult Pending(string id)
         {
-            //userService.Approve(id, selfDescription);
+            userService.ApproveSeller(this.User.GetId(), id);
 
             return Redirect(nameof(Pending));
         }

@@ -26,5 +26,9 @@
         public string SelfDescription { get; set; }
 
         public bool Approoved { get; set; }
+
+        [ForeignKey(nameof(ApprovedBy))]
+        public string ApprovedById { get; set; }
+        public User ApprovedBy { get; set; }
     }
 }
