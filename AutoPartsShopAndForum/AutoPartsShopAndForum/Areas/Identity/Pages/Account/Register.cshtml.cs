@@ -15,6 +15,8 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
     using Microsoft.Extensions.Logging;
+    using AutoPartsShopAndForum.Services.Data.Town;
+    using AutoPartsShopAndForum.Services.Web.Town;
 
     [AllowAnonymous]
     public class RegisterModel : PageModel
@@ -23,17 +25,20 @@
         private readonly UserManager<User> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ITownService _townService;
 
         public RegisterModel(
             UserManager<User> userManager,
             SignInManager<User> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ITownService townService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _townService = townService;
         }
 
         [BindProperty]
@@ -77,13 +82,18 @@
             public string EGN { get; set; }
 
             [Required]
+            [Display(Name = "Town")]
             public int TownId { get; set; }
+
+            public ICollection<TownModel> Towns { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)
         {
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+
+            Input = new InputModel() { Towns = _townService.GetAllTowns() };
         }
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
@@ -92,7 +102,15 @@
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = Input.Email, Email = Input.Email };
+                var user = new User 
+                { 
+                    UserName = Input.Email, 
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
+                    LastName = Input.LastName,
+                    EGN = Input.EGN,
+                    TownId = Input.TownId,
+                };
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
