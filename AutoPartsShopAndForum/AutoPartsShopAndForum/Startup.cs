@@ -3,11 +3,6 @@ namespace AutoPartsShopAndForum
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Infrastructure;
-    using AutoPartsShopAndForum.Services.Web.Category;
-    using AutoPartsShopAndForum.Services.Web.Mail;
-    using AutoPartsShopAndForum.Services.Web.Order;
-    using AutoPartsShopAndForum.Services.Web.Product;
-    using AutoPartsShopAndForum.Services.Web.Town;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
