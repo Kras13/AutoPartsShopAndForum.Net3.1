@@ -4,6 +4,7 @@
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Services.Data.Order;
     using AutoPartsShopAndForum.Services.Data.Product;
+    using Microsoft.EntityFrameworkCore;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -21,6 +22,8 @@
             var result = new List<OrderModel>();
 
             var userOrders = this.context.Orders
+                .Include(u => u.User)
+                .Include(t => t.Town)
                 .Where(o => o.UserId == userId)
                 .ToArray();
 

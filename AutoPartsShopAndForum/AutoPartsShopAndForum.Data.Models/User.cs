@@ -39,5 +39,7 @@
         public virtual ICollection<MailHistory> MessagesSent { get; set; }
 
         public virtual ICollection<MailHistory> MessagesReceived { get; set; }
+
+
     }
 }
