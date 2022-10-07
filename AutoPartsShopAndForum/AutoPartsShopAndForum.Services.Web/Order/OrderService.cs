@@ -5,6 +5,7 @@
     using AutoPartsShopAndForum.Services.Data.Order;
     using AutoPartsShopAndForum.Services.Data.Product;
     using Microsoft.EntityFrameworkCore;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -17,6 +18,35 @@
             this.context = context;
         }
 
+        public OrderModel GetOrderDetails(int orderId)
+        {
+            var order = this.context.Orders
+                .Include(p => p.OrderProducts)
+                .ThenInclude(op => op.Product)
+                .FirstOrDefault(o => o.Id == orderId);
+
+            if (order == null)
+            {
+                throw new ArgumentException("OrderService -> GetOrderDetails invalid order id");
+            }
+
+            return new OrderModel()
+            {
+                Id = order.Id,
+                Products = order.OrderProducts
+                    .Select(op => new ProductCartModel
+                    {
+                        Id = op.ProductId,
+                        Description = op.Product.Description,
+                        ImageUrl = op.Product.ImageUrl,
+                        Name = op.Product.Name,
+                        Price = op.Product.Price,
+                        Quantity = op.Quantity
+                    })
+                    .ToArray()
+            };
+        }
+
         public ICollection<OrderModel> GetOrderedProducts(string userId)
         {
             var result = new List<OrderModel>();
@@ -24,6 +54,8 @@
             var userOrders = this.context.Orders
                 .Include(u => u.User)
                 .Include(t => t.Town)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Product)
                 .Where(o => o.UserId == userId)
                 .ToArray();
 
@@ -85,7 +117,7 @@
                     context.SaveChanges();
                     transaction.Commit();
                 }
-                catch(System.Exception e)
+                catch (System.Exception e)
                 {
                     transaction.Rollback();
 

@@ -1,0 +1,71 @@
+﻿@using AutoPartsShopAndForum.Services.Data.Order
+
+@model ICollection<OrderModel>
+
+
+@if (Model != null)
+{
+    <div class="container">
+        
+    </div>
+
+    <section>
+        <div>
+            <div class="row d-flex justify-content-center my-4">
+                <div class="col-md-12">
+                    <div>
+                        <div class="card-header py-3">
+                            <h5 class="mb-0">
+                                <div class="row">
+                                    <div class="col-sm">
+                                        Order number
+                                    </div>
+                                    <div class="col-sm">
+                                        Products
+                                    </div>
+                                    <div class="col-sm">
+                                        Total Sum
+                                    </div>
+                                    <div class="col-sm">
+                                        Street
+                                    </div>
+                                </div>
+                            </h5>
+                        </div>
+
+                        @foreach (var order in Model)
+                        {
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row">
+
+                                        <div class="col-sm">
+                                            <a href="/Orders/UserOrders/Details?orderId=@order.Id">@order.Id</a>
+                                        </div>
+                                        @{ string productsAsText = string.Empty;}
+                                        <div class="col-sm">
+                                            @string.Join(", ", order.Products.Select(p => p.Name))
+                                        </div>
+
+                                        <div class="col-sm">
+                                            @order.Products.Sum(p => p.Total)
+                                        </div>
+
+                                        <div class="col-sm">
+                                            @order.Street
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <div>No orders</div>
+}

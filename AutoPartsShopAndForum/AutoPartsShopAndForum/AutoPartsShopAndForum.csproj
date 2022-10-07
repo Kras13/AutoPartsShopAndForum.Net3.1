@@ -30,7 +30,6 @@
   <ItemGroup>
     <Folder Include="Areas\Administrator\Models\Query\" />
     <Folder Include="Areas\Orders\Models\" />
-    <Folder Include="Areas\Orders\Views\" />
     <Folder Include="Models\View\Query\Cart\" />
   </ItemGroup>
 

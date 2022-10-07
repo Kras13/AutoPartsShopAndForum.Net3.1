@@ -2,9 +2,10 @@
 {
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Services.Web.Order;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
-    public class UserOrdersController : Controller
+    public class UserOrdersController : OrdersBaseController
     {
         private readonly IOrderService orderService;
 
@@ -13,9 +14,20 @@
             this.orderService = orderService;
         }
 
-        public IActionResult Test() 
+        [Authorize]
+        public IActionResult List()
         {
             var userOrders = this.orderService.GetOrderedProducts(this.User.GetId());
+
+            return View(userOrders);
+        }
+
+        [Authorize]
+        public IActionResult Details(int orderId)
+        {
+            var userOrders = this.orderService.GetOrderedProducts(this.User.GetId());
+
+            //return View(userOrders);
 
             return this.Json(userOrders);
         }

@@ -57,6 +57,11 @@
             return RedirectToAction(nameof(Index));
         }
 
+        public IActionResult Test(int orderId)
+        {
+            return this.Content(orderId.ToString());
+        }
+
         public IActionResult Privacy()
         {
             HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject("Krasi"));
