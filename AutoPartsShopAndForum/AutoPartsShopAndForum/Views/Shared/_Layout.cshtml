@@ -37,7 +37,7 @@
                                 <a class="nav-link text-dark" asp-area="Seller" asp-controller="Products" asp-action="Add">Add Product</a>
                             </li>
                         }
-                        else
+                        else if(this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Candidate">Candidate for Seller</a>

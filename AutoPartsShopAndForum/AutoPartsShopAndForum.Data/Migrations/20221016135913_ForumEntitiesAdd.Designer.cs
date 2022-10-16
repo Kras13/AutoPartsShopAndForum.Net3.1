@@ -4,14 +4,16 @@ using AutoPartsShopAndForum.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AutoPartsShopAndForum.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221016135913_ForumEntitiesAdd")]
+    partial class ForumEntitiesAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +70,7 @@ namespace AutoPartsShopAndForum.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comment");
                 });
 
             modelBuilder.Entity("AutoPartsShopAndForum.Data.Models.MailHistory", b =>
@@ -219,7 +221,7 @@ namespace AutoPartsShopAndForum.Data.Migrations
 
                     b.HasIndex("PostCategoryId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Post");
                 });
 
             modelBuilder.Entity("AutoPartsShopAndForum.Data.Models.PostCategory", b =>
@@ -240,7 +242,7 @@ namespace AutoPartsShopAndForum.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("PostCategories");
+                    b.ToTable("PostCategory");
                 });
 
             modelBuilder.Entity("AutoPartsShopAndForum.Data.Models.Product", b =>

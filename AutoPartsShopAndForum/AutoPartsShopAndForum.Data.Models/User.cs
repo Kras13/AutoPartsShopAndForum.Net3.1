@@ -13,6 +13,7 @@
             this.Products = new HashSet<Product>();
             this.MessagesSent = new HashSet<MailHistory>();
             this.MessagesReceived = new HashSet<MailHistory>();
+            this.Posts = new HashSet<Post>();
         }
 
         [Required]
@@ -40,6 +41,6 @@
 
         public virtual ICollection<MailHistory> MessagesReceived { get; set; }
 
-
+        public ICollection<Post> Posts { get; set; }
     }
 }

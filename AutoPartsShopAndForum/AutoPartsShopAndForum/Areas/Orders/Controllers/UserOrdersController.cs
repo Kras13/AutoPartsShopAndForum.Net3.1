@@ -22,14 +22,14 @@
             return View(userOrders);
         }
 
-        [Authorize]
-        public IActionResult Details(int orderId)
-        {
-            var userOrders = this.orderService.GetOrderedProducts(this.User.GetId());
+        //[Authorize]
+        //public IActionResult Details(int orderId)
+        //{
+        //    var userOrders = this.orderService.GetOrderedProducts(this.User.GetId());
 
-            //return View(userOrders);
+        //    //return View(userOrders);
 
-            return this.Json(userOrders);
-        }
+        //    return this.Json(userOrders);
+        //}
     }
 }

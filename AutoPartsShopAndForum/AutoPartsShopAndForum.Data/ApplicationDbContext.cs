@@ -116,6 +116,33 @@
                 .HasIndex(s => s.UserId)
                 .IsUnique();
 
+            builder.Entity<User>()
+                .HasMany(u => u.Posts)
+                .WithOne(u => u.Creator)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Post>()
+                .HasOne(u => u.Creator)
+                .WithMany(u => u.Posts)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<PostCategory>()
+                .HasMany(p => p.Posts)
+                .WithOne(c => c.PostCategory)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Post>()
+                .HasOne(p => p.PostCategory)
+                .WithMany(pc => pc.Posts)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Comment>()
+                .HasOne(p => p.Post)
+                .WithMany(p => p.Comments)
+                .OnDelete(DeleteBehavior.Restrict);
+            builder.Entity<Post>()
+                .HasMany(p => p.Comments)
+                .WithOne(c => c.Post)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
 
@@ -128,5 +155,9 @@
         public DbSet<MailHistory> MailsHistories { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Subcategory> Subcategories { get; set; }
+
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<Comment> Comments { get; set; }
+        public DbSet<PostCategory> PostCategories { get; set; }
     }
 }

@@ -9,7 +9,6 @@
     using AutoPartsShopAndForum.Data.Models.Constants;
     using System;
     using Microsoft.AspNetCore.Authorization;
-    using AutoPartsShopAndForum.Models.View.User;
 
     public class HomeController : Controller
     {
@@ -27,6 +26,7 @@
             return View(categories);
         }
 
+        [Authorize]
         public IActionResult Candidate()
         {
             if (User.IsInRole(Role.Seller) || User.IsInRole(Role.Administrator))
@@ -35,15 +35,11 @@
                     "Administrators and Sellers can not candidate");
             }
 
-            //if (this.User.Identity.IsAuthenticated)
-            //{
-            //    return Redirect("/Account/Logout");
-            //}
-
             return View();
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Candidate(string motivation)
         {
             if (User.IsInRole(Role.Seller) || User.IsInRole(Role.Administrator))
