@@ -1,0 +1,27 @@
+﻿@using AutoPartsShopAndForum.Services.Data.Forum
+@model ICollection<ForumCategoryModel>
+
+@{
+    ViewData["Title"] = "Forum categories";
+}
+
+<div class="text-center">
+    <h1 class="display-3">@this.ViewData["Title"]</h1>
+</div>
+<hr />
+<div class="row">
+    @foreach (var category in Model)
+    {
+        <div class="col-md-4 media">
+            <img src="@category.ImageUrl" width="100" class="mr-3" alt="@category.Name">
+            <div class="media-body">
+                <h5 class="mt-0">
+                    <a href="@category.Id">
+                        @category.Name (@category.PostsCount)
+                    </a>
+                </h5>
+                @category.Description
+            </div>
+        </div>
+    }
+</div>

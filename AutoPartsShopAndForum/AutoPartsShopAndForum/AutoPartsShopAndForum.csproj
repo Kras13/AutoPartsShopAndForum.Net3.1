@@ -29,6 +29,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administrator\Models\Query\" />
+    <Folder Include="Areas\Forum\Models\" />
     <Folder Include="Areas\Orders\Models\" />
     <Folder Include="Models\View\Query\Cart\" />
   </ItemGroup>

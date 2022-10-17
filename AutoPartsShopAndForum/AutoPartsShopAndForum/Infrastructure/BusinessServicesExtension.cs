@@ -1,6 +1,7 @@
 ﻿namespace AutoPartsShopAndForum.Infrastructure
 {
     using AutoPartsShopAndForum.Services.Web.Category;
+    using AutoPartsShopAndForum.Services.Web.Forum;
     using AutoPartsShopAndForum.Services.Web.Mail;
     using AutoPartsShopAndForum.Services.Web.Order;
     using AutoPartsShopAndForum.Services.Web.Product;
@@ -18,6 +19,7 @@
             services.AddTransient<ITownService, TownService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IForumService, ForumService>();
 
             return services;
         }

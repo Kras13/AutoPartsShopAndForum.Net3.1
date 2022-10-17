@@ -39,10 +39,46 @@
 
                         await SeedSubcategories(serviceScope.ServiceProvider);
                         await dbContext.SaveChangesAsync();
+
+                        await SeedForumCategories(serviceScope.ServiceProvider);
+                        await dbContext.SaveChangesAsync();
                     }
                 });
 
             return app;
+        }
+
+        private static async Task SeedForumCategories(IServiceProvider serviceProvider)
+        {
+            var context = serviceProvider.GetService<ApplicationDbContext>();
+
+            var savedCategories = await context.PostCategories.ToArrayAsync();
+
+            PostCategory[] newCategories =
+            {
+                new PostCategory(){
+                    Name = "Best oils",
+                    Description = "A place where the best oils can be reviewed",
+                    ImageUrl = "https://d2hucwwplm5rxi.cloudfront.net/wp-content/uploads/2021/08/24094058/Wrong-Engine-Oil-080420210237.jpg"},
+                new PostCategory(){
+                    Name = "Best filters",
+                    Description = "A place where the best filters can be reviewed",
+                    ImageUrl = "https://s19528.pcdn.co/wp-content/uploads/2018/05/Air-and-Oil-Filters-Automotive.jpg"},
+                new PostCategory(){
+                    Name = "Best timing belts",
+                    Description = "A place where the best timing belts can be reviewed",
+                    ImageUrl = "https://www.kmotorshop.com/document/shop/CT1168K1/CT1168K1A.jpg"},
+            };
+
+            foreach (var category in newCategories)
+            {
+                if (savedCategories.Any(c => c.Name == category.Name))
+                {
+                    continue;
+                }
+
+                await context.PostCategories.AddAsync(category);
+            }
         }
 
         private static async Task SeedSubcategories(IServiceProvider serviceProvider)
