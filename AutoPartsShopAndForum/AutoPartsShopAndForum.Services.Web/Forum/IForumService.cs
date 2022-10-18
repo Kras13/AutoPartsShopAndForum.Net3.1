@@ -8,5 +8,7 @@
         ICollection<PostCategoryModel> GetAllCategories();
 
         int AddPost(string title, string content, int postCategoryId, string creatorId);
+
+        PostModel GetPost(int postId);
     }
 }

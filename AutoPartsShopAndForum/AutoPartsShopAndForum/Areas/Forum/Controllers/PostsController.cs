@@ -17,7 +17,7 @@
 
         public IActionResult ById(int id)
         {
-            // var post = serviceInterface.GetPost(id);
+            var post = forumService.GetPost(id);
             return View();
         }
 

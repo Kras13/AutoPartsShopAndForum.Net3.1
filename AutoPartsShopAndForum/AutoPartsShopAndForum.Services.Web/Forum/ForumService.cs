@@ -3,6 +3,7 @@
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Services.Data.Forum;
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -44,6 +45,46 @@
                     Name = pc.Name,
                     PostsCount = pc.Posts.Count()
                 }).ToArray();
+        }
+
+        public PostModel GetPost(int postId)
+        {
+            var post = this.context.Posts.FirstOrDefault(p => p.Id == postId);
+
+            if (post == null)
+            {
+                return null;
+            }
+
+            IList<CommentModel> comments = new List<CommentModel>();
+
+            foreach (var comment in post.Comments)
+            {
+                CommentModel parent = GetCurrentCommentParent(comment, comments);
+
+                comments.Add(new CommentModel() { 
+                    Id = comment.Id, Parent = parent,  Content = comment.Content});
+            }
+
+            return new PostModel()
+            {
+                Id = post.Id,
+                Title = post.Title,
+                Content = post.Content,
+                Comments = comments
+            };
+        }
+
+        private CommentModel GetCurrentCommentParent(Comment comment, IList<CommentModel> comments)
+        {
+            if (comment.Parent == null)
+            {
+                return null;
+            }
+
+            var parentReference = comments.FirstOrDefault(n => n.Id == comment.Parent.Id);
+
+            return parentReference;
         }
     }
 }
