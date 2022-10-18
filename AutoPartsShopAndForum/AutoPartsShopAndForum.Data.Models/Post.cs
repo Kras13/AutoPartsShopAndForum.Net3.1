@@ -15,7 +15,7 @@
 
         public string Title { get; set; }
 
-        public string Theme { get; set; }
+        public string Content { get; set; }
 
         [Required]
         [ForeignKey(nameof(Creator))]

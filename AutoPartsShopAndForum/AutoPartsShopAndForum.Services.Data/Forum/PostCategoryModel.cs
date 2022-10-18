@@ -1,6 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Services.Data.Forum
 {
-    public class ForumCategoryModel
+    public class PostCategoryModel
     {
         public int Id { get; set; }
 

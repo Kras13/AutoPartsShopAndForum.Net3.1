@@ -58,15 +58,15 @@
             {
                 new PostCategory(){
                     Name = "Best oils",
-                    Description = "A place where the best oils can be reviewed",
+                    Description = "A place where the oils can be reviewed",
                     ImageUrl = "https://d2hucwwplm5rxi.cloudfront.net/wp-content/uploads/2021/08/24094058/Wrong-Engine-Oil-080420210237.jpg"},
                 new PostCategory(){
                     Name = "Best filters",
-                    Description = "A place where the best filters can be reviewed",
+                    Description = "A place where the filters can be reviewed",
                     ImageUrl = "https://s19528.pcdn.co/wp-content/uploads/2018/05/Air-and-Oil-Filters-Automotive.jpg"},
                 new PostCategory(){
                     Name = "Best timing belts",
-                    Description = "A place where the best timing belts can be reviewed",
+                    Description = "A place where the timing belts can be reviewed",
                     ImageUrl = "https://www.kmotorshop.com/document/shop/CT1168K1/CT1168K1A.jpg"},
             };
 
