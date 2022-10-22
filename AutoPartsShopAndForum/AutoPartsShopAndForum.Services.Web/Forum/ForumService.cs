@@ -75,6 +75,34 @@
             };
         }
 
+        public void CreateComment(int postId, string userId, string content, int? parentId = null)
+        {
+            var comment = new Comment
+            {
+                Content = content,
+                ParentId = parentId,
+                UserId = userId,
+                PostId = postId
+            };
+
+            this.context.Comments.Add(comment);
+            this.context.SaveChanges();
+        }
+
+        public bool IsCommentInPost(int commentId, int postId)
+        {
+            var post = this.context.Posts.FirstOrDefault(p => p.Id == postId);
+
+            bool result = false;
+
+            if (post != null)
+            {
+                result =  post.Comments.Any(c => c.Id == commentId);
+            }
+
+            return result;
+        }
+
         private CommentModel GetCurrentCommentParent(Comment comment, IList<CommentModel> comments)
         {
             if (comment.Parent == null)
@@ -85,6 +113,6 @@
             var parentReference = comments.FirstOrDefault(n => n.Id == comment.Parent.Id);
 
             return parentReference;
-        }
+        }        
     }
 }

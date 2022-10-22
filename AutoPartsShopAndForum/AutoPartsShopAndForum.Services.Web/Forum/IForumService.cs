@@ -10,5 +10,9 @@
         int AddPost(string title, string content, int postCategoryId, string creatorId);
 
         PostModel GetPost(int postId);
+
+        void CreateComment(int postId, string userId, string content, int? parentId = null);
+
+        bool IsCommentInPost(int commentId, int postId);
     }
 }
