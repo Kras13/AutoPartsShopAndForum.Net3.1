@@ -12,11 +12,11 @@
         [Required]
         public string Content { get; set; }
         
+
         [Required]
-        public string CreatorId { get; set; }
-
-
         public int PostCategoryId { get; set; }
+
+        public string CreatorId { get; set; }
 
         public ICollection<PostCategoryModel> Categories { get; set; }
     }

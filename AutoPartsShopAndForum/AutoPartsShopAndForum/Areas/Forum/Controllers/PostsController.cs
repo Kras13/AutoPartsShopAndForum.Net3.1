@@ -31,7 +31,12 @@
         [Authorize]
         public IActionResult Create()
         {
-            return View();
+            var model = new PostInputModel()
+            {
+                Categories = this.forumService.GetAllCategories()
+            };
+
+            return View(model);
         }
 
         [Authorize]
@@ -43,8 +48,10 @@
                 return View(model);
             }
 
+            model.CreatorId = this.User.GetId();
+
             int postId = forumService.AddPost(
-                model.Title, model.Content, model.PostCategoryId, this.User.GetId());
+                model.Title, model.Content, model.PostCategoryId, model.CreatorId);
 
             return RedirectToAction(nameof(ById), new { id = postId });
         }

@@ -20,18 +20,18 @@
         {
             //todo -> validate the arguments
 
-            int entityId = context.Posts.Add(
+            var entity = context.Posts.Add(
                 new Post()
                 {
                     Title = title,
                     Content = content,
                     PostCategoryId = postCategoryId,
                     CraetorId = creatorId
-                }).Entity.Id;
+                }).Entity;
 
             context.SaveChanges();
 
-            return entityId;
+            return entity.Id;
         }
 
         public ICollection<PostCategoryModel> GetAllCategories()
