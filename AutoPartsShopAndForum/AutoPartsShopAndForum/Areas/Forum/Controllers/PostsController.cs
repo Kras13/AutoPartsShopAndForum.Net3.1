@@ -24,8 +24,8 @@
 
         public IActionResult ById(int id)
         {
-            var post = forumService.GetPost(id);
-            return View(post);
+            var posts = forumService.GetPostsByCategoryId(id);
+            return View(posts);
         }
 
         [Authorize]

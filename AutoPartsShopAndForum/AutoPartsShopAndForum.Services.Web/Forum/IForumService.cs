@@ -9,7 +9,7 @@
 
         int AddPost(string title, string content, int postCategoryId, string creatorId);
 
-        PostModel GetPost(int postId);
+        ICollection<PostModel> GetPostsByCategoryId(int postCategoryId);
 
         void CreateComment(int postId, string userId, string content, int? parentId = null);
 

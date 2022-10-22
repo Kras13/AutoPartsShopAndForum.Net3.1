@@ -1,8 +1,11 @@
 ﻿@using AutoPartsShopAndForum.Services.Data.Forum
-@model PostModel
+@model ICollection<PostModel>
 
 @{
     ViewData["Title"] = "Forum post";
 }
 
-<div>@Model.Title</div>
+@foreach (var post in Model)
+{
+    <div>@post.Content</div>
+}

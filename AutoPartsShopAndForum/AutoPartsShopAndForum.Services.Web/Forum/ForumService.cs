@@ -113,6 +113,45 @@
             var parentReference = comments.FirstOrDefault(n => n.Id == comment.Parent.Id);
 
             return parentReference;
-        }        
+        }
+
+        public ICollection<PostModel> GetPostsByCategoryId(int postCategoryId)
+        {
+            var posts = this.context.Posts.Where(p => p.PostCategoryId == postCategoryId);
+
+            if (posts.Count() == 0)
+            {
+                return null;
+            }
+
+            IList<PostModel> postsModels = new List<PostModel>();
+
+            foreach (var post in posts)
+            {
+                IList<CommentModel> comments = new List<CommentModel>();
+
+                foreach (var comment in post.Comments)
+                {
+                    CommentModel parent = GetCurrentCommentParent(comment, comments);
+
+                    comments.Add(new CommentModel()
+                    {
+                        Id = comment.Id,
+                        Parent = parent,
+                        Content = comment.Content
+                    });
+                }
+
+                postsModels.Add(new PostModel() 
+                {
+                    Id = post.Id,
+                    Title = post.Title,
+                    Content = post.Content,
+                    Comments = comments
+                });
+            }
+
+            return postsModels;
+        }
     }
 }
