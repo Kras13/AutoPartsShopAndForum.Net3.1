@@ -15,10 +15,17 @@
             this.forumService = forumService;
         }
 
+        public IActionResult Categories()
+        {
+            var categories = forumService.GetAllCategories();
+
+            return View(categories);
+        }
+
         public IActionResult ById(int id)
         {
             var post = forumService.GetPost(id);
-            return View();
+            return View(post);
         }
 
         [Authorize]
