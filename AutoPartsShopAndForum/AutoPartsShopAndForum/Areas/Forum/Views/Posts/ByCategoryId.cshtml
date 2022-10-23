@@ -7,8 +7,21 @@
 
 @if (Model != null)
 {
-    foreach (var post in Model)
+    @foreach (var post in Model)
     {
-        <div>@post.Content</div>
+        <div>
+            <h4><a asp-controller="Posts" asp-action="ById" asp-route-id="@post.Id">@post.Title</a></h4>
+            <ul>
+                <li>
+                    @post.CreatorUserName
+                </li>
+                <li>
+                    @post.CreatedOn
+                </li>
+                <li>
+                    @post.Comments.Count comments
+                </li>
+            </ul>
+        </div>
     }
 }

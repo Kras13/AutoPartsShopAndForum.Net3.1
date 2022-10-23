@@ -11,5 +11,9 @@
         public string Content { get; set; }
 
         public ICollection<CommentModel> Comments { get; set; }
+
+        public string CreatorUserName { get; set; }
+
+        public string CreatedOn { get; set; }
     }
 }

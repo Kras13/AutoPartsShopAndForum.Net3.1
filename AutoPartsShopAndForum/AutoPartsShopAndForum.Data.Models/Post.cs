@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Data.Models
 {
+    using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -25,6 +26,8 @@
         [ForeignKey(nameof(PostCategory))]
         public int PostCategoryId { get; set; }
         public PostCategory PostCategory { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         public ICollection<Comment> Comments { get; set; }
     }

@@ -3,6 +3,7 @@
     using AutoPartsShopAndForum.Data;
     using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Services.Data.Forum;
+    using Microsoft.EntityFrameworkCore;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -26,7 +27,8 @@
                     Title = title,
                     Content = content,
                     PostCategoryId = postCategoryId,
-                    CraetorId = creatorId
+                    CraetorId = creatorId,
+                    CreatedOn = DateTime.UtcNow
                 }).Entity;
 
             context.SaveChanges();
@@ -36,7 +38,9 @@
 
         public PostModel GetPost(int postId)
         {
-            var post = this.context.Posts.FirstOrDefault(p => p.Id == postId);
+            var post = this.context.Posts
+                .Include(c => c.Creator)
+                .FirstOrDefault(p => p.Id == postId);
 
             if (post == null)
             {
@@ -58,8 +62,17 @@
                 Id = post.Id,
                 Title = post.Title,
                 Content = post.Content,
-                Comments = comments
+                Comments = comments,
+                CreatedOn = ParsePostCreateDate(post.CreatedOn),
+                CreatorUserName = post.Creator.UserName
             };
+        }
+
+        private string ParsePostCreateDate(DateTime createdOn)
+        {
+            string pattern = "MM-dd-yy";
+
+            return createdOn.ToString(pattern);
         }
 
         public void CreateComment(int postId, string userId, string content, int? parentId = null)
@@ -104,7 +117,9 @@
 
         public ICollection<PostModel> GetPostsByCategoryId(int postCategoryId)
         {
-            var posts = this.context.Posts.Where(p => p.PostCategoryId == postCategoryId);
+            var posts = this.context.Posts
+                .Include(p => p.Creator)
+                .Where(p => p.PostCategoryId == postCategoryId);
 
             if (posts.Count() == 0)
             {
@@ -134,7 +149,9 @@
                     Id = post.Id,
                     Title = post.Title,
                     Content = post.Content,
-                    Comments = comments
+                    Comments = comments,
+                    CreatedOn = ParsePostCreateDate(post.CreatedOn),
+                    CreatorUserName = post.Creator.UserName
                 });
             }
 
