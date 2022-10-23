@@ -29,15 +29,15 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Products" asp-action="All">All</a>
                         </li>
                         @*<li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>*@
+            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>*@
                         @if (this.User.IsAdmin() || this.User.IsSeller())
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="Seller" asp-controller="Products" asp-action="Add">Add Product</a>
                             </li>
                         }
-                        else if(this.User.Identity.IsAuthenticated)
+                        else if (this.User.Identity.IsAuthenticated)
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Home" asp-action="Candidate">Candidate for Seller</a>
@@ -49,6 +49,9 @@
                                 <a class="nav-link text-dark" asp-area="Administrator" asp-controller="Sellers" asp-action="Pending">Seller Candidates</a>
                             </li>
                         }
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Forum" asp-controller="Categories" asp-action="All">Forum</a>
+                        </li>
                     </ul>
                 </div>
             </div>

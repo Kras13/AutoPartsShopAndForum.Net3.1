@@ -34,19 +34,6 @@
             return entity.Id;
         }
 
-        public ICollection<PostCategoryModel> GetAllCategories()
-        {
-            return this.context.PostCategories
-                .Select(pc => new PostCategoryModel()
-                {
-                    Id = pc.Id,
-                    Description = pc.Description,
-                    ImageUrl = pc.ImageUrl,
-                    Name = pc.Name,
-                    PostsCount = pc.Posts.Count()
-                }).ToArray();
-        }
-
         public PostModel GetPost(int postId)
         {
             var post = this.context.Posts.FirstOrDefault(p => p.Id == postId);

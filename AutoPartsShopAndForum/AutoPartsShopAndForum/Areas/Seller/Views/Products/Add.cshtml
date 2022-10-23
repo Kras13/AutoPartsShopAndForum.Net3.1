@@ -9,6 +9,7 @@
 
 
 <form method="post">
+    <div asp-validation-summary="All" class="alert-danger"></div>
     <div class="form-group">
         <label asp-for="Name"></label>
         <input asp-for="Name" id="Name" class="form-control" placeholder="Bardahl, Motul, MAN...">

@@ -5,8 +5,6 @@
 
     public interface IForumService
     {
-        ICollection<PostCategoryModel> GetAllCategories();
-
         int AddPost(string title, string content, int postCategoryId, string creatorId);
 
         ICollection<PostModel> GetPostsByCategoryId(int postCategoryId);

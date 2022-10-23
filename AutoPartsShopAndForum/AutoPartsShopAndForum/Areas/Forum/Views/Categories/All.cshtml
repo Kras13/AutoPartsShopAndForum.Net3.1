@@ -1,4 +1,5 @@
 ﻿@using AutoPartsShopAndForum.Services.Data.Forum
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @model ICollection<PostCategoryModel>
 
 @{
@@ -16,7 +17,7 @@
             <img src="@category.ImageUrl" width="100" class="mr-3" alt="@category.Name">
             <div class="media-body">
                 <h5 class="mt-0">
-                    <a href=@String.Format("{0}/{1}", "ById",category.Id)>
+                    <a asp-controller="Posts" asp-action="ByCategoryId" asp-route-categoryId="@(category.Id)">
                         @category.Name (@category.PostsCount)
                     </a>
                 </h5>

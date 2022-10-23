@@ -5,7 +5,10 @@
     ViewData["Title"] = "Forum post";
 }
 
-@foreach (var post in Model)
+@if (Model != null)
 {
-    <div>@post.Content</div>
+    foreach (var post in Model)
+    {
+        <div>@post.Content</div>
+    }
 }

@@ -20,6 +20,7 @@
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();
             services.AddTransient<IForumService, ForumService>();
+            services.AddTransient<ICategoriesService, CategoriesService>();
 
             return services;
         }
