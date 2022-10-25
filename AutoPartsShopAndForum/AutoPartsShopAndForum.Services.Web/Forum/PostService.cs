@@ -8,19 +8,17 @@
     using System.Collections.Generic;
     using System.Linq;
 
-    public class ForumService : IForumService
+    public class PostService : IPostService
     {
         private readonly ApplicationDbContext context;
 
-        public ForumService(ApplicationDbContext context)
+        public PostService(ApplicationDbContext context)
         {
             this.context = context;
         }
 
-        public int AddPost(string title, string content, int postCategoryId, string creatorId)
+        public int Create(string title, string content, int postCategoryId, string creatorId)
         {
-            //todo -> validate the arguments
-
             var entity = context.Posts.Add(
                 new Post()
                 {
@@ -36,7 +34,7 @@
             return entity.Id;
         }
 
-        public PostModel GetPost(int postId)
+        public PostModel ById(int postId)
         {
             var post = this.context.Posts
                 .Include(c => c.Creator)
@@ -53,8 +51,12 @@
             {
                 CommentModel parent = GetCurrentCommentParent(comment, comments);
 
-                comments.Add(new CommentModel() { 
-                    Id = comment.Id, Parent = parent,  Content = comment.Content});
+                comments.Add(new CommentModel()
+                {
+                    Id = comment.Id,
+                    Parent = parent,
+                    Content = comment.Content
+                });
             }
 
             return new PostModel()
@@ -68,58 +70,11 @@
             };
         }
 
-        private string ParsePostCreateDate(DateTime createdOn)
-        {
-            string pattern = "MM-dd-yy";
-
-            return createdOn.ToString(pattern);
-        }
-
-        public void CreateComment(int postId, string userId, string content, int? parentId = null)
-        {
-            var comment = new Comment
-            {
-                Content = content,
-                ParentId = parentId,
-                UserId = userId,
-                PostId = postId
-            };
-
-            this.context.Comments.Add(comment);
-            this.context.SaveChanges();
-        }
-
-        public bool IsCommentInPost(int commentId, int postId)
-        {
-            var post = this.context.Posts.FirstOrDefault(p => p.Id == postId);
-
-            bool result = false;
-
-            if (post != null)
-            {
-                result =  post.Comments.Any(c => c.Id == commentId);
-            }
-
-            return result;
-        }
-
-        private CommentModel GetCurrentCommentParent(Comment comment, IList<CommentModel> comments)
-        {
-            if (comment.Parent == null)
-            {
-                return null;
-            }
-
-            var parentReference = comments.FirstOrDefault(n => n.Id == comment.Parent.Id);
-
-            return parentReference;
-        }
-
-        public ICollection<PostModel> GetPostsByCategoryId(int postCategoryId)
+        public ICollection<PostModel> ByCategoryId(int id)
         {
             var posts = this.context.Posts
                 .Include(p => p.Creator)
-                .Where(p => p.PostCategoryId == postCategoryId);
+                .Where(p => p.PostCategoryId == id);
 
             if (posts.Count() == 0)
             {
@@ -144,7 +99,7 @@
                     });
                 }
 
-                postsModels.Add(new PostModel() 
+                postsModels.Add(new PostModel()
                 {
                     Id = post.Id,
                     Title = post.Title,
@@ -156,6 +111,25 @@
             }
 
             return postsModels;
+        }
+
+        private string ParsePostCreateDate(DateTime createdOn)
+        {
+            string pattern = "MM-dd-yy";
+
+            return createdOn.ToString(pattern);
+        }
+
+        private CommentModel GetCurrentCommentParent(Comment comment, IList<CommentModel> comments)
+        {
+            if (comment.Parent == null)
+            {
+                return null;
+            }
+
+            var parentReference = comments.FirstOrDefault(n => n.Id == comment.Parent.Id);
+
+            return parentReference;
         }
     }
 }

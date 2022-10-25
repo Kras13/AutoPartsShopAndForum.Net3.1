@@ -19,7 +19,8 @@
             services.AddTransient<ITownService, TownService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IForumService, ForumService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ICommentService, CommentService>();
             services.AddTransient<ICategoriesService, CategoriesService>();
 
             return services;

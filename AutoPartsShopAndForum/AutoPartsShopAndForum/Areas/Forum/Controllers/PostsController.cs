@@ -8,20 +8,13 @@
 
     public class PostsController : BaseForumController
     {
-        private readonly IForumService forumService;
+        private readonly IPostService postService;
         private readonly ICategoriesService categoriesService;
 
-        public PostsController(IForumService forumService, ICategoriesService categoriesService)
+        public PostsController(IPostService postService, ICategoriesService categoriesService)
         {
-            this.forumService = forumService;
+            this.postService = postService;
             this.categoriesService = categoriesService;
-        }
-
-        public IActionResult ByCategoryId(int categoryId)
-        {
-            var posts = forumService.GetPostsByCategoryId(categoryId);
-
-            return View(posts);
         }
 
         [Authorize]
@@ -46,10 +39,17 @@
 
             model.CreatorId = this.User.GetId();
 
-            int postId = forumService.AddPost(
+            int postId = postService.Create(
                 model.Title, model.Content, model.PostCategoryId, model.CreatorId);
 
             return RedirectToAction(nameof(ByCategoryId), new { id = postId });
+        }
+
+        public IActionResult ByCategoryId(int categoryId)
+        {
+            var posts = postService.ByCategoryId(categoryId);
+
+            return View(posts);
         }
     }
 }
