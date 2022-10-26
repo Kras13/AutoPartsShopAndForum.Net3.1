@@ -37,6 +37,7 @@
         public PostModel ById(int postId)
         {
             var post = this.context.Posts
+                .Include(p => p.Comments)
                 .Include(c => c.Creator)
                 .FirstOrDefault(p => p.Id == postId);
 
