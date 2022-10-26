@@ -5,6 +5,7 @@
     using AutoPartsShopAndForum.Services.Web.Forum;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using System.Linq;
 
     public class PostsController : BaseForumController
     {
@@ -47,9 +48,25 @@
 
         public IActionResult ByCategoryId(int categoryId)
         {
-            var posts = postService.ByCategoryId(categoryId);
+            var posts = postService.ByCategoryId(categoryId)
+                .Select(p =>
+                    new PostSummaryViewModel()
+                    {
+                        Id = p.Id,
+                        CreatorUserName = p.CreatorUserName,
+                        Title = p.Title,
+                        DateOfCreate = p.CreatedOn,
+                        CommentsCount = p.Comments.Count
+                    }).ToArray();
 
             return View(posts);
+        }
+
+        public IActionResult ById(int id)
+        {
+            var post = postService.ById(id);
+
+            return View(post);
         }
     }
 }
