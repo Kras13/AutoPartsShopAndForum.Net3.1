@@ -6,6 +6,10 @@
 
         public string Content { get; set; }
 
+        public int? ParentId { get; set; }
+
         public CommentModel Parent { get; set; }
+
+        public string CreatorUsername { get; set; }
     }
 }

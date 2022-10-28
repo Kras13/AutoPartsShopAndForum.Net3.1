@@ -38,6 +38,7 @@
         {
             var post = this.context.Posts
                 .Include(p => p.Comments)
+                .ThenInclude(cp => cp.User)
                 .Include(c => c.Creator)
                 .FirstOrDefault(p => p.Id == postId);
 
@@ -55,8 +56,10 @@
                 comments.Add(new CommentModel()
                 {
                     Id = comment.Id,
+                    ParentId = comment.ParentId,
                     Parent = parent,
-                    Content = comment.Content
+                    Content = comment.Content,
+                    CreatorUsername = comment.User.UserName
                 });
             }
 
