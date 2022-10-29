@@ -1,5 +1,6 @@
 ﻿@using AutoPartsShopAndForum.Services.Data.Forum
 @model PostModel
+
 @{ this.ViewData["Title"] = Model.Title;
 
     void DisplayComments(int? parentId)
@@ -14,25 +15,18 @@
         {
             <div class="card">
                 <div class="card-header">
-                    @comment.CreatorUsername
+                    Title
                 </div>
                 <div class="card-body">
                     @comment.Content
-                    <div>
-                        <article>
-                            @{DisplayComments(comment.Id);}
-                        </article>
-                    </div>
                 </div>
+
+                @{DisplayComments(comment.Id);}
+
             </div>
         }
     }
 }
-
-<div class="card">
-    @{ DisplayComments(null);}
-</div>
-
 
 <div class="card">
     <div class="card-header">
@@ -40,80 +34,13 @@
     </div>
     <div class="card-body">
         First card
-        <div>
-            <article>
-                <div class="card">
-                    <div class="card-header">
-                        Some header
-                    </div>
-                    <div class="card-body">
-                        Second card
-                        <article>
-                        </article>
-                    </div>
-
-                </div>
-            </article>
-        </div>
-    </div>
-    <div class="card">
-        <div class="card-body">
-            3 card
-            <article>
-                <div class="card">
-                    <div class="card-body">
-                        4 card
-                        <article>
-                        </article>
-                    </div>
-
-                </div>
-            </article>
-        </div>
-
     </div>
 
-
-    <div class="card">
-        <div class="card-header">
-            Some header
-        </div>
-        <div class="card-body">
-            First card
-            <div>
-                <article>
-                    <div class="card">
-                        <div class="card-header">
-                            Some header
-                        </div>
-                        <div class="card-body">
-                            Second card
-                            <article>
-                            </article>
-                        </div>
-
-                    </div>
-                </article>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-body">
-                3 card
-                <article>
-                    <div class="card">
-                        <div class="card-body">
-                            4 card
-                            <article>
-                            </article>
-                        </div>
-
-                    </div>
-                </article>
-            </div>
-
-        </div>
-
-    </div>
-
-
+    @{ DisplayComments(null);}
 </div>
+
+<style>
+    .card {
+        height: fit-content;
+    }
+</style>
