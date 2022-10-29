@@ -1,9 +1,9 @@
 ﻿namespace AutoPartsShopAndForum.Controllers
 {
-    using AutoPartsShopAndForum.Services.Data.Mail;
     using AutoPartsShopAndForum.Services.Web.Mail;
-    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using MailSender.SMTP_MailKit;
 
     public class MailsController : Controller
     {
@@ -15,27 +15,11 @@
         }
 
 
-        [Authorize]
         public IActionResult Send()
         {
-            MailSendInpuModel model = new MailSendInpuModel()
-            {
-                Sellers = mailService.GetAvailableSellers()
-            };
+            MailSender.SendEmail("Demo");
 
-            return View(model);
-        }
-
-        [HttpPost]
-        [Authorize]
-        public IActionResult Send(MailSendInpuModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            return Redirect("Home");
+            return Ok();
         }
     }
 }

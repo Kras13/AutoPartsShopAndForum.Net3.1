@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\AutoPartsShopAndForum.Data\AutoPartsShopAndForum.Data.csproj" />
     <ProjectReference Include="..\AutoPartsShopAndForum.Services.Web\AutoPartsShopAndForum.Services.Web.csproj" />
+    <ProjectReference Include="..\MailSender.SMTP_MailKit\MailSender.SMTP_MailKit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
