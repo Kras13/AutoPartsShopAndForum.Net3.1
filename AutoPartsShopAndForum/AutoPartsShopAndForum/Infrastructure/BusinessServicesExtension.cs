@@ -15,7 +15,7 @@
         {
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IProductService, ProductService>();
-            services.AddTransient<IMailService, MailService>();
+            services.AddTransient<IЕMailService, MailService>();
             services.AddTransient<ITownService, TownService>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IUserService, UserService>();

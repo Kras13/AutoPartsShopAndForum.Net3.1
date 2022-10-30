@@ -1,10 +1,10 @@
-﻿using MailKit.Net.Smtp;
-using MailKit.Security;
-using MimeKit;
-using MimeKit.Text;
-
-namespace MailSender.SMTP_MailKit
+﻿namespace MailSender.SMTP_MailKit
 {
+    using MailKit.Net.Smtp;
+    using MailKit.Security;
+    using MimeKit;
+    using MimeKit.Text;
+
     public class MailSender
     {
         public static string SendEmail(string body)
@@ -12,15 +12,15 @@ namespace MailSender.SMTP_MailKit
             var email = new MimeMessage();
             string result = "";
 
-            email.From.Add(MailboxAddress.Parse("daren16@ethereal.email"));
-            email.To.Add(MailboxAddress.Parse("daren16@ethereal.email"));
+            email.From.Add(MailboxAddress.Parse("maryjane.huels14@ethereal.email"));
+            email.To.Add(MailboxAddress.Parse("maryjane.huels14@ethereal.email"));
             email.Subject = "Test Email";
             email.Body = new TextPart(TextFormat.Html) { Text = body };
 
             using var smtp = new SmtpClient();
             {
                 smtp.Connect("smtp.ethereal.email", 587, SecureSocketOptions.StartTls);
-                smtp.Authenticate("daren16@ethereal.email", "44EpCVGjg2apypzRPV");
+                smtp.Authenticate("maryjane.huels14@ethereal.email", "JyBEEfaVkJtRBu5DeA");
                 result = smtp.Send(email);
                 smtp.Disconnect(true);
             }

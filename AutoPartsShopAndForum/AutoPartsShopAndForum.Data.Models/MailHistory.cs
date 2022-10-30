@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,8 +17,10 @@
         public User Receiver { get; set; }
 
         [MaxLength(Constants.MailHistory.ThemeMaxLength)]
-        public string Theme { get; set; }
+        public string Subject { get; set; }
 
-        public string Content { get; set; }
+        public string Body { get; set; }
+
+        public DateTime SentOn { get; set; }
     }
 }

@@ -1,11 +1,13 @@
 ﻿namespace AutoPartsShopAndForum.Services.Web.Mail
 {
     using AutoPartsShopAndForum.Data;
+    using System.Linq;
+    using System;
+    using AutoPartsShopAndForum.Data.Models;
     using AutoPartsShopAndForum.Services.Data.Mail;
     using System.Collections.Generic;
-    using System.Linq;
 
-    public class MailService : IMailService
+    public class MailService : IЕMailService
     {
         private readonly ApplicationDbContext context;
 
@@ -14,24 +16,44 @@
             this.context = context;
         }
 
-        public ICollection<SellerModel> GetAvailableSellers()
+        public MailModel MailInfoById(string userId, string emailId)
         {
-            var roles = context.Roles.
-               Where(r => r.Name == "Administrator" || r.Name == "Seller")
-               .AsQueryable();
+            throw new NotImplementedException();
+        }
 
-            var usersInRole = context.UserRoles
-                .Where(ur => roles.Any(r => r.Id == ur.RoleId));
+        public int SendEmail(
+           string from, string to, string subject, string body)
+        {
+            var selectedUsers = this.context.Users
+                .Where(u => u.Id == from || u.Id == to)
+                .ToArray();
 
-            var users = context.Users
-                .Where(u => usersInRole.Any(ur => ur.UserId == u.Id));
+            if (selectedUsers.Length <= 1)
+            {
+                throw new ArgumentException("MailService.SendEmail -> Sender or/and reciever can not be found");
+            }
 
-            return users
-                .Select(u => new SellerModel()
-                {
-                    Id = u.Id,
-                    Name = u.FirstName + u.LastName
-                }).ToArray();
+            if (selectedUsers.Length > 2)
+            {
+                throw new Exception("MailService.SendEmail -> Duplicate users...");
+            }
+
+            MailHistory mail = new MailHistory()
+            {
+                SenderId = from,
+                ReceiverId = to,
+                Subject = subject,
+                Body = body
+            };
+
+            this.context.MailsHistories.Add(mail);
+
+            return mail.Id;
+        }
+
+        public ICollection<MailModel> UserEmails(string userId)
+        {
+            throw new NotImplementedException();
         }
     }
 }

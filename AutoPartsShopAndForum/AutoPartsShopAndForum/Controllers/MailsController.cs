@@ -3,13 +3,12 @@
     using AutoPartsShopAndForum.Services.Web.Mail;
     using Microsoft.AspNetCore.Mvc;
 
-    using MailSender.SMTP_MailKit;
 
     public class MailsController : Controller
     {
-        private readonly IMailService mailService;
+        private readonly IЕMailService mailService;
 
-        public MailsController(IMailService mailService)
+        public MailsController(IЕMailService mailService)
         {
             this.mailService = mailService;
         }
@@ -17,8 +16,6 @@
 
         public IActionResult Send()
         {
-            MailSender.SendEmail("Demo");
-
             return Ok();
         }
     }
