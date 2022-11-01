@@ -15,7 +15,7 @@
         {
             <div class="card">
                 <div class="card-header">
-                    Title
+                    @comment.CreatorUsername, @Html.Raw("&nbsp") @comment.CreatedOn
                 </div>
                 <div class="card-body">
                     @comment.Content

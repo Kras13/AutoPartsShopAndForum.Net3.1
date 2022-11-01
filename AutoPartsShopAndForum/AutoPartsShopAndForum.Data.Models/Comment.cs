@@ -1,5 +1,6 @@
 ﻿namespace AutoPartsShopAndForum.Data.Models
 {
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,6 +9,8 @@
         public int Id { get; set; }
 
         public string Content { get; set; }
+
+        public DateTime CreatedOn { get; set; }
 
         [ForeignKey(nameof(Post))]
         public int PostId { get; set; }

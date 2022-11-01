@@ -11,5 +11,7 @@
         public CommentModel Parent { get; set; }
 
         public string CreatorUsername { get; set; }
+
+        public string CreatedOn { get; set; }
     }
 }

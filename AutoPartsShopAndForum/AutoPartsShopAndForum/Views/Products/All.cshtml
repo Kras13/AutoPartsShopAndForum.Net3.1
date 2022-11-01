@@ -1,6 +1,5 @@
 ﻿@model ProductQueryViewModel
 @using AutoPartsShopAndForum.Models.View.Query.SubCategory
-
 @{
     ViewData["Title"] = "View Products";
 }
@@ -125,7 +124,8 @@
                                    asp-route-description="@product.Description"
                                    asp-route-price="@product.Price"
                                    asp-route-imageurl="@product.ImageUrl"
-                                   asp-route-subcategoryid="@product.SubcategoryId">
+                                   asp-route-subcategoryid="@product.SubcategoryId"
+                                   asp-route-lasturl="@Model.CurrentUrl">
                                     <div class="card-img">
                                         <img src="@product.ImageUrl" alt="">
                                     </div>
@@ -141,7 +141,8 @@
                                        asp-route-price="@product.Price"
                                        asp-route-quantity="1"
                                        asp-route-imageurl="@product.ImageUrl"
-                                       asp-route-description="@product.Description">Buy</a>
+                                       asp-route-description="@product.Description"
+                                       asp-route-lasturl="@Model.CurrentUrl">Buy</a>
                                 </div>
                             </div>
                         </div>

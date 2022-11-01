@@ -1,59 +1,106 @@
-﻿@model ICollection<ProductCartViewModel>
+﻿@model ProductCartViewModel
 
 @{ decimal total = 0;}
 
 @if (Model != null)
 {
+    <div id="checkoutModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container p-0">
+                        <div class="card px-4">
+                            <p class="h8 py-3">Payment Details</p>
+                            <div class="row gx-3">
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Street</p>
+                                        <input id="modalStreet" class="form-control mb-3" type="text" placeholder="Vasil Levski Str">
+                                    </div>
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex flex-column">
+                                        <p class="text mb-1">Street</p>
+                                        <div class="form-group">
+                                            <label asp-for="Towns"></label>
+                                            <select asp-for="SelectedTownId" class="form-control">
+                                                @foreach (var town in Model.Towns)
+                                                {
+                                                    <option value="@town.Id">@town.Name</option>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary">Finalise</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <section>
         <div>
             <div class="row d-flex justify-content-center my-4">
                 <div class="col-md-8">
                     <div>
                         <div class="card-header py-3">
-                            <h5 class="mb-0">Cart - @Model.Count items</h5>
+                            <h5 class="mb-0">Cart - @Model.Products.Count items</h5>
                         </div>
                         <div class="card-body">
-                            @foreach (var item in Model)
+                            @foreach (var item in Model.Products)
                             {
-                            <!-- Single item -->
-                            <div class="row">
-                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
-                                    <!-- Image -->
-                                    <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                                        <img src="@item.ImageUrl"
-                                             class="w-100" alt="@item.Name" />
-                                    </div>
-                                    <!-- Image -->
-                                </div>
-
-                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
-                                    @*<a href="#" class="btn btn-danger" onclick="ChangeQuantity(@item.Id)">Remove item</a>*@
-                                    <input type="button" name="name" value="Remove item" class="btn btn-danger" onclick="RemoveProduct(@item.Id)" />
-                                </div>
-
-                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-
-                                    @*<form asp-action="All">
-                                            <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
-                                            <input type="submit" value="Save" class="btn btn-primary" />
-                                        </form>*@
-
-                                    <label asp-for="@item.Quantity"></label>
-                                    <div class="d-flex mb-4" style="max-width: 300px">
-                                        <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
-                                        <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                <!-- Single item -->
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                        <!-- Image -->
+                                        <div class="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
+                                            <img src="@item.ImageUrl"
+                                                 class="w-100" alt="@item.Name" />
+                                        </div>
+                                        <!-- Image -->
                                     </div>
 
-                                    <!-- Quantity -->
-                                    <!-- Price -->
-                                    <p class="text-start text-md-center">
-                                        <strong>Single price: @item.Price leva</strong>
-                                        @{total += item.Total;}
-                                    </p>
-                                    <!-- Price -->
+                                    <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                        @*<a href="#" class="btn btn-danger" onclick="ChangeQuantity(@item.Id)">Remove item</a>*@
+                                        <input type="button" name="name" value="Remove item" class="btn btn-danger" onclick="RemoveProduct(@item.Id)" />
+                                    </div>
+
+                                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+
+                                        @*<form asp-action="All">
+                                                <input asp-for="@item.Quantity" name="Quantity" type="number" class="form-control" min="1" max="10" step="1" />
+                                                <input type="submit" value="Save" class="btn btn-primary" />
+                                            </form>*@
+
+                                        <label asp-for="@item.Quantity"></label>
+                                        <div class="d-flex mb-4" style="max-width: 300px">
+                                            <input asp-for="@item.Quantity" id="QuantityInput@(item.Id.ToString())" class="form-control" onclick="ChangeQuantity(@item.Id)" type="number" min="1" max="10" step="1">
+                                            <span asp-validation-for="@item.Quantity" class="small text-danger"></span>
+                                        </div>
+
+                                        <!-- Quantity -->
+                                        <!-- Price -->
+                                        <p class="text-start text-md-center">
+                                            <strong>Single price: @item.Price leva</strong>
+                                            @{total += item.Total;}
+                                        </p>
+                                        <!-- Price -->
+                                    </div>
                                 </div>
-                            </div>
-                            <hr class="my-4" />
+                                <hr class="my-4" />
                             }
                         </div>
                     </div>
@@ -79,9 +126,9 @@
                                 </li>
                             </ul>
 
-                            <a asp-controller="Cart" asp-action="Checkout" class="btn btn-primary btn-lg btn-block">
+                            <button class="btn btn-primary btn-lg btn-block" onclick="OnCheckout()">
                                 Go to checkout
-                            </a>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -118,6 +165,10 @@
                     location.reload();
                 }
             });
+        }
+
+        var OnCheckout = function () {
+            $('#checkoutModal').modal('show');
         }
     </script>
 }

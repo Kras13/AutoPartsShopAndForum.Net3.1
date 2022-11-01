@@ -59,7 +59,8 @@
                     ParentId = comment.ParentId,
                     Parent = parent,
                     Content = comment.Content,
-                    CreatorUsername = comment.User.UserName
+                    CreatorUsername = comment.User.UserName,
+                    CreatedOn = comment.CreatedOn.ToString("dd/MM/yyyy")
                 });
             }
 

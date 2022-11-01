@@ -1,11 +1,19 @@
 ﻿namespace AutoPartsShopAndForum.Models.View.Query.Products
 {
     using AutoPartsShopAndForum.Services.Data.Product;
+    using AutoPartsShopAndForum.Services.Data.Town;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
-    public class ProductCartViewModel : ProductCartModel
+    public class ProductCartViewModel
     {
-        public bool Added { get; set; }
+        public ICollection<ProductCartModel> Products { get; set; }
 
         public string LastUrl { get; set; }
+
+        [Display(Name = "Town")]
+        public ICollection<TownModel> Towns { get; set; }
+
+        public int SelectedTownId { get; set; }
     }
 }

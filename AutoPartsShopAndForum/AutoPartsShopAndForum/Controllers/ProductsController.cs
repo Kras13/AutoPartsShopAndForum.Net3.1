@@ -4,6 +4,7 @@
     using AutoPartsShopAndForum.Models.View.Query.SubCategory;
     using AutoPartsShopAndForum.Services.Web.Category;
     using AutoPartsShopAndForum.Services.Web.Product;
+    using Microsoft.AspNetCore.Http.Extensions;
     using Microsoft.AspNetCore.Mvc;
     using System;
     using System.Collections.Generic;
@@ -74,8 +75,9 @@
                 TotalProducts = products.TotalProducts,
                 SubCategories = subCategories,
                 SearchCriteria = String.Empty,
-                Sorting = Services.Data.Product.ProductSorting.NoSorting
-            };
+                Sorting = Services.Data.Product.ProductSorting.NoSorting,
+                CurrentUrl = this.HttpContext.Request.GetEncodedUrl()
+        };
 
             return View(model);
         }

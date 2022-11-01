@@ -3,6 +3,7 @@
     using AutoPartsShopAndForum.Infrastructure;
     using AutoPartsShopAndForum.Models.View.Input.Cart;
     using AutoPartsShopAndForum.Models.View.Query.Products;
+    using AutoPartsShopAndForum.Services.Data.Product;
     using AutoPartsShopAndForum.Services.Web.Order;
     using AutoPartsShopAndForum.Services.Web.Town;
     using Microsoft.AspNetCore.Authorization;
@@ -25,14 +26,19 @@
 
         public IActionResult All()
         {
-            var model = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+            var model = new ProductCartViewModel()
+            {
+                Products = products,
+                Towns = this.townService.GetAllTowns()
+            };
 
             return View(model);
         }
 
         public void ChangeProduct(int id, int quantity)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
             var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
 
@@ -43,7 +49,7 @@
 
         public void RemoveProduct(int id)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
             var selectedModel = cartCollection.FirstOrDefault(m => m.Id == id);
 
@@ -52,13 +58,13 @@
             HttpContext.Session.SetObject("Cart", cartCollection);
         }
 
-        public IActionResult Add(ProductCartViewModel model)
+        public IActionResult Add(ProductCartModel model, string lastUrl)
         {
-            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+            var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
             if (cartCollection == null)
             {
-                cartCollection = new List<ProductCartViewModel>();
+                cartCollection = new List<ProductCartModel>();
             }
 
             var currentProduct = cartCollection.FirstOrDefault(p => p.Id == model.Id);
@@ -72,20 +78,19 @@
                 cartCollection.Add(model);
             }
 
-            model.Added = true;
             HttpContext.Session.SetObject("Cart", cartCollection);
 
             return RedirectToAction("Details", "Products",
                 new
                 {
                     Id = model.Id,
-                    AddedToCart = model.Added,
                     Name = model.Name,
                     Description = model.Description,
                     ImageUrl = model.ImageUrl,
                     Price = model.Price,
                     Quantity = model.Quantity,
-                    LastUrl = model.LastUrl
+                    AddedToCart = true,
+                    LastUrl = lastUrl
                 });
         }
 
@@ -107,7 +112,7 @@
         [Authorize]
         public IActionResult Checkout()
         {
-            var products = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
             if (products == null || products.Count == 0)
             {
@@ -128,35 +133,21 @@
 
         [Authorize]
         [HttpPost]
-        public IActionResult Checkout(CartCheckoutModel model)
+        public void Checkout(string street, int townId)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
+            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
-            var products = HttpContext.Session.GetObject<ICollection<ProductCartViewModel>>("Cart");
-
-            orderService.OrderProducts(products.Select(p =>
-                new Services.Data.Product.ProductCartModel()
-                {
-                    Id = p.Id,
-                    Description = p.Description,
-                    ImageUrl = p.ImageUrl,
-                    Name = p.Name,
-                    Price = p.Price,
-                    Quantity = p.Quantity
-                }).ToArray(),
+            orderService.OrderProducts(
+                products.ToArray(),
                 this.User.GetId(),
-                model.SelectedTownId,
-                model.Street);
+                townId,
+                street);
 
             products.Clear();
 
             HttpContext.Session.SetObject("Cart", products);
 
             TempData["OrderSuccessful"] = 1;
-            return Redirect("/Home/Index");
         }
     }
 }
