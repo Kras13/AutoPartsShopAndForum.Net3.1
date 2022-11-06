@@ -4,13 +4,6 @@
 
 @model CategoryModel[]
 
-@if (TempData["OrderSuccessful"] != null)
-{
-    if ((int)TempData["OrderSuccessful"] == 1)
-    {
-        <p class="alert alert-success" id="successMessage">The order is successful</p>
-    }
-}
 
 <div class="catsummary">
     @foreach (var category in Model)

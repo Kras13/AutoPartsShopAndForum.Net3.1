@@ -2,10 +2,21 @@
 
 @{ decimal total = 0;}
 
-
+@if (TempData["OrderSuccessful"] != null)
+{
+    if ((int)TempData["OrderSuccessful"] == 1)
+    {
+        <p class="alert alert-success" id="successMessage">The order is successful</p>
+    }
+}
 
 @if (Model != null)
 {
+    @using (Html.BeginForm(null, null, FormMethod.Post, new { id = "__AjaxAntiForgeryForm" }))
+    {
+        @Html.AntiForgeryToken()
+    }
+
     <div id="checkoutModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -35,7 +46,7 @@
                                             <select id="townSelection" asp-for="SelectedTownId" class="form-control">
                                                 @foreach (var town in Model.Towns)
                                                 {
-                                                    <option id="Town@(town.Id.ToString())" value="@town.Id" onchange="SetCurrentTownId(@town.Id)">@town.Name</option>
+                                                    <option id="Town@(town.Id.ToString())" value="@town.Id">@town.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -128,9 +139,27 @@
                                 </li>
                             </ul>
 
-                            <button class="btn btn-primary btn-lg btn-block" onclick="OnCheckout()">
-                                Go to checkout
-                            </button>
+                            @{
+                                string btnEnabledText = String.Empty;
+                            }
+
+                            @if (Model.Products.Count == 0)
+                            {
+                                btnEnabledText = "disabled";
+                            }
+
+                            @if (!this.User.Identity.IsAuthenticated)
+                            {
+                                <a class="btn btn-primary btn-lg btn-block" asp-area="Identity" asp-controller="Account" asp-action="Login">
+                                    Go to checkout
+                                </a>
+                            }
+                            else
+                            {
+                                <button class="btn btn-primary btn-lg btn-block" onclick="OnCheckout() @btnEnabledText">
+                                    Go to checkout
+                                </button>
+                            }
                         </div>
                     </div>
                 </div>
@@ -173,18 +202,18 @@
             $('#checkoutModal').modal('show');
         }
 
-        var SetCurrentTownId = function (townId) {
-            $("#hiddenTownId").val(townId);
-        }
-
         $(function () {
             $('#FinaliseButton').click(function () {
+                var form = $('#__AjaxAntiForgeryForm');
+                var token = $('input[name="__RequestVerificationToken"]', form).val();
+
                 var currentTownId = $('#townSelection').find(":selected").val();
+                var currentStreet = $('#streetName').val();
 
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     url: "/Cart/Finalise",
-                    data: { street: "Ulica", townId: currentTownId },
+                    data: { __RequestVerificationToken: token, street: currentStreet, townId: currentTownId },
                     success: function () {
                         location.reload();
                     }

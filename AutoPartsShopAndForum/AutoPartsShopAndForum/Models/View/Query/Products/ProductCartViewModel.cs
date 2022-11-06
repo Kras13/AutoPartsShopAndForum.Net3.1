@@ -15,5 +15,10 @@
         public ICollection<TownModel> Towns { get; set; }
 
         public int SelectedTownId { get; set; }
+
+        public static bool PropertiesAssigned(ProductCartViewModel model)
+        {
+            return model != null && model.Products != null && model.Towns != null;
+        }
     }
 }

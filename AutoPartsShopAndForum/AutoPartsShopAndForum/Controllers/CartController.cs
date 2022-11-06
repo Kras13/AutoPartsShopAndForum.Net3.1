@@ -27,6 +27,12 @@
         public IActionResult All()
         {
             var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            if(products == null)
+            {
+                products = new List<ProductCartModel>();
+            }
+
             var model = new ProductCartViewModel()
             {
                 Products = products,
@@ -112,28 +118,7 @@
         }
 
         [Authorize]
-        public IActionResult Checkout(int townId)
-        {
-            var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
-
-            if (products == null || products.Count == 0)
-            {
-                throw new InvalidOperationException("Can not call Checkout on empty products collection!");
-            }
-
-            decimal sum = products.Sum(p => p.Total);
-
-            var model = new CartCheckoutModel()
-            {
-                Towns = townService.GetAllTowns(),
-                TotalAmount = sum
-
-            };
-
-            return View(model);
-        }
-
-        [Authorize]
+        [HttpPost]
         public void Finalise(string street, int townId)
         {
             var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
