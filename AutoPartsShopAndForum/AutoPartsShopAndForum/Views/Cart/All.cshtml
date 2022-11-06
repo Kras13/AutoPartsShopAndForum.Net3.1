@@ -2,13 +2,15 @@
 
 @{ decimal total = 0;}
 
+
+
 @if (Model != null)
 {
     <div id="checkoutModal" class="modal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Modal title</h5>
+                    <h5 class="modal-title">Checkout</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -21,7 +23,7 @@
                                 <div class="col-12">
                                     <div class="d-flex flex-column">
                                         <p class="text mb-1">Street</p>
-                                        <input id="modalStreet" class="form-control mb-3" type="text" placeholder="Vasil Levski Str">
+                                        <input id="streetName" class="form-control mb-3" type="text" placeholder="Vasil Levski Str">
                                     </div>
                                 </div>
 
@@ -30,10 +32,10 @@
                                         <p class="text mb-1">Street</p>
                                         <div class="form-group">
                                             <label asp-for="Towns"></label>
-                                            <select asp-for="SelectedTownId" class="form-control">
+                                            <select id="townSelection" asp-for="SelectedTownId" class="form-control">
                                                 @foreach (var town in Model.Towns)
                                                 {
-                                                    <option value="@town.Id">@town.Name</option>
+                                                    <option id="Town@(town.Id.ToString())" value="@town.Id" onchange="SetCurrentTownId(@town.Id)">@town.Name</option>
                                                 }
                                             </select>
                                         </div>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Finalise</button>
+                    <button id="FinaliseButton" type="button" class="btn btn-primary">Finalise</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 </div>
             </div>
@@ -170,5 +172,24 @@
         var OnCheckout = function () {
             $('#checkoutModal').modal('show');
         }
+
+        var SetCurrentTownId = function (townId) {
+            $("#hiddenTownId").val(townId);
+        }
+
+        $(function () {
+            $('#FinaliseButton').click(function () {
+                var currentTownId = $('#townSelection').find(":selected").val();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Cart/Finalise",
+                    data: { street: "Ulica", townId: currentTownId },
+                    success: function () {
+                        location.reload();
+                    }
+                });
+            });
+        });
     </script>
 }

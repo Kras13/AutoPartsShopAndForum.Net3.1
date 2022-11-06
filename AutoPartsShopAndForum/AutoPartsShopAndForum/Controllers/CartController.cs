@@ -36,6 +36,7 @@
             return View(model);
         }
 
+        [Authorize]
         public void ChangeProduct(int id, int quantity)
         {
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
@@ -47,6 +48,7 @@
             HttpContext.Session.SetObject("Cart", cartCollection);
         }
 
+        [Authorize]
         public void RemoveProduct(int id)
         {
             var cartCollection = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
@@ -110,7 +112,7 @@
         }
 
         [Authorize]
-        public IActionResult Checkout()
+        public IActionResult Checkout(int townId)
         {
             var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
 
@@ -132,10 +134,14 @@
         }
 
         [Authorize]
-        [HttpPost]
-        public void Checkout(string street, int townId)
+        public void Finalise(string street, int townId)
         {
             var products = HttpContext.Session.GetObject<ICollection<ProductCartModel>>("Cart");
+
+            if (products == null || products.Count == 0)
+            {
+                throw new InvalidOperationException("Can not finalise an empty Cart...");
+            }
 
             orderService.OrderProducts(
                 products.ToArray(),
